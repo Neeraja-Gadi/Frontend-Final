@@ -1,0 +1,154 @@
+ /* @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@100&family=Montserrat:wght@600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+
+}
+
+.login{
+    height: 100vh;
+    width: 100%;
+    background-color: black;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.nav{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 130px;
+}
+
+.logo{
+    position: relative;
+    display: flex;
+    float: left;
+    width: 20%;
+    height: 100%;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.logo a{
+    list-style-type: none;
+    list-style: none;
+    text-decoration: none;
+    color: #FFD700;
+}
+
+.logo span{
+    color: aqua;
+    font-size: 1.5rem;
+}
+
+.menu{
+    position: relative;
+    display: flex;
+    float: right;
+    margin: auto;
+    width: 80%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu ul{
+    display: flex;
+    list-style: none;
+}
+
+.menu ul li{
+    margin: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: black;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.menu ul li a{
+    text-decoration: none;
+    font-size: larger;
+    color: #FFD700;
+}
+
+.menu ul li a:hover{
+    color: rgb(62,62,212);
+    transition: .3s;
+}
+  
+
+.box{
+    background-color: rgb(8, 8, 68);
+    height: 70vh;
+    width: 25%;
+    margin-left: 470px;   
+    border-radius: 40px;
+    border-style: none;     
+}
+
+.box h1{
+    color: rgb(64, 207, 159);
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.inbox{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+    justify-content: center;
+
+}
+
+input{
+    height: 5vh;
+    display: flex;
+    flex-direction: column;
+    width: 210%;
+    margin-left: -65px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+
+}
+
+.inbox ul{
+
+    list-style-type: none;
+    padding-right: 80px;
+
+}
+
+.inbox ul li{
+    display: flex;
+    align-items: center;
+}
+.inbox ul li a{
+    text-decoration: none;
+    color: gold;
+} 
+
+#log{
+    padding: 9px 30px;
+    border-radius: 10px;
+    background-color: rgb(111, 203, 173);
+
+}
+
+#log:hover, #log:focus, #log:active{
+    
+    box-shadow: 0 0 20px rgba(red, green, blue, alpha);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+
+} 
+
+ */

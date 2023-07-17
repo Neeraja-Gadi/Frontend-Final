@@ -1,0 +1,306 @@
+/* Common Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px;
+    background-color: #000000;
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%;
+    
+  }
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    text-decoration: none;
+    color: #ffffff;
+  }
+  .logo-image {
+    height: 67px;
+    width: 76px;
+    margin-right: 8px;
+    box-shadow: 2px 2px 4px rgba(234, 196, 6, 0.843);
+  }
+  .navbar-menu {
+    display: flex;
+    align-items: center;
+    box-shadow: 2px 2px 4px rgba(234, 196, 6, 0.843);
+  }
+  .navbar-item-container {
+    display: flex;
+    align-items: center;
+  }
+  .navbar-item-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+  .navbar-item {
+    align-items: center;
+    padding: 14px 16px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #e8cd55;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-transform: uppercase;
+    margin-left: 10px;
+    border-radius: 4px;
+    box-shadow: 0 5px 20px rgba(234, 196, 6, 0.843);
+  }
+  @media (max-width: 768px) {
+    .navbar-item-container {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+  .navbar-item:hover {
+    background-color: #7777;
+  }
+  .login-signup-button {
+    padding: 14px 16px;
+    margin-left: 76px;
+    margin-right: 67px;
+    color: #000000;
+    background-color: #e8cd55;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.000000002s ease;
+  }
+  .login-signup-button:hover {
+    background-color:  #00ffae;
+  }
+  .vishal {
+    border: 0px solid #7777;
+    padding: 1%;
+  }
+  /* Section V*/ 
+  .section {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    display: block;
+  }
+  .text1 {
+    text-align: center;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 40px;
+    font-size: 30px;
+    box-shadow: 7px 8px 6px rgba(234, 196, 6, 0.843);
+    height: 130px;
+  }
+  /* Grid Container sectionV*/
+  .sectionV {
+    padding: 0;
+    display: flex;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+  }
+  .V {
+    width: 100% ;
+    height: auto;
+  }
+  .grid-container {
+    background-color: #000000;
+    box-shadow: 4px 2px 4px rgba(234, 196, 6, 0.917);
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: auto;
+    flex-wrap: wrap;
+  }
+  .grid-item {
+    flex-wrap: wrap;
+    background-color: #000000;
+    text-align: center;
+    font-weight: bold;
+    font-size: 33px;
+    padding: 100px;
+    margin:auto auto auto auto;
+    color: #ffffff;
+    box-shadow: 4px 2px 4px rgba(234, 196, 6, 0.917);
+    max-width: 40%;
+    display: grid;
+  }
+  .grid-item0 {
+    display: grid;
+    background-color: #000000;
+    text-align: center;
+    text-overflow: clip;
+    font-size: 21px;
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top:4%;
+    margin-bottom:1%;
+    gap:20px;
+    color: #ffffff;
+    width: 31%;
+    max-width: 60%;
+    height: 41%;
+    display: block;
+  }
+  .I {
+    width: 100%;
+    height: auto;
+    display: block;
+    box-shadow: 4px 2px 4px rgba(200, 255, 0, 0.917);
+  }
+  .S {
+    width: 100%;
+    height: auto;
+    display: block;
+    box-shadow: 4px 2px 4px rgba(0, 213, 255, 0.917);
+    
+  }
+  /* Grid sectionI */
+  .sectionI {
+    padding: 0;
+    display: flex;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+  }
+  .grid-containerI {
+    background-color: #000000;
+    box-shadow: 4px 4px 4px rgba(1, 213, 255, 0.917);  
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: auto;
+    flex-wrap: wrap;
+  }
+  .grid-itemI {
+    flex-wrap: wrap;
+    background-color: #000000;
+    margin-top:9%;
+    margin-bottom:9%;
+    color: #ffffff;
+    box-shadow: 4px 4px 4px rgba(1, 213, 255, 0.917);
+    width: 50%;
+    height:auto ;
+    display: grid;
+  }
+  .grid-itemII {
+    display: grid;
+    background-color: #000000;
+    box-shadow: 4px 4px 4px rgba(1, 213, 255, 0.917);
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    margin-left: 12%;
+    margin-right: 4%;
+    margin-top:16%;
+    margin-bottom:16%;
+    padding: 4%;
+    gap:20px;
+    color: #ffffff;
+    width: 30%;
+    max-width: 50%;
+    height: 40%;
+    display: block;
+  }
+  .III {
+    width: 100%;
+    height: auto;
+  }
+  /* /* OTHER GRID/IMAGES */ */
+  .grid-item2 {
+    display: grid;
+    background-color: #000000;
+    text-align: center;
+    color: #04d9ff;
+    word-spacing: 1px;
+    border-radius: 7px;
+    width: 100%;
+  }
+  /* OTHER INMAGES */
+  .H,
+  .A,
+  .L,
+  .SS,
+  .II,
+  .N,
+  .G,
+  .HH,
+  .K,
+  .U {
+    width: 100%;
+    height: auto;
+    display: block;
+    box-shadow: 4px 2px 4px rgba(0, 217, 251, 0.917);
+  }
+  /* Footer */
+  .footer {
+    background-color: #006eff;
+    color: #ffffff;
+    padding: 4px;
+    text-align: center;
+  }
+  .footer-link {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 8px;
+  }
+  .footer-link:hover {
+    opacity: 0.8;
+  }
+  /* 
+  .sectionS {
+    padding: 0;
+    display: flex;
+    display: inline-block;
+    height: auto;
+    width: 100%;
+    display: block;
+  }
+  .grid-containerS {
+    background-color: #000000;
+    box-shadow: 4px 4px 4px rgba(0, 251, 255, 0.917);  
+    width: 100%;
+    height: auto;
+    padding: 2% 3% 3% -3%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    color: #ffffff;
+  }
+  .grid-itemS {
+    display: grid;
+    background-color: #000000;
+    box-shadow: 4px 4px 4px 14px rgba(1, 213, 255, 0.917);
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+    color: #ffffff;
+    margin:0% 3% 2% 3%;
+    width:100%;
+    height: auto;
+    display: block;
+    padding: 4% 4% 4% 4%; 
+  } */
+  
