@@ -79,12 +79,12 @@ const LandingPage = () => {
             
           </div>
           {user ? (
-              <a
+              <button
                 className="login-signup-button"
                 onClick={logOut}
               >
                 Log Out
-              </a>
+              </button>
             ) : (
               
                 <a className="navbar-item" href="/login" > <FaUser className="icon" /></a>
