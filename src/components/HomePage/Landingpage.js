@@ -12,31 +12,25 @@ import H from '../../img/2.PNG';
 import I from '../../img/3.PNG';
 import J from '../../img/4.PNG';
 import K from '../../img/5.PNG';
-import L from '../../img/6.PNG';
+import L from '../../img/6.png';
 import M from '../../img/II.png';
+import IM from '../../img/Imran.png';
 import '../../styles/LandingPage.css';
 import logo from '../../img/logo.png';
-// import { useNavigate, Link } from "react-router-dom"
-
-
+import { FaBars, FaTimes } from 'react-icons/fa';
 const LandingPage = () => {
-    
-    const [user, setUser] = React.useState("");
-    // const navigate = useNavigate()
-    useEffect(() => {
-        setUser(JSON.parse(localStorage.getItem("userDetails")))
-
-    }, [])
-
-    function logOut() {
-        localStorage.removeItem('userDetails');
-        localStorage.removeItem('token');
-        window.location.reload();
-    }
-  
-//   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = React.useState("");
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("userDetails")))
+  }, [])
+  function logOut() {
+    localStorage.removeItem('userDetails');
+    localStorage.removeItem('token');
+    window.location.reload();
+  }
   const targetText = 'A Data-Driven Hiring & Advance Job Search Platform. . .';
-  const typingSpeed = 100; 
+  const typingSpeed = 100; // Adjust this value to control the typing speed (milliseconds per character)
   const [typedText, setTypedText] = useState('');
   useEffect(() => {
     let currentCharIndex = 0;
@@ -52,12 +46,13 @@ const LandingPage = () => {
             isTyping = true;
             currentCharIndex = 0;
             setTypedText('');
-          }, 1786); 
+          }, 1786); // Wait for 2 seconds before starting the next loop
         }
       }
     }, typingSpeed);
     return () => clearInterval(typingInterval);
   }, []);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <div className="App">
       <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -65,34 +60,31 @@ const LandingPage = () => {
           <img src={logo} alt="Logo" className="logo-image" />
         </div>
         <div className="navbar-item-container">
-          <div className="navbar-item-group">
-          {user ? 
-          user.recruiter === true ?
-           <a className="navbar-item" href = "/SubscriptionModal">Post A JobPost</a> 
-          : <a className="navbar-item" href="/JobSearch" > JobSearch</a> 
-         
-        : null
-      }
+          <div className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
+            {user ?
+              user.recruiter === true ?
+                <a className="navbar-item" href="/SubscriptionModal">Post A JobPost</a>
+                : <a className="navbar-item" href="/JobSearch" > JobSearch</a>
+              : null
+            }
             <a className="navbar-item" href={G}>Our Vision</a>
             <a className="navbar-item" href={H}>Why Us</a>
             <a className="navbar-item" href={L}>Contact Us</a>
-            
           </div>
           {user ? (
-              <button
-                className="login-signup-button"
-                onClick={logOut}
-              >
-                Log Out
-              </button>
-            ) : (
-              
-                <a className="navbar-item" href="/login" > <FaUser className="icon" /></a>
-              
-            )}  
-          {/* <button className="login-signup-button" onClick={() => setIsLoggedIn(!isLoggedIn)}>
-            {isLoggedIn ? <span>Logout</span> : <FaUser className="icon" />}
-          </button> */}
+            <a
+              className="login-signup-button"
+              onClick={logOut}
+              href
+            >
+              Log Out
+            </a>
+          ) : (
+            <a className="navbar-item" href="/login" > <FaUser className="icon" /></a>
+          )}
+          <div className="hamburger-menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <FaTimes /> : <FaBars />}
+          </div>
         </div>
       </nav>
       <section className="section">
@@ -103,7 +95,8 @@ const LandingPage = () => {
       <section className="sectionV">
         <div>
           <img src={A} className="V" alt="Loading..." />
-        </div>
+        </div></section>
+      <section className="section">
         <div className="grid-container">
           <div className="grid-item">We connect recruiters with top talent and enable candidates to showcase their skills effectively using visually captivating portfolios.
           </div>
@@ -120,13 +113,14 @@ const LandingPage = () => {
             <img src={M} className="III" alt="Loading..." />
           </div>
           <div className="grid-itemII">
-            <p>The vision of our company is to revolutionize thethe way talent is discovered, developed and connected with the right opportunities.</p><p>We envision a future where individuals hae equal acess to meaningful to meaningfull wmploymentn and comanies can easily find and recruit top talent.</p>
+            <ul><li>The vision of our company is to revolutionize the way talent is discovered, developed and connected with the right opportunities.</li><li> We envision a future where individuals have equal access to meaningful to meaningful employment and companies can easily find and recruit top talent.</li></ul>
           </div>
-        </div> 
+        </div>
       </section>
       <section className="section">
         <div className="grid-item2">
           <img src={C} className="H" alt="Loading..." />
+          <img src={IM} className="RAN" alt="Loading..."/>
           <img src={D} className="A" alt="Loading..." />
           <img src={E} className="L" alt="Loading..." />
           <img src={F} className="SS" alt="Loading..." />

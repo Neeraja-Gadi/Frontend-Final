@@ -1,136 +1,224 @@
-import React from 'react'
-import { styled } from '@mui/system'
-import FilledInput from '@mui/material/FilledInput'
-import FormControl from '@mui/material/FormControl'
-import FormHelperText from '@mui/material/FormHelperText'
-import Input from '@mui/material/Input'
-import InputLabel from '@mui/material/InputLabel'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import TextField from '@mui/material/TextField'
-import Typography from '@mui/material/Typography'
-import  Box  from '@mui/material/Box'
-import Button from '@mui/material/Button'
-
-
+import React, { useState } from 'react';
+import { styled } from '@mui/system';
+import { TextField, Button, Typography, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = styled((theme) => ({
-
-    modalWrapper: {
-        position: 'fixed',
-        left: '0',
-        right: '0',
-        bottom: '0',
-        top: '0',
-        backgroundColor: 'rgba(189 , 189 , 189 , 0.9)',
+  formContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(3),
+    width: '40rem',
+    padding: theme.spacing(3),
+    borderRadius: theme.spacing(1),
+    border: `1px solid ${theme.palette.divider}`,
+    margin: '0 auto',
+  },
+  textField: {
+    width: '100%',
+  },
+  saveButton: {
+    marginRight: theme.spacing(2),
+  },
+  cancelButton: {
+    backgroundColor: theme.palette.error.main,
+    color: theme.palette.common.white,
+    '&:hover': {
+      backgroundColor: theme.palette.error.dark,
     },
+  },
+}));
 
-    modalContainer: {
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50% , -50%)',
-        maxWidth: '30rem',
-        padding: '2rem 3rem',
-        borderRadius: '0.5rem',
-        backgroundColor: '#fff',
-    },
-
-    form: {
-        width: '30rem',
-        marginTop: '24px',
-    },
-
-    h3: {
-        textAlign: 'center',
-    },
-
-    textField: {
-        marginBottom: '30px',
-    },
-
-    save: {
-        float: 'left',
-    },
-
-    cancel: {
-        float: 'right',
+const ProfileForm = () => {
+  const navigate = useNavigate();
+  const classes = useStyles();
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phoneNumber: '',
+    professionalSummary: '',
+    workExperience: [],
+    awards: [],
+    socialMediaLinks: {
+      linkedin: '',
+      twitter: ''
     }
-}))
+  });
 
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
+  const handleExperienceChange = (index, field, value) => {
+    const experiences = [...formData.workExperience];
+    experiences[index][field] = value;
+    setFormData({ ...formData, workExperience: experiences });
+  };
 
+  const handleInputChange2 = (e, index) => {
+    const { name, value } = e.target;
+    const [field] = name.split(".");
+    handleExperienceChange(index, field, value);
+  };
 
-const ProfileForm = (props) => {
+  const handleSave = () => {
 
-    const classes = useStyles()
+    let info = { ...formData }
 
-    return (
+    info.socialMediaLinks.linkedin = info.linkedin
+    info.socialMediaLinks.twitter = info.twitter
+    delete info["linkedin"];
+    delete info["twitter"];
+    // console.log(info)
+    fetch("http://localhost:8000/recruiter", {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(info)
 
-        <div className={classes.modalWrapper}>
-            <div className={classes.modalContainer}>
-
-                <Typography style={{ textAlign: 'center',fontFamily: "'Arial', sans-serif", }} variant="h4" gutterBottom>
-                    Information
-                </Typography>
-
-                <form className={classes.form}>
-
-                    <Box mb={2}>
-                        <TextField fullWidth label="Full Name" className={classes.textField} />
-                    </Box>
-                    <br/>
-
-                    <Box mb={2}>
-                        <TextField fullWidth label="Email" className={classes.textField} />
-                    </Box>
-                    <br/>
-
-                    <Box mb={2}>
-                        <TextField fullWidth label="Phone Number" className={classes.textField} />
-                    </Box>
-                    <br/>
-
-                    <Box mb={2}>
-                        <TextField fullWidth label="Company Name" className={classes.textField} />
-                    </Box>
-                    <br/>
-
-                    <Box mb={2}>
-                        <TextField fullWidth label="Job Title" className={classes.textField} />
-                    </Box>
-                    <br/>
-
-                    <Box mb={2}>
-                        <TextField fullWidth label="Link" className={classes.textField} />
-                    </Box>
-                    <br/>
-
-                    {/* <Box mb={2}>
-                        <TextField fullWidth label="Twitter" className={classes.textField} />
-                    </Box>
-                    <br/> */}
-
-                    <Box mb={2}>
-                        <TextField
-                        style={{
-                            width: '100%',
-                        }}
-                            id="outlined-multiline-static"
-                            label="Professional Summary"
-                            multiline
-                            rows={4}
-                        />
-                    </Box>
-                    <br/>
-
-                    <Button calssName={classes.save} variant="contained">save</Button>
-                    <Button className={classes.cancel} variant="contained" onClick={() => props.recPro(false)}>cancel</Button>
-
-
-                </form>
-            </div>
-        </div>
-    )
+    }).then(response => response.json().then(data => {
+        console.log(data)
+        if (data.status === true) {
+            // alert("Created Profile Sucessfully")
+            navigate("/SubscriptionModal")
+        }
+    }))
 }
 
-export default ProfileForm
+  return (
+    <Box className={classes.formContainer}>
+      <Typography variant="h4" gutterBottom>
+        Recruiter Form
+      </Typography>
+
+      <Box>
+        <TextField
+          label="Full Name"
+          name="fullName"
+          value={formData.fullName}
+          onChange={handleInputChange}
+          variant="outlined"
+          className={classes.textField}
+          required
+        />
+      </Box>
+
+      <Box>
+        <TextField
+          label="Email"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          variant="outlined"
+          className={classes.textField}
+          required
+        />
+      </Box>
+
+      <Box>
+        <TextField
+          label="Phone Number"
+          name="phoneNumber"
+          value={formData.phoneNumber}
+          onChange={handleInputChange}
+          variant="outlined"
+          className={classes.textField}
+          required
+        />
+      </Box>
+
+      <Box>
+        <TextField
+          label="Professional Summary"
+          name="professionalSummary"
+          value={formData.professionalSummary}
+          onChange={handleInputChange}
+          variant="outlined"
+          className={classes.textField}
+          multiline
+          rows={4}
+        />
+      </Box>
+
+      <Typography variant="h6" gutterBottom>
+        Work Experience
+      </Typography>
+      {formData.workExperience.map((experience, index) => (
+        <Box key={index}>
+          <TextField
+            label="Company"
+            name={`workExperience.${index}.company`}
+            value={experience.company}
+            onChange={handleInputChange2}
+            variant="outlined"
+            className={classes.textField}
+          />
+          <TextField
+            label="Job Title"
+            name={`workExperience.${index}.jobTitle`}
+            value={experience.jobTitle}
+            onChange={handleInputChange2}
+            variant="outlined"
+            className={classes.textField}
+          />
+        </Box>
+      ))}
+      <Button
+        variant="outlined"
+        onClick={() =>
+          setFormData({
+            ...formData,
+            workExperience: [
+              ...formData.workExperience,
+              { company: '', jobTitle: '' },
+            ],
+          })
+        }
+      >
+        Add Work Experience
+      </Button>
+
+      <Typography variant="h6" gutterBottom>
+        Social Media Links
+      </Typography>
+      <Box>
+        <TextField
+          label="LinkedIn URL"
+          name="socialMediaLinks.linkedin"
+          value={formData.socialMediaLinks.linkedin}
+          onChange={handleInputChange}
+          variant="outlined"
+          className={classes.textField}
+        />
+      </Box>
+      <Box>
+        <TextField
+          label="Twitter URL"
+          name="socialMediaLinks.twitter"
+          value={formData.socialMediaLinks.twitter}
+          onChange={handleInputChange}
+          variant="outlined"
+          className={classes.textField}
+        />
+      </Box>
+
+      <Box>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.saveButton}
+          onClick={handleSave}
+        >
+          Save
+        </Button>
+        <Button variant="contained" className={classes.cancelButton}>
+          Cancel
+        </Button>
+      </Box>
+    </Box>
+  );
+};
+
+export default ProfileForm;
