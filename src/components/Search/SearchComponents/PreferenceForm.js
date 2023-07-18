@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { styled } from '@mui/system';
 import { Button, FormControl, InputLabel, MenuItem, OutlinedInput, Select, Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { primarySkills, location, jobRoles, sectors, salary, jobNature, educationLevels, experiences } from '../../../constraints/arrays';
+import { primarySkills, location, sectors, salary, jobNature,diffjobRole, educationLevels, experiences } from '../../../constraints/arrays';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 
-const jobProfiles = Object.keys(jobRoles)
+
 const theme = createTheme();
 const StyledForm = styled('form')(({ theme }) => ({
   '& .MuiTextField-root': {
@@ -46,7 +46,6 @@ const TalentPreferenceForm = () => {
     event.preventDefault();
     console.log(formValues);
     savePreference(formValues);
-    alert('Preferences submitted successfully');
     navigate("/SearchResult")
 
   };
@@ -74,14 +73,13 @@ const TalentPreferenceForm = () => {
     <ThemeProvider theme={theme}>
       <StyledForm onSubmit={handleSubmit}>
         <Typography textAlign="center" variant="h4" gutterBottom>
-          Hey {user.firstName}, Tell us about your preferences
+          Hey {user.firstName} {user.lastName}, Tell us about your preferences
         </Typography>
 
         <Box>
           <FormControl sx={{ m: 3, width: 600 }}>
             <InputLabel id="highestEducation-label">Highest Education</InputLabel>
             <Select
-              labelId="highestEducation-label"
               id="highestEducation"
               name="highestEducation"
               value={formValues.highestEducation}
@@ -103,7 +101,6 @@ const TalentPreferenceForm = () => {
           <FormControl sx={{ m: 3, width: 600 }}>
             <InputLabel id="jobRole-label">Job Role</InputLabel>
             <Select
-              labelId="jobRole-label"
               id="jobRole"
               name="jobRole"
               multiple
@@ -113,7 +110,7 @@ const TalentPreferenceForm = () => {
               required
               input={<OutlinedInput label="Job Role" />}
             >
-              {jobProfiles.map((role) => (
+              {diffjobRole.map((role) => (
                 <MenuItem key={role} value={role}>
                   {role}
                 </MenuItem>
@@ -126,7 +123,6 @@ const TalentPreferenceForm = () => {
           <FormControl sx={{ m: 3, width: 600 }}>
             <InputLabel id="city-label">City</InputLabel>
             <Select
-              labelId="city-label"
               id="city"
               name="city"
               multiple
@@ -135,8 +131,8 @@ const TalentPreferenceForm = () => {
               label="City"
               input={<OutlinedInput label="City" />}
             >
-              {location.map((loc) => (
-                <MenuItem key={loc} value={loc}>
+              {location.map((loc , i) => (
+                <MenuItem key={i} value={loc}>
                   {loc}
                 </MenuItem>
               ))}
@@ -148,7 +144,6 @@ const TalentPreferenceForm = () => {
           <FormControl sx={{ m: 3, width: 600 }}>
             <InputLabel id="setor-label">Sector</InputLabel>
             <Select
-              labelId="sector-label"
               id="setor"
               label="Sector"
               name="sector"
@@ -171,7 +166,6 @@ const TalentPreferenceForm = () => {
           <FormControl sx={{ m: 3, width: 600 }}>
             <InputLabel id="Experience-label">Experience</InputLabel>
             <Select
-              labelId="Experience-label"
               id="Experience"
               label="Overall Experience"
               name="experienceOverall"
@@ -194,7 +188,6 @@ const TalentPreferenceForm = () => {
           <FormControl sx={{ m: 3, width: 600 }}>
             <InputLabel id="skills-label">Skills</InputLabel>
             <Select
-              labelId="skills-label"
               id="skills"
               name="skills"
               multiple
@@ -216,14 +209,13 @@ const TalentPreferenceForm = () => {
           <FormControl sx={{ m: 3, width: 600 }}>
             <InputLabel id="salary-label">salary</InputLabel>
             <Select
-              labelId="salary-label"
               id="salary"
               label="Salary"
               name="salary"
               variant="outlined"
               value={formValues.salary}
               onChange={handleChange}
-              input={<OutlinedInput label="Salary" />}
+              input={<OutlinedInput />}
             >
               {salary.map((sal, i) => (
                 <MenuItem key={i} value={sal}>
@@ -239,7 +231,6 @@ const TalentPreferenceForm = () => {
           <FormControl sx={{ m: 3, width: 600 }}>
             <InputLabel id="jobNature-label">Job Nature</InputLabel>
             <Select
-              labelId="jobNature-label"
               id="jobNature"
               name="jobNature"
               value={formValues.jobNature}

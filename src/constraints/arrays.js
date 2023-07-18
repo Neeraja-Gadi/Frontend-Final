@@ -177,6 +177,20 @@ let secondarySkills = [
   "Adapting",
   "Crisis managing"
 ];
+let diffjobRole = ["Software Engineer", "Frontend", "Backend", "Fullstack Developer", "Director of Ethical Hacking", "Data Analyst", "Blockchain", "Web Devloper", "Android Developer", "Devops Developer", "UI/UX Design", "Digital Marketing", "CRM Specialist", "Business Analyst", "Financial Analyst", "Marketing Manager", "Marketing Director", "Graphic Designer", "Marketing Research Analyst", "Marketing Communications Manager", "Marketing Consultant", -"Store Manager", "Account Executive",
+  "Account Manager", "Area Sales Manager", "Direct Salesperson", "Director of Inside Sales", "Outside Sales Manager", "Sales Analyst", "Market Development Manager", "B2B Sales Specialist", "Sales Engineer",
+  "Merchandising Associate", "CEO", "Proprietor", "Principal", "Owner", "President", "Founder", "Administrator", "Director", "Managing Partner", "Managing Member", "Board of Directors", "Shareholders", "Managers",
+  "Supervisors", "Front Line Employees", "Quality Control", "Human Resources", "Accounting Staff", "Marketing Staff", "Purchasing Staff", "Shipping and Receiving Staff", "Office Manager", "Receptionist", "Virtual Assistant",
+  "Customer Service", "Customer Support", "Concierge", "Help Desk", "Customer Service Manager", "Technical Support Specialist", "Account Representative", "Client Service Specialist", "Customer Care Associate", "Operations Manager",
+  "Operations Assistant", "Operations Coordinator", "Oper", "Operations Director", "Vice President of Operations", "Operations Professional", "Scrum Master", "Continuous Improvement Lead", "Continuous Improvement Consultant",
+  "Credit Authorizer", "Benefits Manager", "Credit Counselor", "Accountant", "Bookkeeper", "Accounting Analyst", "Accounting Director", "Accounts Payable Receivable Clerk", "Auditor", "Budget Analyst", "Controller",
+  "Financial Analyst", "Finance Manager", "Economist", "Payroll Manager", "Payroll Clerk", "Financial Planner", "Financial Services Representative", "Finance Director", "Commercial Loan Office", "Engineer", "Mechanical Engineer",
+  "Civil Engineer", "Electrical Engineer", "Assistant Engineer", "Chemical Engineer", "Chief Engineer", "Drafter", "Engineering Technician", "Geological Engineer", "Biological Engineer", "Maintenance Engineer", "Mining Engineer",
+  "Nuclear Engineer", "Petroleum Engineer", "Plant Engineer", "Production Engineer", "Quality Engineer", "Safety Engineer", "Sales Engineer", "Chief People Officer", "VP of Miscellaneous Stuff", "Chief Robot Whisperer",
+  "Director of First Impressions", "Culture Operations Manager", "Director of Bean Counting", "Digital Overlord", "Director of Storytelling", "Researcher",
+  "Research Assistant", "Biostatistician", "Title Researcher", "Market Researcher", "Title Analyst", "Medical Researcher", "Mentor", "Online Tutor", "Teacher",
+  "Teaching Assistant", "Substitute Teacher", "Preschool Teacher", "Test Scorer", "Online ESL Instructor", "Professor", "Assistant Professor"]
+
 
 let sectors = [
   "Fishing industry",
@@ -700,6 +714,7 @@ export {
   jobRoles,
   primarySkills,
   secondarySkills,
+  diffjobRole,
   sectors,
   educationLevels,
   experience,

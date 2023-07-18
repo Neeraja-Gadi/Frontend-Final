@@ -9,15 +9,15 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
+// import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems } from './List';
 import SearchedItems from './SearchedItems';
-import SearchAppBar from './Searchbar';
+// import SearchAppBar from './Searchbar';
 
 
 const drawerWidth = 240;
@@ -67,6 +67,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
+
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 const user = JSON.parse(localStorage.getItem('userDetails'));
@@ -76,7 +77,7 @@ export default function SearchResult() {
   const [recommendedJobs, setRecommendedJobs] = useState([]);
 
 useEffect(() => {
-     fetch(`http://localhost:8000/searchJobsByPreferences/${user._id}`)
+     fetch(`http://localhost:8000/TalentRecommendations/${user._id}`)
       .then(response => response.json())
       .then(data => {
         setRecommendedJobs(data.data);
@@ -127,12 +128,12 @@ console.log(recommendedJobs);
                         >
                             Hiclousia
                         </Typography>
-                        <SearchAppBar />
-                        <IconButton color="inherit">
+                        {/* <SearchAppBar /> */}
+                        {/* <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
-                        </IconButton>
+                        </IconButton> */}
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open}>
