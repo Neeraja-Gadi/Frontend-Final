@@ -22,9 +22,6 @@ import { mainListItems } from './SearchComponents/List';
 import SearchedItems from './SearchComponents/SearchedItems';
 
 
-
-
-
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {

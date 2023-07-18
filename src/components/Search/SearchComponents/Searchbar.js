@@ -148,6 +148,7 @@ import {
   CardContent,
   CardActions,
 } from '@mui/material';
+import baseurl from '../../../baseURL/config';
 
 
 const StyledCard = styled(Card)({
@@ -185,7 +186,7 @@ function ProductSearch() {
   };
 
   const searchRes = function () {
-    fetch(`http://localhost:8000/jobs?${filter}=${query}`)
+    fetch(`${baseurl}/jobs?${filter}=${query}`)
       .then((response) =>
         response
           .json()

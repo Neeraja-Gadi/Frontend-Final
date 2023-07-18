@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { primarySkills, location, sectors, salary, jobNature,diffjobRole, educationLevels, experiences } from '../../../constraints/arrays';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
+import baseurl from '../../../baseURL/config';
 
 
 const theme = createTheme();
@@ -35,6 +36,7 @@ const TalentPreferenceForm = () => {
     salary: '',
     jobNature: [],
   });
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormValues((prevValues) => ({
@@ -42,6 +44,7 @@ const TalentPreferenceForm = () => {
       [name]: value,
     }));
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formValues);
@@ -52,7 +55,7 @@ const TalentPreferenceForm = () => {
 
   const savePreference = async (formData) => {
     try {
-      const response = await fetch('http://localhost:8000/talentPreference', {
+      const response = await fetch(`${baseurl}/talentPreference`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

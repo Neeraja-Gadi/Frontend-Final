@@ -18,7 +18,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems } from './List';
 import SearchedItems from './SearchedItems';
 // import SearchAppBar from './Searchbar';
-
+import baseurl from '../../../baseURL/config';
 
 const drawerWidth = 240;
 
@@ -77,7 +77,7 @@ export default function SearchResult() {
   const [recommendedJobs, setRecommendedJobs] = useState([]);
 
 useEffect(() => {
-     fetch(`http://localhost:8000/TalentRecommendations/${user._id}`)
+     fetch(`${baseurl}/TalentRecommendations/${user._id}`)
       .then(response => response.json())
       .then(data => {
         setRecommendedJobs(data.data);
