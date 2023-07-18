@@ -4,7 +4,7 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import HomeRounded from '@mui/icons-material/HomeRounded'
 import Person from '@mui/icons-material/Person'
-import { MdWork, MdRoomPreferences } from 'react-icons/md'
+import { MdWork } from 'react-icons/md'
 
 
 
@@ -22,17 +22,17 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Profile" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton href= "/JobSearch">
       <ListItemIcon>
         <MdWork/>
       </ListItemIcon>
-      <ListItemText primary="Jobs" />
+      <ListItemText primary="Job Search" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon>
+      {/* <ListItemIcon>
         <MdRoomPreferences/>
-      </ListItemIcon>
-      <ListItemText primary="Preferences" />
+      </ListItemIcon> */}
+      {/* <ListItemText primary="Preferences" /> */}
     </ListItemButton>
   </React.Fragment>
 );
