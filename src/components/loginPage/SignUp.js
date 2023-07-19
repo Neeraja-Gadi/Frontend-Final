@@ -51,7 +51,7 @@ export default function SignUp() {
   function SignUpHandler(e) {
     const recruiter = recBox
     const data = { email, password, firstName, lastName, recruiter }
-    console.log(data, "dtat")
+    console.log(data)
     fetch(`${baseurl}/create`, {
       method: "POST",
       headers: {
