@@ -35,7 +35,7 @@ const SearchedItems = ({ recommendedJobs }) => {
         <Typography variant="h4" mb="20px" color="text.secondary" component="div">
           Recommended Jobs
         </Typography>
-        {recommendedJobs.map((job) => (
+        {recommendedJobs?.map((job) => (
           <Card key={job.id} sx={{ minWidth: 250, marginBottom: '20px' }}>
             <CardContent>
               <Typography variant="h5" component="div">
