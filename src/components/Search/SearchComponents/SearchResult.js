@@ -77,7 +77,7 @@ export default function SearchResult() {
   const [recommendedJobs, setRecommendedJobs] = useState([]);
 
 useEffect(() => {
-     fetch(`${baseurl}/TalentRecommendations/${user._id}`)
+     fetch(`${baseurl}/searchJobsByPreferences/${user._id}`)
       .then(response => response.json())
       .then(data => {
         setRecommendedJobs(data.data);
