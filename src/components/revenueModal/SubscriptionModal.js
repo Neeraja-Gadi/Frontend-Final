@@ -1,12 +1,6 @@
-import * as React from 'react';
+import  React , {useState, useEffect}from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
-// import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
-// import Card from '@mui/material/Card';
-// import CardActions from '@mui/material/CardActions';
-// import CardContent from '@mui/material/CardContent';
-// import CardHeader from '@mui/material/CardHeader';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -17,6 +11,66 @@ import PricingOne from './SuscribeComponents/Compo1';
 import PricingTwo from './SuscribeComponents/Compo2';
 import PricingZero from './SuscribeComponents/Compo0';
 import Hiererchy from './SuscribeComponents/CheckedComponents/Hiererchy';
+import List from '@mui/material/List';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import HomeIcon from '@mui/icons-material/Home';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import ListItemButton from '@mui/material/ListItemButton'
+import { useNavigate } from 'react-router-dom';
+
+const user = JSON.parse(localStorage.getItem('userDetails'));
+
+function Sidebar() {
+  const navigate = useNavigate();
+
+  const [recdata , setRecdata] = useState([])
+    useEffect(() => {
+      fetch(`http://localhost:8000/recruiter/${user._id}`)
+          .then((response) => response.json())
+          .then((data) => {
+             setRecdata(data.data);
+              console.log(data.data);
+             
+          })
+          .catch((err) => console.log(err));
+  }, []);
+  console.log(recdata);
+
+  function profileRediret(){
+     if(recdata.length===0){
+      navigate('/ProfileForm')
+     }
+     else {navigate('/MyPlans')}
+  }
+  return (
+    
+    <div style={{ backgroundColor: '#f0f0f0', padding: '16px',height: '100%', borderRadius: '0.5rem' }}>
+      <List>
+        <ListItemButton href='/'>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItemButton>
+        <ListItemButton  onClick={profileRediret}>
+          <ListItemIcon>
+            <AccountCircleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Profile" />
+        </ListItemButton>
+        <ListItemButton href="/SubscriptionModal">
+          <ListItemIcon>
+            <AttachMoneyIcon />
+          </ListItemIcon>
+          <ListItemText primary="Plans" />
+        </ListItemButton>
+      </List>
+    </div>
+  );
+}
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -29,8 +83,9 @@ function Copyright(props) {
     </Typography>
   );
 }
-// TODO remove, this demo shouldn't need to reset the theme.
+
 const defaultTheme = createTheme();
+
 export default function Pricing() {
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -42,42 +97,31 @@ export default function Pricing() {
         elevation={0}
         sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
       >
-        <Toolbar sx={{ flexWrap: 'wrap' , backgroundColor: '#0070B3'}}>
+        <Toolbar sx={{ flexWrap: 'wrap', backgroundColor: '#0070B3' }}>
           <Typography variant="h4" color="#FFF" noWrap sx={{ flexGrow: 1 }}>
             Hiclousia
           </Typography>
-          {/* <nav>
-          </nav> */}
         </Toolbar>
       </AppBar>
-      {/* Hero unit */}
-      <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
-        <Typography
-          component="h1"
-          variant="h2"
-          align="center"
-          color="text.primary"
-          gutterBottom
-        >
-          Buy your plan
-        </Typography>
+      <Container maxWidth="ls" component="main" sx={{ display: 'flex', minHeight: '100vh' }}>
+        {/* Sidebar */}
+        <aside style={{ width: '240px', marginRight: '16px' }}>
+          <Sidebar />
+        </aside>
+        {/* Main content */}
+        <Container maxWidth="md" style={{ border: '1px solid lightgrey', borderRadius: '0.5rem' }}>
+          <br></br>
+          <PricingZero />
+          <br></br>
+          <PricingOne />
+          <br></br>
+          <PricingTwo />
+          <br></br>
+          <Hiererchy />
+          <br></br>
+        </Container>
       </Container>
-      {/* End hero unit */}
-      <Container maxWidth="md" component="main" style={{ border: '1px solid lightgrey', borderRadius: '0.5rem', }}>
-        <br></br>
-        <PricingZero />
-        <br></br>
-        <PricingOne />
-        <br></br>
-        <PricingTwo />
-        <br></br>
-        <Hiererchy />
-        <br></br>
-      </Container>
-      <br></br>
       <br /><br />
-      {/* <CustomizedTables/> */}
-      {/* Footer */}
       <Container
         maxWidth="md"
         component="footer"
@@ -91,4 +135,4 @@ export default function Pricing() {
       </Container>
     </ThemeProvider>
   );
-} 
+}
