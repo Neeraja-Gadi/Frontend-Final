@@ -706,7 +706,15 @@ let salary = ["1 Lpa"
   "5 Lpa",
   "6 Lpa"
   , "7 Lpa",
-  "8 Lpa", "9 Lpa", "10 Lpa", "More than 10 Lpa"]
+  "8 Lpa", "9 Lpa", "10 Lpa", "More than 10 Lpa"]  
+  
+
+  let projectTypes = ["Research Project" ,
+    "College Project" ,
+    "Entrprenuer Project" , 
+    "Personal Project"
+    
+    ]
 
 export {
   jobNature,
@@ -725,5 +733,6 @@ export {
   experiences,
   jobCategory,
   discipline,
-  salary
+  salary,
+ projectTypes
 }
