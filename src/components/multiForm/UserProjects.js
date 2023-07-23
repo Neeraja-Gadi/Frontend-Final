@@ -1,280 +1,249 @@
-import React, { useState } from 'react';
+
+import * as React from 'react';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import { styled } from '@mui/system';
-import { Button, Typography } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import { primarySkills } from '../../constraints/arrays';
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import baseurl from '../../baseURL/config';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { projectTypes ,primarySkills } from '../../constraints/arrays'; // Add the relevant array for projectTypes
+import MenuItem from '@mui/material/MenuItem';
+import { Button, Box, Container, Paper } from '@mui/material';
+import Toolbar from '@mui/material/Toolbar';
+import AppBar from '@mui/material/AppBar';
 
+const userId = JSON.parse(localStorage.getItem('userDetails'));
 
-const theme = createTheme();
-const StyledForm = styled('form')(({ theme }) => ({
-  '& .MuiTextField-root': {
-    margin: theme.spacing(2),
-    paddingTop: theme.spacing(1),
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(3),
-    [theme.breakpoints.down('sm')]: {},
-    width: '70ch',
+export default function ProjectForm() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (userId == null) {
+      navigate('/login');
+      alert('Please login first');
+    }
+  }, []);
 
-  },
-  addButton: {
-    margin: '40px 0',
-  },
-  removeButton: {
-    color: theme.palette.primary.main,
-    background: '#8EC9FF',
-    boxShadow: '0px 3px 5px 2px rgba(255, 105, 135, .3)',
-    padding: '50px 30px',
-    margin: '0px 500px',
-  },
-}));
-const user = JSON.parse(localStorage.getItem('userDetails'));
-
-const ProjectForm = (props) => {
-  const [projectData, setProjectData] = useState([
-    {
-      userDetailsID: user._id,
-      projectTitle: '',
-      projectType: '',
-      description: '',
-      skills: [],
-      startDate: '',
-      endDate: '',
-      url: '',
-      organizationName: '',
-    },
-  ]);
-  const handleAddProject = () => {
-    const projects = [
-      ...projectData,
-      {
-        userDetailsID: user._id,
-        projectTitle: '',
-        projectType: '',
-        description: '',
-        skills: [],
-        startDate: '',
-        endDate: '',
-        url: '',
-        organizationName: '',
-      },
-    ];
-    setProjectData(projects);
+  const initialProject = {
+    userDetailsID: userId._id,
+    projectTitle: '',
+    projectType: '',
+    description: '',
+    skills: [], 
+    startDate: '',
+    endDate: '',
+    url: '',
+    organizationName: '',
   };
 
+  const [projectList, setProjectList] = useState([initialProject]);
+
+  const handleAddProject = () => {
+    setProjectList([...projectList, { ...initialProject }]);
+  };
 
   const handleRemoveProject = (index) => {
-    const projects = [...projectData];
-    projects.splice(index, 1);
-    setProjectData(projects);
+    const newProject = [...projectList];
+    newProject.splice(index, 1);
+    setProjectList(newProject);
   };
 
-
-  const handleProjectChange = (event, index) => {
+  const handleChange = (event, index) => {
     const { name, value } = event.target;
-    const projects = [...projectData];
-    projects[index] = {
-      ...projectData[index],
+    const newProject = [...projectList];
+    newProject[index] = {
+      ...newProject[index],
       [name]: value,
     };
-    setProjectData(projects);
+    setProjectList(newProject);
   };
 
-  function SaveProject() {
-    console.log(projectData)
-    let projectInfo = projectData;
-    projectInfo?.map((e, index) => {
-      return fetch("http://localhost:8000/project", {
+  function saveProject() {
+    projectList.map((project) => {
+      return fetch(`${baseurl}/project`, {
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(e)
-      }).then(response => response.json().then(data => {
-        console.log(data)
-        if (data.status === false) return false
-        else {
-          setProjectData([{
-            userDetailsID: user._id,
-            projectTitle: '',
-            projectType: '',
-            description: '',
-            skills: [],
-            startDate: '',
-            endDate: '',
-            url: '',
-            organizationName: ''
-          }])
-        }
-      }
-      ))
-    })
-    return true
+        body: JSON.stringify(project),
+      }).then((response) =>
+        response.json().then((data) => {
+          console.log(data);
+          if (data.status === false) return false;
+          else {
+            setProjectList([initialProject]);
+            navigate('/NextForm'); // Replace "NextForm" with the appropriate route.
+          }
+        })
+      );
+    });
+    return true;
   }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(projectData);
-    SaveProject()
-    alert('Profile submitted successfully');
+    saveProject();
   };
 
+  const handleCancel = () => {
+    setProjectList([initialProject]);
+  };
 
   return (
-    <ThemeProvider theme={theme}>
-      <StyledForm style={{
-        margin: '30px',
-        border: '1px solid',
-        borderRadius: '0.5rem',
-        alignItems: 'center'
-      }} onSubmit={handleSubmit}>
-        <Typography textAlign="center" variant="h6" gutterBottom>
-          Projects:
-        </Typography>
-        {projectData?.map((project, index) => (
-          <div key={index}>
-            <TextField
-              label="Project Title"
-              name="projectTitle"
-              variant="outlined"
-              required
-              value={project.projectTitle}
-              onChange={(event) => handleProjectChange(event, index)}
-            />
-            <TextField
-              label="Project Type"
-              name="projectType"
-              variant="outlined"
-              required
-              value={project.projectType}
-              onChange={(event) => handleProjectChange(event, index)}
-            />
+    <Container>
+      <AppBar position="relative">
+        <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap>
+            Hiclousia
+          </Typography>
+        </Toolbar>
+      </AppBar>
 
+      {projectList.map((project, i) => (
+        <Paper
+          key={i}
+          style={{
+            border: '1px solid',
+            marginTop: '40px',
+            borderRadius: '0.5rem',
+            padding: '1rem',
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            Project
+          </Typography>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                label="Project Title"
+                name="projectTitle"
+                value={project.projectTitle}
+                onChange={(e) => handleChange(e, i)}
+                fullWidth
+                required
+                margin="dense"
+              />
+              <FormControl fullWidth variant="outlined" margin="dense">
+                <InputLabel>Project Type</InputLabel>
+                <Select
+                  value={project.projectType}
+                  name="projectType"
+                  onChange={(e) => handleChange(e, i)}
+                  label="Project Type"
+                  required
+                >
+                  {projectTypes.map((projectType) => (
+                    <MenuItem key={projectType} value={projectType}>
+                      {projectType}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <TextField
+                variant="outlined"
+                label="Description"
+                name="description"
+                value={project.description}
+                onChange={(e) => handleChange(e, i)}
+                fullWidth
+                required
+                margin="dense"
+              />
+              <FormControl fullWidth variant="outlined" margin="dense">
+                <InputLabel>Skills</InputLabel>
+                <Select
+                  multiple
+                  value={project.skills}
+                  name="skills"
+                  onChange={(e) => handleChange(e, i)}
+                  label="Skills"
+                  required
+                  renderValue={(selected) => selected.join(', ')}
+                >
+                  {primarySkills.map((skill) => (
+                    <MenuItem key={skill} value={skill}>
+                      {skill}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                label="Start Date"
+                name="startDate"
+                value={project.startDate}
+                onChange={(e) => handleChange(e, i)}
+                type="date"
+                fullWidth
+                required
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                margin="dense"
+              />
+              <TextField
+                variant="outlined"
+                label="End Date"
+                name="endDate"
+                value={project.endDate}
+                onChange={(e) => handleChange(e, i)}
+                type="date"
+                fullWidth
+                required
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                margin="dense"
+              />
+              <TextField
+                variant="outlined"
+                label="URL"
+                name="url"
+                value={project.url}
+                onChange={(e) => handleChange(e, i)}
+                fullWidth
+                margin="dense"
+              />
+              <TextField
+                variant="outlined"
+                label="Organization Name"
+                name="organizationName"
+                value={project.organizationName}
+                onChange={(e) => handleChange(e, i)}
+                fullWidth
+                required
+                margin="dense"
+              />
+            </Grid>
+          </Grid>
 
-            <FormControl sx={{ m: 3, width: 600 }}>
-              <InputLabel id="demo-multiple-name-label">Skills Used</InputLabel>
-              <Select
-                name="skills"
-                value={project.skills}
-                onChange={(event) => handleProjectChange(event, index)}
-                labelId="demo-multiple-name-label"
-                multiple
-                id="demo-multiple-name"
-                input={<OutlinedInput label="Year of Passout" />}
-
-              >
-                {primarySkills.map((primarySkill, i) => (
-                  <MenuItem
-                    key={i}
-                    value={primarySkill}
-                  >
-                    {primarySkill}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            {/* <TextField
-              label="Skills"
-              name="skills"
-              variant="outlined"
-              required
-              value={project.skills}
-              onChange={(event) => handleProjectChange(event, index)}
-            /> */}
-
-
-
-            <TextField
-              label="Start Date"
-              name="startDate"
-              type="date"
-              variant="outlined"
-              required
-              value={project.startDate}
-              onChange={(event) => handleProjectChange(event, index)}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            <TextField
-              label="End Date"
-              name="endDate"
-              type="date"
-              variant="outlined"
-              required
-              value={project.endDate}
-              onChange={(event) => handleProjectChange(event, index)}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            <TextField
-              label="URL"
-              name="url"
-              variant="outlined"
-              required
-              value={project.url}
-              onChange={(event) => handleProjectChange(event, index)}
-            />
-            <TextField
-              label="Organization Name"
-              name="organizationName"
-              type="text"
-              variant="outlined"
-              required
-              value={project.organizationName}
-              onChange={(event) => handleProjectChange(event, index)}
-            />
-            <TextField
-              label="Description"
-              name="description"
-              value={project.description}
-              variant="outlined"
-              required
-              fullWidth
-              multiline
-              maxRows={2}
-              defaultValue="Text limit 250 characters"
-              // color="success"
-              focused
-              onChange={(event) => handleProjectChange(event, index)}
-            />
-            {index === projectData?.length - 1 ? (
-              <Button
-                className={StyledForm.addButton}
-                variant="contained"
-                color="primary"
-                startIcon={<AddIcon />}
-                onClick={handleAddProject}
-              >
-                Add
-              </Button>
-            ) : (
-              <Button
-                className={StyledForm.removeButton}
-                variant="contained"
-                color="primary"
-                startIcon={<RemoveIcon />}
-                onClick={() => handleRemoveProject(index)}
-              >
+          <Box mt={2} display="flex" justifyContent="space-between">
+            {projectList.length !== 1 && (
+              <Button variant="contained" color="error" onClick={() => handleRemoveProject(i)}>
                 Remove
               </Button>
             )}
-          </div>
-        ))}
-        <Button type="submit" variant="contained" color="primary">
-          Submit
-        </Button>
-      </StyledForm>
-    </ThemeProvider>
+            <Button variant="contained" color="primary" onClick={handleAddProject}>
+              Add Project
+            </Button>
+          </Box>
+
+          <Box mt={2} display="flex" justifyContent="flex-end">
+            <Button variant="outlined" color="error" onClick={handleCancel} style={{ marginRight: '16px' }}>
+              Cancel
+            </Button>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
+              Submit
+            </Button>
+          </Box>
+        </Paper>
+      ))}
+    </Container>
   );
 }
-export default ProjectForm;
