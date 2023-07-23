@@ -24,7 +24,7 @@ export default function ProjectForm() {
       navigate('/login');
       alert('Please login first');
     }
-  }, []);
+  }, [navigate]);
 
   const initialProject = {
     userDetailsID: userId._id,

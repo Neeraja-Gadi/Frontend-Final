@@ -24,7 +24,7 @@ export default function EducationForm() {
       navigate("/login");
       alert("Please login first");
     }
-  }, []);
+  }, [navigate]);
   
   const initialEducation = {
     userDetailsID: userId._id,
