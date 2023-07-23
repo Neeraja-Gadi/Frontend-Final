@@ -24,7 +24,7 @@ export default function ExperienceForm() {
       navigate('/login');
       alert('Please login first');
     }
-  }, []);
+  }, [navigate]);
 
   const initialExperience = {
     userDetailsID: userId._id,

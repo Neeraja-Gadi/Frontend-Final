@@ -24,7 +24,7 @@ export default function PersonalInfoForm() {
             navigate('/login');
             alert('Please login first');
         }
-    }, []);
+    }, [navigate]);
 
     const initialPersonalInfo = {
         userDetailsID: userId._id,
