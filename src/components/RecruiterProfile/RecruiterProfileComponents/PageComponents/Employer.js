@@ -15,7 +15,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import JobPost  from "../../../RecruiterForms/JobPost"
+import JobPost  from "../Forms/JobPost" ;
+import NavBar from "./Navbar" ;
+import baseurl from "../../../../baseURL/config";
 
 const user = JSON.parse(localStorage.getItem('userDetails'));
 
@@ -32,7 +34,7 @@ function JobDescription({ description, onClose }) {
   );
 }
 
-function JobCard({ job, onShowDescription, onSelectJob }) {
+function JobCard({ job, onShowDescription, onSelectJob  }) {
   const [showDescription, setShowDescription] = useState(false);
 
   const toggleDescription = () => {
@@ -81,7 +83,7 @@ export default function Album() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/PlanWithDetails/${user._id}/${id}`);
+        const response = await fetch(`${baseurl}/PlanWithDetails/${user._id}/${id}`);
         const data = await response.json();
         setGetJobDetails(data.data[0].jobPosts);
         setGetPlanDetails(data.data[0]);
@@ -101,13 +103,9 @@ export default function Album() {
 
   const handleCreateJobPost = () => {
     if (getPlanDetails.limit) {
-
-      setShowJobPostForm(true);
-      // If the limit is true, show the alert message
-      // alert("Your Job Post limit Exceeded. Consider Upgrading Plan.");
+            alert("Your Job Post limit Exceeded. Consider Upgrading Plan.");
     } else {
-      // If the limit is false, show the job post form
-      alert("Your Job Post limit Exceeded. Consider Upgrading Plan.");
+        setShowJobPostForm(true);
     }
   };
 
@@ -118,14 +116,15 @@ export default function Album() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar position="relative">
+      {/* <AppBar position="relative">
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
             Hiclousia
           </Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <main>
+        <NavBar color={{MyPlans:'white',Employer:'black',TalentPoolNew:'white'}}/>
 
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
@@ -158,7 +157,7 @@ export default function Album() {
 
         <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
         {showJobPostForm ? (
-        <JobPost id={id} onClose={handleJobPostFormClose} />
+        <JobPost id={id} close={handleJobPostFormClose} />
       ) : (
         <Button variant="contained" onClick={handleCreateJobPost}>
           Create a New Job Post

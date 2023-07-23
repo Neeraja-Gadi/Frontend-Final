@@ -9,6 +9,8 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 // import Avatar from '@mui/material/Avatar';
 import { useParams } from "react-router-dom";
+import NavBar from  "./Navbar"
+import baseurl  from  "../../../../baseURL/config"
 
 const defaultTheme = createTheme();
 
@@ -18,7 +20,7 @@ export default function TalentPoolNew() {
 
   useEffect(() => {
     const fetchData = () => {
-      fetch(`http://localhost:8000/PREP/${jid}`)
+      fetch(`${baseurl}/PREP/${jid}`)
         .then((response) => response.json())
         .then((data) => {
           setGetTalentinfo(data.data);
@@ -51,7 +53,7 @@ export default function TalentPoolNew() {
     { field: 'secondarySkills', headerName: 'Secondary Skills', width: 200 },
   ];
 
-  const rows = getTalentinfo.map((talent) => ({
+  const rows = getTalentinfo?.map((talent) => ({
     id: talent.HiRank,
     // avatar: talent.userProfile.profileLink.url,
     fullName: `${talent.user.firstName} ${talent.user.lastName}`,
@@ -67,14 +69,15 @@ export default function TalentPoolNew() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar position="relative">
+      {/* <AppBar position="relative">
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
             Hiclousia
           </Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <main>
+        <NavBar  color={{MyPlans:'white',Employer:'white',TalentPoolNew:'black'}}/>
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
             <Grid item xs={12}>

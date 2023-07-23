@@ -17,6 +17,8 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import { useNavigate } from 'react-router-dom';
 import CardHeader from '@mui/material/CardHeader';
+import Navbar from "./Navbar"
+import baseurl from "../../../../baseURL/config" ;
 
 const user = JSON.parse(localStorage.getItem('userDetails'));
 
@@ -34,7 +36,7 @@ export default function MyPlans() {
     const [showAll, setShowAll] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:8000/revenueR/${user._id}`)
+        fetch(`${baseurl}/getRecruiterPlan/${user._id}`)
             .then((response) => response.json())
             .then((data) => {
                 setPlanData(data.data);
@@ -50,16 +52,21 @@ export default function MyPlans() {
     console.log(plansDetails);
 
     const renderedPlans = showAll ? plansDetails : plansDetails.slice(0, 3);
+
+    const activePage = 'MyPlans';
     return (
         <ThemeProvider theme={defaultTheme}>
             <CssBaseline />
-            <AppBar position="relative">
+            {/* <AppBar position="relative">
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
                         Hiclousia
                     </Typography>
                 </Toolbar>
-            </AppBar>
+            </AppBar> */}
+
+              <Navbar activePage={activePage} color={{MyPlans:'black',Employer:'white',TalentPoolNew:'white'}} />
+            
             <main>
                 <Container sx={{ py: 8 }} maxWidth="md" style={profile}>
                     <ListItem alignItems="flex-start" marginLeft="10px">
