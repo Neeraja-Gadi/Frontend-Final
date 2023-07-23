@@ -68,16 +68,15 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 const user = JSON.parse(localStorage.getItem('userDetails'));
 
 export default function SearchResult() {
 
-  const [recommendedJobs, setRecommendedJobs] = useState([]);
+const [recommendedJobs, setRecommendedJobs] = useState([]);
 
 useEffect(() => {
-     fetch(`${baseurl}/TalentRecommendations/${user._id}`)
+     fetch(`${baseurl}/searchJobsByPreferences/${user._id}`)
       .then(response => response.json())
       .then(data => {
         setRecommendedJobs(data.data);
@@ -86,7 +85,6 @@ useEffect(() => {
       .catch(error => {
         console.error(error);
       });
-
 }, []);
 
 console.log(recommendedJobs);
@@ -103,7 +101,7 @@ console.log(recommendedJobs);
                 <AppBar position="absolute" open={open}>
                     <Toolbar
                         sx={{
-                            pr: '24px', // keep right padding when drawer closed
+                            pr: '24px',
                         }}
                     >
                         <IconButton
