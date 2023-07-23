@@ -161,10 +161,8 @@ import Login from './components/loginPage/Login'
 import SignUp from './components/loginPage/SignUp'
 import EducationForm from './components/multiForm/EducationForm'
 import ProductSearch from "./components/Search.js"
-// import JobForm from "./components/RecruiterForms/JobPostForm"
 import Dashboard from './components/Search/SearchPreferences'
 import ForgotPassword from './components/loginPage/ForgotPassword'
-import RecruiterProfileForm from "../src/components/RecruiterForms/RecruiterForm"
 import DashboardPortfolio from './components/Portfolio/Portfolio'
 import ResetPassword from './components/loginPage/ResetPassword'
 import { Routes, Route } from 'react-router-dom'
@@ -172,12 +170,11 @@ import UserProfileForm from './components/multiForm/UserProfileForm'
 import UserExperience from './components/multiForm/UserExperience'
 import ProjectForm from './components/multiForm/UserProjects'
 import Pricing from './components/revenueModal/SubscriptionModal'
-import JobPost from './components/RecruiterForms/JobPost'
+import JobPost from './components/RecruiterProfile/RecruiterProfileComponents/Forms/JobPost'
 import SearchResult from './components/Search/SearchComponents/SearchResult'
 import RecruiterProfilePage from './components/RecruiterProfile/RecruiterProfilePage'
-import TalentPoolNew from './components/RecruiterProfile/Templates/TalentPoolNew'
-import MyPlans from './components/RecruiterProfile/Templates/MyPlans'
-// import RecProfile from './components/NewRecruiterProfile/RecProfile'
+import TalentPoolNew from './components/RecruiterProfile/RecruiterProfileComponents/PageComponents/TalentPoolNew';
+import MyPlans from './components/RecruiterProfile/RecruiterProfileComponents/PageComponents/MyPlans'
 import Employer from './components/RecruiterProfile/RecruiterProfileComponents/PageComponents/Employer'
 import SearchedItems from './components/Search/SearchComponents/SearchedItems'
 import ProfileForm from "./components/RecruiterProfile/RecruiterProfileComponents/Forms/ProfileForm"
@@ -192,7 +189,6 @@ function App() {
                      <LandingPage />
                 </>}
                  />
-
                 <Route path="Login" element={<Login />} />
                 <Route path="SignUp" element={<SignUp />} />
                 <Route path='ForgotPassword' element={<ForgotPassword />} />
@@ -203,7 +199,6 @@ function App() {
                 <Route path="ExperienceForm" element={<UserExperience />} />
                 <Route path="UserProjects" element={<ProjectForm />} />
                 <Route path="ProductSearch" element={<ProductSearch />} />
-                <Route path="RecruiterForm" element={<RecruiterProfileForm />} />
                 <Route path="JobSearch" element={<Dashboard />} />
                 <Route path='SearchResult' element={<SearchResult />} />
                 <Route path='SeacrhedItems' element={<SearchedItems />} />
@@ -216,8 +211,7 @@ function App() {
                 {/* <Route path='Search' element={<DataTable />} />                 */}
                 <Route path="Employer/:uId/:id" element={<Employer />} />
                 <Route path='TalentPoolNew/:jid' element={<TalentPoolNew />} />
-                {/* <Route path='test' element={<DataTable />} />                 */}
-
+               <Route path='ProfileForm' element={< ProfileForm/>} />            
             </Routes>
 
         </div>
