@@ -19,9 +19,11 @@ import   '../../styles/LandingPage.css';
 import logo from '../../img/logo.png';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-const userid = JSON.parse(localStorage.getItem('userDetails'));
 import baseurl from "../../baseURL/config" ;
 
+
+
+const userid = JSON.parse(localStorage.getItem('userDetails'));
 
 const LandingPage = () => {
   const navigate = useNavigate();
