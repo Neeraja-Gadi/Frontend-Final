@@ -21,8 +21,6 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import baseurl from "../../baseURL/config" ;
 
-
-
 const userid = JSON.parse(localStorage.getItem('userDetails'));
 
 const LandingPage = () => {
@@ -31,35 +29,18 @@ const LandingPage = () => {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = React.useState("");
   
-  const [recdata , setRecdata] = useState([])
-    useEffect(() => {
-      fetch(`${baseurl}/recruiter/${userid._id}`)
-          .then((response) => response.json())
-          .then((data) => {
-             setRecdata(data);
-              console.log(data.data);
-             
-          })
-          .catch((err) => console.log(err));
-  }, []);
-  console.log(recdata);
-
-  function profileRediret(){
-     if(!recdata.status){
-      navigate('/ProfileForm')
-     }
-     else {navigate('/SubscriptionModal')}
-  }
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("userDetails")))
   }, [])
+
+  
   function logOut() {
     localStorage.removeItem('userDetails');
     localStorage.removeItem('token');
     window.location.reload();
   }
   const targetText = 'A Data-Driven Hiring & Advance Job Search Platform. . .';
-  const typingSpeed = 100; // Adjust this value to control the typing speed (milliseconds per character)
+  const typingSpeed = 100; 
   const [typedText, setTypedText] = useState('');
   useEffect(() => {
     let currentCharIndex = 0;
@@ -81,7 +62,32 @@ const LandingPage = () => {
     }, typingSpeed);
     return () => clearInterval(typingInterval);
   }, []);
+
+  const [recdata , setRecdata] = useState([]);
+  useEffect(() => {
+    if (userid && userid._id) {
+      fetch(`${baseurl}/recruiter/${userid._id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setRecdata(data);
+          console.log(data.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
+
+  function profileRediret(){
+    // Check if recdata.status exists before navigating
+    if (recdata && !recdata.status) {
+      navigate('/ProfileForm');
+    } else {
+      navigate('/SubscriptionModal');
+    }
+  }
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  
   return (
     <div className="App">
       <nav className="navbar" role="navigation" aria-label="main navigation">
