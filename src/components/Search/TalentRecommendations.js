@@ -7,6 +7,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import baseurl from "../../baseURL/config"
 
 import JobDescription from './SearchComponents/JobDescription';
 
@@ -17,7 +18,7 @@ const TalentRecommendationsItems = () => {
   const [recommendedJobs, setRecommendedJobs] = useState([]);
 
   useEffect(() => {
-       fetch(`http://localhost:8000/TalentRecommendations/${user._id}`)
+       fetch(`${baseurl}/TalentRecommendations/${user._id}`)
         .then(response => response.json())
         .then(data => {
           setRecommendedJobs(data.data);
@@ -42,11 +43,11 @@ const TalentRecommendationsItems = () => {
   
   const mailSenderToRecruiter =async (recruiterId ) =>{
     console.log(recruiterId)
-    fetch(`http://localhost:8000/sendMail?id=${recruiterId}&senderId=${user._id}`)
+    fetch(`${baseurl}/sendMail?id=${recruiterId}&senderId=${user._id}`)
     .then(response => response.json())
     .then(data => {
       console.log(data)
-      
+      alert('You have application is successful')
     })
     .catch(error => {
       console.error(error);
