@@ -145,7 +145,7 @@ const TalentPreferenceForm = () => {
 
         <Box>
           <FormControl sx={{ m: 3, width: 600 }}>
-            <InputLabel id="setor-label">Choose maximum three </InputLabel>
+            <InputLabel id="setor-label">Choose sector </InputLabel>
             <Select
               id="setor"
               label="Sector"
@@ -189,7 +189,7 @@ const TalentPreferenceForm = () => {
 
         <Box>
           <FormControl sx={{ m: 3, width: 600 }}>
-            <InputLabel id="skills-label">Choose maximum three </InputLabel>
+            <InputLabel id="skills-label">Choose maximum three skills </InputLabel>
             <Select
               id="skills"
               name="skills"

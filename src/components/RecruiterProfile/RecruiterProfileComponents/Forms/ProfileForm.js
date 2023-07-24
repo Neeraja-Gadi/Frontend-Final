@@ -514,14 +514,15 @@ import React, { useState } from 'react';
 import { TextField, Button, Typography, Box, IconButton } from '@mui/material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import baseurl from "../../../../baseURL/config"
 
-const userId = JSON.parse(localStorage.getItem('userDetails'));
+const user = JSON.parse(localStorage.getItem('userDetails'));
 
 
 const ProfileForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    userDetailsID: userId._id,
+    userDetailsID: user._id,
     fullName: '',
     email: '',
     phoneNumber: '',
@@ -568,7 +569,7 @@ const ProfileForm = () => {
 
   const handleSave = () => {
     // Assuming the API endpoint is correct and formData is formatted correctly
-    fetch('http://localhost:8000/recruiter', {
+    fetch(`${baseurl}/recruiter`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -593,9 +594,9 @@ const ProfileForm = () => {
         width: '40rem',
         padding: 3,
         borderRadius: 1,
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)', // Add box-shadow for a differentiated border effect
-        border: `1px solid #e0e0e0`, // Slightly differentiate the border color
-        backgroundColor: 'white', // Set a white background color
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)', 
+        border: `1px solid #e0e0e0`, 
+        backgroundColor: 'white', 
       }}
     >
       <Typography variant="h4" gutterBottom>

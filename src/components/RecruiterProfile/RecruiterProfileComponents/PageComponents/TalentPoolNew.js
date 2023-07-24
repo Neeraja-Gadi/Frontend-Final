@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import { Button } from '@mui/material';
 // import Avatar from '@mui/material/Avatar';
 import { useParams } from "react-router-dom";
 import NavBar from  "./Navbar"
@@ -14,6 +15,9 @@ const defaultTheme = createTheme();
 export default function TalentPoolNew() {
     const { jid } = useParams()
   const [getTalentinfo, setGetTalentinfo] = useState([]);
+  // const [users, setUsers] = useState([]);
+  const [selectedRow, setSelectedRow] = useState([]);
+
 
   useEffect(() => {
     const fetchData = () => {
@@ -27,6 +31,61 @@ export default function TalentPoolNew() {
     };
     fetchData();
   }, [jid]);
+
+  function handleSelect(params){
+
+    if(params.formattedValue==="no"){
+      
+      setSelectedRow([...selectedRow,params.row.fullName]); 
+     
+    }else {
+      
+      let temp=[...selectedRow]
+      temp.map((ele,i)=>{
+        
+        if(ele===params.row.fullName){
+          temp.splice(i,1)
+          setSelectedRow(temp)
+        }
+        return ele
+      })
+    }
+    
+  }
+  const handleSendMail = async () => {
+    try {
+      
+      let tempArr=[]
+
+      for(let talent of getTalentinfo){
+        let name = talent.user.firstName+" "+talent.user.lastName
+
+        if(selectedRow.includes(name)){
+          tempArr.push(talent)
+        }
+      }
+      console.log(tempArr)
+   
+      const response = await fetch(`${baseurl}/sendMailToUsers?id=${jid}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          users: tempArr
+        }),
+      });
+      const data = await response.json();
+      if (data.status) {
+        alert('Mail sent successfully');
+      } else {
+        alert('Failed to send mail');
+      }
+    } catch (error) {
+      console.error('Error sending mail:', error);
+      alert('Error sending mail');
+    }
+  };
 
   const columns = [
     // {
@@ -63,6 +122,7 @@ export default function TalentPoolNew() {
       : '',
   }));
 
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -75,23 +135,33 @@ export default function TalentPoolNew() {
       </AppBar> */}
       <main>
         <NavBar  color={{MyPlans:'white',Employer:'white',TalentPoolNew:'black'}}/>
-        <Container sx={{ py: 8 }} maxWidth="md">
+        <Container sx={{ py: 8 }} maxWidth="ls">
           <Grid container spacing={4}>
             <Grid item xs={12}>
-              <div style={{ height: 500, width: '100%' }} >
+              <div style={{ height: 'auto', width: '100%' }} >
                 <DataGrid 
                   rows={rows}
                   columns={columns}
                   checkboxSelection
                   disableSelectionOnClick
                   autoHeight
+                  onCellClick={handleSelect}
+                  getRowClassName={(params) =>
+                    params.row.id === selectedRow ? 'selected-row' : ''
+                  } 
                 />
               </div>
             </Grid>
+            <Button variant="outlined" color="primary"  onClick={handleSendMail}>
+        Send Mail to Selected Users
+      </Button>
           </Grid>
+       
         </Container>
+       
       </main>
     </ThemeProvider>
   );
 }
+
 
