@@ -20,6 +20,7 @@ import logo from '../../img/logo.png';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 const userid = JSON.parse(localStorage.getItem('userDetails'));
+import baseurl from "../../baseURL/config" ;
 
 
 const LandingPage = () => {
@@ -30,7 +31,7 @@ const LandingPage = () => {
   
   const [recdata , setRecdata] = useState([])
     useEffect(() => {
-      fetch(`http://localhost:8000/recruiter/${userid._id}`)
+      fetch(`${baseurl}/recruiter/${userid._id}`)
           .then((response) => response.json())
           .then((data) => {
              setRecdata(data);
