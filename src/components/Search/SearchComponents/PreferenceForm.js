@@ -121,49 +121,26 @@ const TalentPreferenceForm = () => {
             </Select>
           </FormControl>
         </Box>
-
         <Box>
           <FormControl sx={{ m: 3, width: 600 }}>
-            <InputLabel id="city-label">Choose maximum three cities Preference</InputLabel>
+            <InputLabel id="skills-label">Choose maximum three skills </InputLabel>
             <Select
-              id="city"
-              name="city"
+              id="skills"
+              name="skills"
               multiple
-              value={formValues.city}
+              value={formValues.skills}
               onChange={handleChange}
-              label="City"
-              input={<OutlinedInput label="City" />}
+              label="Skills"
+              input={<OutlinedInput label="Skills" />}
             >
-              {location.map((loc , i) => (
-                <MenuItem key={i} value={loc}>
-                  {loc}
+              {primarySkills.map((skill) => (
+                <MenuItem key={skill} value={skill}>
+                  {skill}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
         </Box>
-
-        <Box>
-          <FormControl sx={{ m: 3, width: 600 }}>
-            <InputLabel id="setor-label">Choose sector </InputLabel>
-            <Select
-              id="setor"
-              label="Sector"
-              name="sector"
-              variant="outlined"
-              value={formValues.sector}
-              onChange={handleChange}
-              input={<OutlinedInput label="Sector" />}
-            >
-              {sectors.map((sec, i) => (
-                <MenuItem key={i} value={sec}>
-                  {sec}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-
 
         <Box>
           <FormControl sx={{ m: 3, width: 600 }}>
@@ -186,22 +163,64 @@ const TalentPreferenceForm = () => {
             </Select>
           </FormControl>
         </Box>
+        <Box>
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel id="setor-label">Choose sector </InputLabel>
+            <Select
+              id="setor"
+              label="Sector"
+              name="sector"
+              variant="outlined"
+              value={formValues.sector}
+              onChange={handleChange}
+              input={<OutlinedInput label="Sector" />}
+            >
+              {sectors.map((sec, i) => (
+                <MenuItem key={i} value={sec}>
+                  {sec}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+        <Box>
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel id="jobNature-label">Job Nature</InputLabel>
+            <Select
+              id="jobNature"
+              name="jobNature"
+              value={formValues.jobNature}
+              onChange={handleChange}
+              label="Job Nature"
+              input={<OutlinedInput label="Job Nature" />}
+              inputProps={{ 'aria-label': 'Without label' }}
+              multiple
+            >
+              {jobNature.map((jobn, i) => (
+                <MenuItem key={i} value={jobn}>
+                  {jobn}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+
 
         <Box>
           <FormControl sx={{ m: 3, width: 600 }}>
-            <InputLabel id="skills-label">Choose maximum three skills </InputLabel>
+            <InputLabel id="city-label">Choose maximum three cities Preference</InputLabel>
             <Select
-              id="skills"
-              name="skills"
+              id="city"
+              name="city"
               multiple
-              value={formValues.skills}
+              value={formValues.city}
               onChange={handleChange}
-              label="Skills"
-              input={<OutlinedInput label="Skills" />}
+              label="City"
+              input={<OutlinedInput label="City" />}
             >
-              {primarySkills.map((skill) => (
-                <MenuItem key={skill} value={skill}>
-                  {skill}
+              {location.map((loc , i) => (
+                <MenuItem key={i} value={loc}>
+                  {loc}
                 </MenuItem>
               ))}
             </Select>
@@ -231,28 +250,7 @@ const TalentPreferenceForm = () => {
         </Box>
 
 
-        <Box>
-          <FormControl sx={{ m: 3, width: 600 }}>
-            <InputLabel id="jobNature-label">Job Nature</InputLabel>
-            <Select
-              id="jobNature"
-              name="jobNature"
-              value={formValues.jobNature}
-              onChange={handleChange}
-              label="Job Nature"
-              input={<OutlinedInput label="Job Nature" />}
-              inputProps={{ 'aria-label': 'Without label' }}
-              multiple
-            >
-              {jobNature.map((jobn, i) => (
-                <MenuItem key={i} value={jobn}>
-                  {jobn}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-
+       
         <Button type="submit" variant="contained" color="primary"  style={{float: 'right', marginRight: '20px'}}>
           Submit
         </Button>
