@@ -169,10 +169,10 @@ const Navbar = ({color}) => {
             <Link to="/MyPlans" style={ {color:color.MyPlans}}>My Plans</Link> 
           </NavOption>
           <NavOption isActive={isActive('/talent-pools')}>
-            <Link to="/talent-pools" style={ {color:color.Employer}} >My Talent Pools</Link>
+            <Link style={ {color:color.Employer}} >My Talent Pools</Link>
           </NavOption>
           <NavOption isActive={isActive('/onboarding')}>
-            <Link to="/onboarding" style={ {color:color.TalentPoolNew}}>Onboarding Dashboard</Link>
+            <Link style={ {color:color.TalentPoolNew}}>Onboarding Dashboard</Link>
           </NavOption>
         </NavOptions>
       </BlueNavbar>

@@ -18,9 +18,35 @@ import IM from '../../img/Neeraja.png';
 import   '../../styles/LandingPage.css';
 import logo from '../../img/logo.png';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+const userid = JSON.parse(localStorage.getItem('userDetails'));
+
+
 const LandingPage = () => {
+  const navigate = useNavigate();
+
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = React.useState("");
+  
+  const [recdata , setRecdata] = useState([])
+    useEffect(() => {
+      fetch(`http://localhost:8000/recruiter/${userid._id}`)
+          .then((response) => response.json())
+          .then((data) => {
+             setRecdata(data);
+              console.log(data.data);
+             
+          })
+          .catch((err) => console.log(err));
+  }, []);
+  console.log(recdata);
+
+  function profileRediret(){
+     if(!recdata.status){
+      navigate('/ProfileForm')
+     }
+     else {navigate('/SubscriptionModal')}
+  }
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("userDetails")))
   }, [])
@@ -63,7 +89,7 @@ const LandingPage = () => {
           <div className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
             {user ?
               user.recruiter === true ?
-                <a className="navbar-item" href="/SubscriptionModal">Post A JobPost</a>
+                <button className="navbar-item" onClick={profileRediret}>Post A JobPost</button>
                 : <a className="navbar-item" href="/JobSearch" > JobSearch</a>
               : null
             }

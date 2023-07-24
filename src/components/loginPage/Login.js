@@ -44,7 +44,7 @@ export default function SignIn() {
   function LoginHandler(e) {
 
     const data = { email, password }
-    fetch(`${baseurl}/login`, {
+    fetch(`http://localhost:8000/login`, {
       method: "POST",
       headers: {
         Accept: "application/json",
