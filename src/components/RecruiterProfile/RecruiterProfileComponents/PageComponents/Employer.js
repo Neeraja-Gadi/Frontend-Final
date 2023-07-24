@@ -102,6 +102,7 @@ export default function Album() {
   const handleCreateJobPost = () => {
     if (getPlanDetails.limit) {
             alert("Your Job Post limit Exceeded. Consider Upgrading Plan.");
+            navigate('/SubscriptionModal');
     } else {
         setShowJobPostForm(true);
     }

@@ -9,7 +9,7 @@ import baseurl from '../../baseURL/config';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {diffjobRole, primarySkills, experienceTypes, companyTypes, location } from '../../constraints/arrays';
+import {diffjobRole, primarySkills, experienceTypes, companyTypes, location  } from '../../constraints/arrays';
 import MenuItem from '@mui/material/MenuItem';
 import { Button, Box, Container, Paper } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
@@ -135,7 +135,7 @@ export default function ExperienceForm() {
                 </Select>
               </FormControl>
               <FormControl fullWidth variant="outlined" margin="dense">
-                <InputLabel>Primary Skills</InputLabel>
+                <InputLabel>Job Role</InputLabel>
                 <Select
                   label="Job Role"
                   name="jobRole"

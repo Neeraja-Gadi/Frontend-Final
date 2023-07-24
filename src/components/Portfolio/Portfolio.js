@@ -93,8 +93,6 @@ const defaultTheme = createTheme();
 export default function DashboardPortfolio() {
 
 
-    //API Start
-
     const Navigate = useNavigate();
 
     const user = JSON.parse(localStorage.getItem("userDetails"))
@@ -118,7 +116,7 @@ export default function DashboardPortfolio() {
     }, [])
 
     function handlecreateProfile () {
-        if(userInfo.educationData.length ===0 ){
+        if(userInfo.educationData.length ===0  ){
         Navigate('/EducationForm')
     }else {
         alert("You Already have a Profile")
@@ -150,7 +148,7 @@ export default function DashboardPortfolio() {
                 <AppBar position="absolute" open={open}>
                     <Toolbar
                         sx={{
-                            pr: '24px', // keep right padding when drawer closed
+                            pr: '24px', 
                         }}
                     >
                         <IconButton

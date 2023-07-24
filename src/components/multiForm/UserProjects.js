@@ -75,7 +75,7 @@ export default function ProjectForm() {
           if (data.status === false) return false;
           else {
             setProjectList([initialProject]);
-            navigate('/NextForm'); // Replace "NextForm" with the appropriate route.
+            navigate('/UserProfileForm'); 
           }
         })
       );
@@ -203,7 +203,7 @@ export default function ProjectForm() {
               />
               <TextField
                 variant="outlined"
-                label="URL"
+                label="url like gitlink, google drive "
                 name="url"
                 value={project.url}
                 onChange={(e) => handleChange(e, i)}
