@@ -216,6 +216,7 @@ const TalentPreferenceForm = () => {
               label="Salary"
               name="salary"
               variant="outlined"
+              required
               value={formValues.salary}
               onChange={handleChange}
               input={<OutlinedInput />}
