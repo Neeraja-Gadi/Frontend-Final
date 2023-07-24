@@ -10,11 +10,11 @@ import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
-import Badge from '@mui/material/Badge'
+// import Badge from '@mui/material/Badge'
 import Container from '@mui/material/Container'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import NotificationsIcon from '@mui/icons-material/Notifications'
+// import NotificationsIcon from '@mui/icons-material/Notifications'
 import { mainListItems } from './PortfolioComponents/ListPortfolio'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -30,6 +30,7 @@ import { useNavigate } from 'react-router-dom'
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import SchoolSharpIcon from '@mui/icons-material/SchoolSharp';
 import WbIncandescentSharpIcon from '@mui/icons-material/WbIncandescentSharp';
@@ -38,9 +39,8 @@ import EditEducation from './PortfolioComponents/EditEducation'
 import PersonIcon from '@mui/icons-material/Person';
 // import About from './PortfolioComponents/AboutMe'
 import EditExperience from './PortfolioComponents/EditExperience'
-import EditProjects from './PortfolioComponents/EditProjects'
-
-
+import EditProjects from './PortfolioComponents/EditProjects' ;
+import   baseurl from  "../../baseURL/config"
 
 const drawerWidth = 240;
 
@@ -88,7 +88,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function DashboardPortfolio() {
@@ -106,7 +105,7 @@ export default function DashboardPortfolio() {
 
     useEffect(() => {
 
-        fetch(`http://localhost:8000/personal/${user._id}`, {
+        fetch(`${baseurl}/personal/${user._id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -115,41 +114,16 @@ export default function DashboardPortfolio() {
             .then(data => { console.log(data); setUserInfo(data.data) })
             .catch(err => console.log(err))
         console.log(userInfo)
-    } , [user._id , userInfo])
+        // eslint-disable-next-line
+    }, [])
 
-    
-    //Education Start
-    // const [eduData, setEduData] = useState([])
-
-    // useEffect(() => {
-    //     getEducation()
-    // })
-
-    // function getEducation(_id) {
-
-    //     fetch(`http://localhost:8000/education/${_id}`, {
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    //        .then((result) => result.json())
-    //         .then((resp) => {
-    //             console.log("resp", resp)
-    //             setEduData(resp)
-    //             console.log("eduData", eduData)
-    //         })
-    //         .catch(error => {
-    //             console.log(error)
-    //         })
-    // }
-
-    // console.log("Education", eduData)
-    // //Education End
-
-
-    //API End
-
+    function handlecreateProfile () {
+        if(userInfo.educationData.length ===0 ){
+        Navigate('/EducationForm')
+    }else {
+        alert("You Already have a Profile")
+    }
+    }
 
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
@@ -170,6 +144,7 @@ export default function DashboardPortfolio() {
 
     return (
         <ThemeProvider theme={defaultTheme}>
+
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
                 <AppBar position="absolute" open={open}>
@@ -200,11 +175,15 @@ export default function DashboardPortfolio() {
                         >
                             Hiclousia
                         </Typography>
-                        <IconButton color="inherit">
+                        <Button variant="contained" color="primary" onClick={handlecreateProfile}>
+                            Create your Profile
+                        </Button>
+                        {/* <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
-                        </IconButton>
+                        </IconButton> */}
+
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open}>
@@ -247,7 +226,7 @@ export default function DashboardPortfolio() {
                         <Card style={{ width: '80%' }}>
                             <CardContent>
                                 <button
-                                    onClick={() => {setPersonal(true);console.log(personal)}}
+                                    onClick={() => { setPersonal(true); console.log(personal) }}
                                     style={{
                                         float: 'right',
                                         border: 'none',
@@ -544,7 +523,7 @@ export default function DashboardPortfolio() {
 
 
 
-                                {userInfo.experienceData?.map((experience , i) => (
+                                {userInfo.experienceData?.map((experience, i) => (
                                     <List>
 
                                         <ListItem alignItems="flex-start">
@@ -608,7 +587,7 @@ export default function DashboardPortfolio() {
                                                     cursor: 'pointer'
                                                 }}><FiEdit2 style={{ float: 'right', fontSize: '20px' }} /></button>
 
-                                            {editExperience && <EditExperience expid={userInfo.projects[i]._id} experienceInfoEdit={() => setEditExperience(false)}/>}
+                                            {editExperience && <EditExperience expid={userInfo.projects[i]._id} experienceInfoEdit={() => setEditExperience(false)} />}
 
                                         </ListItem>
                                         <Divider variant="inset" component="li" />
