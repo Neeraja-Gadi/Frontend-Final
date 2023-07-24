@@ -4,10 +4,10 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import HomeRounded from '@mui/icons-material/HomeRounded'
 import Person from '@mui/icons-material/Person'
-import { MdWork } from 'react-icons/md'
+// import { MdWork } from 'react-icons/md'
 
 // import { MdOutlineDocumentScanner } from 'react-icons/md'
-import { BsFillPersonFill , BsFillBriefcaseFill} from 'react-icons/bs'
+import {  BsFillBriefcaseFill} from 'react-icons/bs'
 // import { GiSkills } from 'react-icons/gi'
 // import { BsShareFill } from 'react-icons/bs'
 

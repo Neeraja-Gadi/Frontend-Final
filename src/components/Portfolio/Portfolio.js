@@ -10,11 +10,11 @@ import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
-import Badge from '@mui/material/Badge'
+// import Badge from '@mui/material/Badge'
 import Container from '@mui/material/Container'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import NotificationsIcon from '@mui/icons-material/Notifications'
+// import NotificationsIcon from '@mui/icons-material/Notifications'
 import { mainListItems } from './PortfolioComponents/ListPortfolio'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -39,7 +39,8 @@ import EditEducation from './PortfolioComponents/EditEducation'
 import PersonIcon from '@mui/icons-material/Person';
 // import About from './PortfolioComponents/AboutMe'
 import EditExperience from './PortfolioComponents/EditExperience'
-import EditProjects from './PortfolioComponents/EditProjects'
+import EditProjects from './PortfolioComponents/EditProjects' ;
+import   baseurl from  "../../baseURL/config"
 
 const drawerWidth = 240;
 
@@ -87,7 +88,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function DashboardPortfolio() {
@@ -105,7 +105,7 @@ export default function DashboardPortfolio() {
 
     useEffect(() => {
 
-        fetch(`http://localhost:8000/personal/${user._id}`, {
+        fetch(`${baseurl}/personal/${user._id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -114,6 +114,7 @@ export default function DashboardPortfolio() {
             .then(data => { console.log(data); setUserInfo(data.data) })
             .catch(err => console.log(err))
         console.log(userInfo)
+        // eslint-disable-next-line
     }, [])
 
     function handlecreateProfile () {
