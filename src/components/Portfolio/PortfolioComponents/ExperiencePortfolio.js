@@ -42,9 +42,7 @@ const ExperiencePortfolio = (props) => {
         width: '40rem',
         AlignItems: 'center',
         marginTop: '18px',
-        margin: '18px',
-
-
+        margin: '18px'
     }
 
     const save = {
@@ -54,7 +52,8 @@ const ExperiencePortfolio = (props) => {
 
     const cancel = {
         float: 'right',
-        margin: '20px'
+        margin: '20px',
+        cursor: 'pointer'
     }
 
 
@@ -96,7 +95,7 @@ const ExperiencePortfolio = (props) => {
         console.log(experienceData)
         let experienceInfo = experienceData;
         experienceInfo?.map((e) => {
-          return  fetch("http://localhost:8000/experience", {
+          return  fetch(`http://localhost:8000/experience`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -111,7 +110,7 @@ const ExperiencePortfolio = (props) => {
 
                     setExperienceData([{
                         experienceType: '',
-                        jobStatus: "Active",
+                        jobStatus: 'Active',
                         jobRole: '',
                         companyType: '',
                         skills: [],

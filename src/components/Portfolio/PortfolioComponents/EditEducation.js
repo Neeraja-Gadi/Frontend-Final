@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom'
-// import baseurl from '../../../baseURL/config'
+
 import OutlinedInput from '@mui/material/OutlinedInput'
 import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
@@ -11,7 +11,7 @@ import Select from '@mui/material/Select'
 import { educationLevels, authorities, discipline } from '../../../constraints/arrays'
 import MenuItem from '@mui/material/MenuItem'
 import { RiCloseCircleFill } from 'react-icons/ri'
-
+// import baseurl  from "../../../baseURL/config"  
 
 
 const modalWrapper = {
