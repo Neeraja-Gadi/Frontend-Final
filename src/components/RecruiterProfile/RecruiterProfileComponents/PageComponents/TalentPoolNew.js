@@ -107,6 +107,10 @@ export default function TalentPoolNew() {
     { field: 'skills', headerName: 'Skills', width: 200 },
     { field: 'primarySkills', headerName: 'Primary Skills', width: 200 },
     { field: 'secondarySkills', headerName: 'Secondary Skills', width: 200 },
+    { field: 'email', headerName: 'Email', width: 200 },
+    { field: 'phone', headerName: 'PhoneNumber', width: 200 },
+
+
   ];
 
   const rows = getTalentinfo?.map((talent) => ({
@@ -120,6 +124,9 @@ export default function TalentPoolNew() {
     secondarySkills: Array.isArray(talent.skillsDetails.secondarySkills)
       ? talent.skillsDetails.secondarySkills.join(', ')
       : '',
+      email: talent.user.email,
+      phone : talent.userProfile.phone
+
   }));
 
 
