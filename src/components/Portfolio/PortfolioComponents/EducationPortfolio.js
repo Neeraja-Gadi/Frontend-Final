@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button'
-import { useNavigate } from 'react-router-dom'
-import baseurl from '../../../baseURL/config'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
-// eslint-disable-next-line no-unused-vars
 
-import {  educationLevels, authorities, discipline } from '../../../constraints/arrays'
-import MenuItem from '@mui/material/MenuItem'
-
-
-const userId = JSON.parse(localStorage.getItem('userDetails'));
+import React, { useState, useEffect } from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { educationLevels, authorities, discipline, yearofPassouts } from '../../../constraints/arrays'
 
 const modalWrapper = {
 
@@ -45,7 +40,6 @@ const feild = {
     marginTop: '18px',
     margin: '18px',
 
-
 }
 
 const save = {
@@ -59,25 +53,24 @@ const cancel = {
     cursor: 'pointer'
 }
 
-
-
 const EducationPortfolio = (props) => {
-
-
-
     const navigate = useNavigate();
+    const [userId, setUserId] = useState(null);
     useEffect(() => {
-
-        if (userId == null) {
-            navigate("/login")
-            alert("Please login first")
+        const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+        if (userDetails == null) {
+            navigate('/login');
+            alert('Please login first');
+        } else {
+            setUserId(userDetails._id);
         }
-    },)
+    }, [navigate]);
 
     const [educationList, setEducationList] = useState([
         {
-            userDetailsID: userId._id,
+            userDetailsID: '',
             educationLevel: '',
+            degreeName: '',
             collegeName: '',
             authority: '',
             discipline: '',
@@ -85,124 +78,95 @@ const EducationPortfolio = (props) => {
             startYear: '',
             endYear: ''
         },
-    ]
+    ]);
 
-    );
-
-    function SaveEducation() {
-
-        educationList.map((e) => {
-
-            return (
-
-                fetch(`${baseurl}/education`, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(e)
-
-                }).then(response => response.json().then(data => {
-                    console.log(data)
-                    if (data.status === false) return false
-                    else {
-
-                        setEducationList([{
-                            userDetailsID: userId._id,
-                            educationLevel: '',
-                            degreeName: '',
-                            collegeName: '',
-                            authority: '',
-                            discipline: '',
-                            yearOfpassout: '',
-                            startYear: '',
-                            endYear: ''
-                        }])
-                        navigate("/Portfolio")
+    const SaveEducation = () => {
+        educationList.forEach((e) => {
+            e.userDetailsID = userId; // Set the userDetailsID to the userId value
+            fetch(`http://localhost:8000/education`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(e)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.status === false) {
+                        return false;
+                    } else {
+                        setEducationList([
+                            {
+                                userDetailsID: '',
+                                educationLevel: '',
+                                degreeName: '',
+                                collegeName: '',
+                                authority: '',
+                                discipline: '',
+                                yearOfpassout: '',
+                                startYear: '',
+                                endYear: ''
+                            }
+                        ]);
+                        navigate('/Portfolio');
                     }
-                }
-
-                ))
-            )
-
-
-
-        })
-
-        return true
-    }
+                });
+        });
+    };
 
     const handleChange = (event, index) => {
-
         const { name, value } = event.target;
-
         const newEducation = [...educationList];
-
         newEducation[index] = {
             ...newEducation[index],
             [name]: value,
         };
-
         setEducationList(newEducation);
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         SaveEducation();
-    }
-
-
+    };
 
     return (
-
-
         <div style={modalWrapper}>
             {educationList.map((education, i) => (
-                <div style={modalContainer} key={education._id}>
-
+                <div style={modalContainer} key={i}>
                     <div style={feild}>
-
-
                         <FormControl sx={{ m: 3, width: 600 }}>
                             <InputLabel>Education Level</InputLabel>
                             <Select
                                 value={education.educationLevel}
                                 name="educationLevel"
                                 onChange={(e) => handleChange(e, i)}
-                                label="EducationLevel"
+                                label="Education Level"
                                 required
                                 input={<OutlinedInput label="Education Level" />}
-                            >
+                                >
                                 {educationLevels.map((educationLevel) => (
-                                    <MenuItem
-                                        key={educationLevel}
-                                        value={educationLevel}
-                                    >
+                                    <MenuItem key={educationLevel} value={educationLevel}>
                                         {educationLevel}
                                     </MenuItem>
                                 ))}
-
                             </Select>
                         </FormControl>
-
-
-
+                        
                         <Box
                             mb={1}
                             sx={{ m: 3, width: 600 }}
                         >
-                            <TextField fullWidth label="Degree Name"
-
+                            <TextField 
+                                fullWidth 
+                                label="Degree Name"
                                 name="degreeName"
-                                value={education.degreeName} 
+                                value={education.degreeName}
                                 onChange={(e) => handleChange(e, i)}
-
                                 id="fullWidth"
                             />
                         </Box>
-
-
 
                         <Box
                             mb={1}
@@ -265,49 +229,37 @@ const EducationPortfolio = (props) => {
                             </Select>
                         </FormControl>
 
-
-
-
-
-
-
-                        {/* <FormControl sx={{ m: 3, width: 600 }}>
-                            <InputLabel id="demo-multiple-name-label">Year of Passout</InputLabel>
-                            <Select
-
-                                name="yearOfpassout"
-                                value={education.yearOfpassout}
-                                onChange={(e) => handleChange(e, i)}
-                                labelId="demo-multiple-name-label"
-                                id="demo-multiple-name"
-
-                                input={<OutlinedInput label="Year of Passout" />}
-
+                        <FormControl sx={{ m: 3, width: 600 }}>
+                        <InputLabel id="demo-multiple-name-label">Year of Passout</InputLabel>
+                        <Select
+                          name="yearOfpassout"
+                          value={education.yearOfpassout}
+                          onChange={(e) => handleChange(e, i)}
+                          labelId="demo-multiple-name-label"
+                          id="demo-multiple-name"        
+                          input={<OutlinedInput label="Year of Passout" />}        
+                        >
+                          {yearofPassouts.map((yearofPassout) => (
+                            <MenuItem
+                              key={yearofPassout}
+                              value={yearofPassout}
                             >
-                                {yearofPassouts.map((yearofPassout) => (
-                                    <MenuItem
-                                        key={yearofPassout}
-                                        value={yearofPassout}
-                                    >
-                                        {yearofPassout}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl> */}
-
-
+                              {yearofPassout}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
 
                         <Box
                             mb={1}
                             sx={{ m: 3, width: 600 }}>
                             <TextField
                                 variant="outlined"
-                                label="Start Year"                                     
+                                label="Start Year"
                                 name="startYear"
                                 value={education.startYear}
                                 onChange={(e) => handleChange(e, i)}
-
-                                type="date"
+                                type="Date"
                                 fullWidth
                                 required
                                 InputLabelProps={{
@@ -325,7 +277,7 @@ const EducationPortfolio = (props) => {
                                 name="endYear"
                                 value={education.endYear}
                                 onChange={(e) => handleChange(e, i)}
-                                type="date"
+                                type="Date"
                                 fullWidth
                                 required
                                 InputLabelProps={{
@@ -333,11 +285,7 @@ const EducationPortfolio = (props) => {
                                 }}
                             /></Box>
 
-
-
-                        <Button variant="contained" style={save} onClick={handleSubmit} >Update</Button>
-
-
+                        <Button variant="contained" style={save} onClick={handleSubmit} >Submit</Button>
 
                         <Button variant="contained" style={cancel} onClick={() => props.educationInfo(false)}  >cancel</Button>
 
