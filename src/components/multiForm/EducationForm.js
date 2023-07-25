@@ -9,7 +9,7 @@ import baseurl from '../../baseURL/config';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { yearofPassouts, educationLevels, authorities } from '../../constraints/arrays';
+import { yearofPassouts, educationLevels, authorities ,discipline } from '../../constraints/arrays';
 import MenuItem from '@mui/material/MenuItem';
 import { Button, Box, Container, Paper } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
@@ -108,14 +108,14 @@ export default function EducationForm() {
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
-              <FormControl fullWidth variant="outlined" margin="dense">
+              <FormControl fullWidth variant="outlined" margin="dense"required>
                 <InputLabel>Education Level</InputLabel>
                 <Select
                   value={education.educationLevel}
                   name="educationLevel"
                   onChange={(e) => handleChange(e, i)}
                   label="Education Level"
-                  required
+                  
                 >
                   {educationLevels.map((educationLevel) => (
                     <MenuItem key={educationLevel} value={educationLevel}>
@@ -124,14 +124,14 @@ export default function EducationForm() {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl fullWidth variant="outlined" margin="dense">
+              <FormControl fullWidth variant="outlined" margin="dense" required>
                 <InputLabel>Authority</InputLabel>
                 <Select
                   name="authority"
                   label="Authority"
                   value={education.authority}
                   onChange={(e) => handleChange(e, i)}
-                  required
+                  
                 >
                   {authorities.map((authority) => (
                     <MenuItem key={authority} value={authority}>
@@ -140,14 +140,14 @@ export default function EducationForm() {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl fullWidth variant="outlined" margin="dense">
+              <FormControl fullWidth variant="outlined" margin="dense" required>
                 <InputLabel>Year of Passout</InputLabel>
                 <Select
                   name="yearOfpassout"
                   value={education.yearOfpassout}
                   onChange={(e) => handleChange(e, i)}
                   label="Year of Passout"
-                  required
+                  
                 >
                   {yearofPassouts.map((yearofPassout) => (
                     <MenuItem key={yearofPassout} value={yearofPassout}>
@@ -192,7 +192,23 @@ export default function EducationForm() {
                 required
                 margin="dense"
               />
-              <TextField
+               <FormControl fullWidth variant="outlined" margin="dense" required>
+                <InputLabel>Discipline</InputLabel>
+                <Select
+                  label="Discipline"
+                  name="discipline"
+                  value={education.discipline}
+                  onChange={(e) => handleChange(e, i)}
+                  
+                >
+                  {discipline.map((dis,i) => (
+                    <MenuItem key={i} value={dis}>
+                      {dis}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              {/* <TextField
                 variant="outlined"
                 label="Discipline"
                 name="discipline"
@@ -201,7 +217,7 @@ export default function EducationForm() {
                 fullWidth
                 required
                 margin="dense"
-              />
+              /> */}
 
               <TextField
                 variant="outlined"

@@ -127,14 +127,14 @@ export default function ProjectForm() {
                 required
                 margin="dense"
               />
-              <FormControl fullWidth variant="outlined" margin="dense">
+              <FormControl fullWidth variant="outlined" margin="dense"required>
                 <InputLabel>Project Type</InputLabel>
                 <Select
                   value={project.projectType}
                   name="projectType"
                   onChange={(e) => handleChange(e, i)}
                   label="Project Type"
-                  required
+                  
                 >
                   {projectTypes.map((projectType) => (
                     <MenuItem key={projectType} value={projectType}>
@@ -153,7 +153,7 @@ export default function ProjectForm() {
                 required
                 margin="dense"
               />
-              <FormControl fullWidth variant="outlined" margin="dense">
+              <FormControl fullWidth variant="outlined" margin="dense" required>
                 <InputLabel>Skills</InputLabel>
                 <Select
                   multiple
@@ -161,7 +161,7 @@ export default function ProjectForm() {
                   name="skills"
                   onChange={(e) => handleChange(e, i)}
                   label="Skills"
-                  required
+                  
                   renderValue={(selected) => selected.join(', ')}
                 >
                   {primarySkills.map((skill) => (
@@ -208,6 +208,7 @@ export default function ProjectForm() {
                 value={project.url}
                 onChange={(e) => handleChange(e, i)}
                 fullWidth
+                required
                 margin="dense"
               />
               <TextField

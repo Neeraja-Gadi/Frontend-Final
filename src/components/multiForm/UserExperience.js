@@ -118,14 +118,14 @@ export default function ExperienceForm() {
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
-              <FormControl fullWidth variant="outlined" margin="dense">
+              <FormControl fullWidth variant="outlined" margin="dense" required>
                 <InputLabel>Experience Type</InputLabel>
                 <Select
                   value={experience.experienceType}
                   name="experienceType"
                   onChange={(e) => handleChange(e, i)}
                   label="Experience Type"
-                  required
+                  
                 >
                   {experienceTypes.map((experienceType) => (
                     <MenuItem key={experienceType} value={experienceType}>
@@ -134,7 +134,7 @@ export default function ExperienceForm() {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl fullWidth variant="outlined" margin="dense">
+              <FormControl fullWidth variant="outlined" margin="dense" required>
                 <InputLabel>Job Role</InputLabel>
                 <Select
                   label="Job Role"
@@ -142,7 +142,7 @@ export default function ExperienceForm() {
                   value={experience.jobRole}
                   onChange={(e) => handleChange(e, i)}
                   fullWidth
-                  required
+                  
                 >
                   {diffjobRole.map((jobrole  , i) => (
                     <MenuItem key={i} value={jobrole}>
@@ -152,7 +152,7 @@ export default function ExperienceForm() {
                 </Select>
               </FormControl>
               
-               <FormControl fullWidth variant="outlined" margin="dense">
+               <FormControl fullWidth variant="outlined" margin="dense" required>
                 <InputLabel>Primary Skills</InputLabel>
                 <Select
                   multiple
@@ -160,7 +160,6 @@ export default function ExperienceForm() {
                   name="skills"
                   onChange={(e) => handleChange(e, i)}
                   label="Primary Skills"
-                  required
                   renderValue={(selected) => selected.join(', ')}
                 >
                   {primarySkills.map((skill) => (
@@ -171,7 +170,7 @@ export default function ExperienceForm() {
                 </Select>
               </FormControl>
 
-              <FormControl fullWidth variant="outlined" margin="dense">
+              <FormControl fullWidth variant="outlined" margin="dense" >
                 <InputLabel>Company Type</InputLabel>
                 <Select
                   value={experience.companyType}
@@ -201,7 +200,7 @@ export default function ExperienceForm() {
             </Grid>
             <Grid item xs={12} sm={6}>
 
-            <FormControl fullWidth variant="outlined" margin="dense">
+            <FormControl fullWidth variant="outlined" margin="dense" required>
                 <InputLabel>Job Status</InputLabel>
                 <Select
                   name="jobStatus"
@@ -217,7 +216,7 @@ export default function ExperienceForm() {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl fullWidth variant="outlined" margin="dense">
+              <FormControl fullWidth variant="outlined" margin="dense" required>
                 <InputLabel>Location</InputLabel>
                 <Select
                   value={experience.location}

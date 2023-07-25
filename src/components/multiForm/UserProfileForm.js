@@ -9,7 +9,7 @@ import { Button, Box, Container, Paper } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
 import InputLabel from '@mui/material/InputLabel';
-import { location } from '../../constraints/arrays'; 
+import { location  ,states } from '../../constraints/arrays'; 
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -166,23 +166,31 @@ export default function PersonalInfoForm() {
                         required
                         margin="dense"
                     />
-                    <TextField
-                        variant="outlined"
-                        label="State"
-                        name="state"
-                        value={personalInfo.state}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="dense"
-                    />
-                    <FormControl fullWidth variant="outlined" margin="dense">
+                      <FormControl fullWidth variant="outlined" margin="dense" required>
+                        <InputLabel>State</InputLabel>
+                        <Select
+                            label="State"
+                            name="state"
+                            value={personalInfo.state}
+                            onChange={handleChange}
+                            
+                        >
+                            {states.map((state,i) => (
+                                <MenuItem key={i} value={state}>
+                                    {state}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
+                    <FormControl fullWidth variant="outlined" margin="dense" required>
                         <InputLabel>Location</InputLabel>
                         <Select
                             value={personalInfo.location}
                             name="location"
                             onChange={handleChange}
                             label="Location"
-                            required
+                            
                         >
                             {location.map((location) => (
                                 <MenuItem key={location} value={location}>
