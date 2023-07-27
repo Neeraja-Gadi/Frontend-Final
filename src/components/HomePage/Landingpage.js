@@ -20,6 +20,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import baseurl from "../../baseURL/config" ;
 
+
 let userid = JSON.parse(localStorage.getItem('userDetails'));
 
 const LandingPage = () => {
