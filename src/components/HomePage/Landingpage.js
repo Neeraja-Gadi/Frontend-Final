@@ -1,4 +1,4 @@
-import { FaUser } from 'react-icons/fa'; // Import the user icon from Font Awesome
+import { FaUser } from 'react-icons/fa'; 
 import React, { useEffect, useState } from 'react';
 import A from '../../img/V.png';
 import B from '../../img/I.png';
@@ -21,7 +21,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import baseurl from "../../baseURL/config" ;
 
-const userid = JSON.parse(localStorage.getItem('userDetails'));
+let userid = JSON.parse(localStorage.getItem('userDetails'));
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -65,6 +65,7 @@ const LandingPage = () => {
 
   const [recdata , setRecdata] = useState([]);
   useEffect(() => {
+    userid = JSON.parse(localStorage.getItem('userDetails'))
     if (userid && userid._id) {
       fetch(`${baseurl}/recruiter/${userid._id}`)
         .then((response) => response.json())
@@ -77,8 +78,7 @@ const LandingPage = () => {
   }, []);
 
   function profileRediret(){
-    // Check if recdata.status exists before navigating
-    if (recdata && !recdata.status) {
+    if (!recdata.status) {
       navigate('/ProfileForm');
     } else {
       navigate('/SubscriptionModal');

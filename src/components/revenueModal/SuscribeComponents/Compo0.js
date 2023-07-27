@@ -73,7 +73,7 @@ export default function PricingZero() {
       recruiterPlan: plan.title,
       jobPostno: 1,
     }
-    fetch(`${baseurl}/revenueR"`, {
+    fetch(`${baseurl}/revenueR`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -82,7 +82,7 @@ export default function PricingZero() {
       body: JSON.stringify(info)
     }).then(response => response.json().then(data => {
       console.log(data)
-      
+
     }))
   };
   return (
