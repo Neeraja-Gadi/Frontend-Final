@@ -20,7 +20,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import { FiEdit2 } from 'react-icons/fi'
 import { GrAdd } from 'react-icons/gr'
-import { MdDelete } from 'react-icons/md'
+// import { MdDelete } from 'react-icons/md'
 // import Personal from './PortfolioComponents/PersonalPortfolio'
 import EducationPortfolio from './PortfolioComponents/EducationPortfolio'
 import ProjectPortfolio from './PortfolioComponents/ProjectPortfolio'
@@ -32,15 +32,72 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
+import Grid from '@mui/material/Grid';
 import SchoolSharpIcon from '@mui/icons-material/SchoolSharp';
 import WbIncandescentSharpIcon from '@mui/icons-material/WbIncandescentSharp';
 import WorkIcon from '@mui/icons-material/Work';
-import EditEducation from './PortfolioComponents/EditEducation'
-import PersonIcon from '@mui/icons-material/Person';
+import EditEducations from './PortfolioComponents/EditEducation'
+// import PersonIcon from '@mui/icons-material/Person';
 // import About from './PortfolioComponents/AboutMe'
 import EditExperiences from './PortfolioComponents/EditExperience'
-import EditProjects from './PortfolioComponents/EditProjects' ;
-import   baseurl from  "../../baseURL/config"
+import EditProjects from './PortfolioComponents/EditProjects';
+import baseurl from "../../baseURL/config"
+let hirank = 1500;
+
+const BadgeContainer = styled('div')({
+    position: 'relative',
+    display: 'inline-block',
+    padding: '20px',
+    border: '3px solid #1565C0', // Blue border color
+    borderRadius: '8px',
+});
+
+const Circle = styled('div')({
+    width: '100px',
+    height: '100px',
+    borderRadius: '50%',
+    backgroundColor: '#1565C0', // Blue background color
+    color: '#FFFFFF',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    position: 'relative',
+});
+
+const Rectangle = styled('div')({
+    width: '110px',
+    height: '40px',
+    borderRadius: '5%',
+    backgroundColor: '#1565C0', // Blue background color
+    color: '#FFFFFF',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: '-20px',
+    left: 'calc(50% - 50px)',
+});
+
+// const HiVerified = styled('div')({
+//     position: 'absolute',
+//     bottom: '-20px',
+//     left: 'calc(50% - 60px)',
+//     color: '#1565C0', // Blue color for "HiVerified"
+//     fontSize: '0.8rem',
+//     fontWeight: 'bold',
+// });
+
+// const Badge = ({ hiRank, name }) => {
+//   return (
+//     <BadgeContainer>
+//       <Circle>{hiRank}</Circle>
+//       <Rectangle>Advance</Rectangle>
+//       <HiVerified>HiVerified</HiVerified>
+//     </BadgeContainer>
+//   );
+// };
 
 const drawerWidth = 240;
 
@@ -99,6 +156,8 @@ export default function DashboardPortfolio() {
     if (!user) Navigate("/login")
 
     const [userInfo, setUserInfo] = useState([])
+    // const [selectedImage, setSelectedImage] = useState(null);
+
 
     useEffect(() => {
 
@@ -114,64 +173,62 @@ export default function DashboardPortfolio() {
         // eslint-disable-next-line
     }, [])
 
-    function handlecreateProfile () {
-        if(userInfo.educationData.length ===0  ){
-        Navigate('/EducationForm')
-    }else {
-        alert("You Already have a Profile")
-    }
+    function handlecreateProfile() {
+        if (userInfo.educationData.length === 0) {
+            Navigate('/EducationForm')
+        } else {
+            alert("You Already have a Profile")
+        }
     }
 
-        //   PROJECT STARTS HERE
-        const [editProject, setEditProject] = useState(false)
-        const [projectId, setProjectId] = useState(null)
-        const [projectData, setProjectData] = useState({
-            organizationName: '',
-            projectTitle: '',
-            projectType: '',
-            skills:[],
-            description: '',
-            url: '',
-            startDate: '',
-            endDate: ''
-        });
-        
-        const fetchProjectDetails = async (id) => {
-            try {
-                const response = await fetch(`http://localhost:8000/projectInformationByID/${id}`, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                });
-                const data = await response.json();
-                setProjectData(
-                    {
-                        organizationName: data.data.organizationName,
-                        projectTitle: data.data.projectTitle,
-                        projectType: data.data.projectType,
-                        description: data.data.description,
-                        skills: data.data.skills,
-                        url: data.data.url,
-                        startDate: data.data.startDate,
-                        endDate: data.data.endDate
-    
-                    }
-                );
-                setProjectId(data.data._id)
-            } catch (error) {
-                console.error('Error fetching project details:', error);
-            }
-        };
-        
-    
-        // PROJECT ENDS HERE
+    //   PROJECT STARTS HERE
+    const [editProject, setEditProject] = useState(false)
+    const [projectId, setProjectId] = useState(null)
+    const [projectData, setProjectData] = useState({
+        organizationName: '',
+        projectTitle: '',
+        projectType: '',
+        skills: [],
+        description: '',
+        url: '',
+        startDate: '',
+        endDate: ''
+    });
 
-        // Experience starts here
+    const fetchProjectDetails = async (id) => {
+        try {
+            const response = await fetch(`${baseurl}/projectInformationByID/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.json();
+            setProjectData(
+                {
+                    organizationName: data.data.organizationName,
+                    projectTitle: data.data.projectTitle,
+                    projectType: data.data.projectType,
+                    description: data.data.description,
+                    skills: data.data.skills,
+                    url: data.data.url,
+                    startDate: data.data.startDate,
+                    endDate: data.data.endDate
+
+                }
+            );
+            setProjectId(data.data._id)
+        } catch (error) {
+            console.error('Error fetching project details:', error);
+        }
+    };
+
+    // PROJECT ENDS HERE
+
+    // Experience starts here
     const [editExperience, setEditExperience] = useState(false)
     const [experienceId, setExperienceId] = useState(null)
-    // const [selectedImage, setSelectedImage] = useState(null);
     const [experienceData, setExperienceData] = useState({
         experienceType: '',
         jobStatus: '',
@@ -188,9 +245,10 @@ export default function DashboardPortfolio() {
         startDate: '',
         endDate: ''
     });
+
     const fetchExperienceDetails = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8000/experienceInformationByID/${id}`, {
+            const response = await fetch(`${baseurl}/experienceInformationByID/${id}`, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
@@ -224,18 +282,61 @@ export default function DashboardPortfolio() {
 
     // EXP ENDS HERE
 
+    // Education ENDS HERE
+    const [editEducation, setEditEducation] = useState(false)
+    const [educationId, setEducationId] = useState(null)
+    const [educationData, setEducationData] = useState({
+        educationLevel: '',
+        collegeName: '',
+        degreeName: '',
+        authority: '',
+        discipline: '',
+        yearOfpassout: '',
+        startYear: '',
+        endYear: ''
+    });
+    const fetchEducationDetails = async (id) => {
+        try {
+            const response = await fetch(`${baseurl}/educationInformationByID/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setEducationData(
+                    {
+                        educationLevel: data.data.educationLevel,
+                        collegeName: data.data.collegeName,
+                        degreeName: data.data.degreeName,
+                        authority: data.data.authority,
+                        discipline: data.data.discipline,
+                        yearOfpassout: data.data.yearOfpassout,
+                        startYear: data.data.startYear,
+                        endYear: data.data.endYear
+                    }
+                );
+                setEducationId(data.data._id)
+            }
+        } catch (error) {
+            console.error('Error fetching education details:', error);
+        }
+    };
+    // Education ENDS HERE
+
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
     };
 
 
-
+    // eslint-disable-next-line no-unused-vars
     const [personal, setPersonal] = useState(false)
     const [education, setEducation] = useState(false)
     const [project, setProject] = useState(false)
     const [experience, setExperience] = useState(false)
-    const [editEducation, setEditEducation] = useState(false)
     // const [about, setAbout] = useState(false)
 
 
@@ -247,7 +348,7 @@ export default function DashboardPortfolio() {
                 <AppBar position="absolute" open={open}>
                     <Toolbar
                         sx={{
-                            pr: '24px', 
+                            pr: '24px',
                         }}
                     >
                         <IconButton
@@ -319,457 +420,250 @@ export default function DashboardPortfolio() {
 
 
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                        <Grid container spacing={2}>
+                            {/* Card 1 */}
+                            <Grid item xs={12} md={10}>
+                                <Card style={{ width: '80%' }}>
+                                    <CardContent>
+                                        {userInfo.userprofile?.map((userprof, i) => (
+                                            <ListItem alignItems="center" key={i}>
+                                                <ListItemAvatar sx={{ marginTop: '-9px' }}>
+                                                    <Avatar>
+                                                        {user.firstName[0].toUpperCase()}
+                                                    </Avatar>
+                                                </ListItemAvatar>
+                                                <ListItemText
+                                                    primary={
+                                                        <React.Fragment>
+                                                            <Typography variant='h4' style={{ fontFamily: "'Lora', sans-serif", marginLeft: '80px' }}>
+                                                                {user.firstName} {user.lastName}
+                                                            </Typography>
+                                                        </React.Fragment>
+                                                    }
+                                                    secondary={
+                                                        <React.Fragment>
+                                                            <Typography
+                                                                sx={{ display: 'inline', marginLeft: '80px' }}
+                                                                component="span"
+                                                                variant='h6'
+                                                                color="text.primary"
+                                                            >
+                                                                Professional Link - {userprof.gitLink}
+                                                            </Typography>
+                                                            <br />
+                                                            <Typography
+                                                                sx={{ display: 'inline', marginLeft: '80px' }}
+                                                                component="span"
+                                                                variant='h6'
+                                                                color="text.primary"
+                                                            >
+                                                                Email  - {user.email}
+                                                            </Typography>
+                                                            <br />
+                                                            <Typography
+                                                                sx={{ display: 'inline', marginLeft: '80px' }}
+                                                                component="span"
+                                                                variant='h6'
+                                                                color="text.primary"
+                                                            >
+                                                                Address - {userprof.location}
+                                                            </Typography>
+                                                            <br />
+                                                        </React.Fragment>
+                                                    }
+                                                />
+                                            </ListItem>
+                                        ))}
+                                    </CardContent>
+                                </Card>
 
-                        <Card style={{ width: '80%' }}>
-                            <CardContent>
-                                <button
-                                    onClick={() => { setPersonal(true); console.log(personal) }}
-                                    style={{
-                                        float: 'right',
-                                        border: 'none',
-                                        background: 'transparent',
-                                        marginTop: '18px',
-                                        cursor: 'pointer'
-                                    }}>
-                                    <FiEdit2 style={{ fontSize: '20px' }} />
-                                </button>
-
-
-
-
-                                <ListItem alignItems="center">
-
-                                    <ListItemAvatar sx={{ marginTop: '-9px' }}>
-                                        <Avatar alt="Cindy Baker" sx={{ width: 200, height: 200 }}><PersonIcon sx={{ fontSize: 150, cursor: 'pointer' }} /></Avatar>
-                                    </ListItemAvatar>
-
-                                    <ListItemText
-                                        primary={
-                                            <React.Fragment>
-                                                <Typography variant='h4' style={{ fontFamily: "'Lora', sans-serif", marginLeft: '80px' }}>
-                                                    {user.firstName} {user.lastName}
-                                                </Typography>
-                                            </React.Fragment>
-                                        }
-                                        // secondary={
-                                        //     <React.Fragment>
-                                        //         <Typography
-                                        //             sx={{ display: 'inline', marginLeft: '80px' }}
-                                        //             component="span"
-                                        //             variant="body2"
-                                        //             color="text.primary"
-                                        //         >
-                                        //             Professional Link - {user.gitLink}
-                                        //         </Typography>
-
-                                        //         <br />
-
-                                        //         <Typography
-                                        //             sx={{ display: 'inline', marginLeft: '80px' }}
-                                        //             component="span"
-                                        //             variant="body2"
-                                        //             color="text.primary"
-                                        //         >
-                                        //             Address- {user.location}
-                                        //         </Typography>
-
-                                        //         <br />
-
-                                        //     </React.Fragment>
-                                        // }
-
-
-                                    />
-
-                                </ListItem>
-
-                            </CardContent>
-                        </Card>
-
-                        {userInfo.length > 0 && (
-                    <Card style={{ width: '80%' }}>
-                        <CardContent>
-                            <ListItem alignItems="center">
-                                <ListItemAvatar sx={{ marginTop: '-9px' }}>
-                                    <Avatar>
-                                        {userInfo[0].firstName[0].toUpperCase()}
-                                    </Avatar>
-                                </ListItemAvatar>
-
-                                <ListItemText
-                                    primary={
-                                        <React.Fragment>
-                                            <Typography variant='h4' style={{ fontFamily: "'Lora', sans-serif", marginLeft: '80px' }}>
-                                                {userInfo[0].firstName} {userInfo[0].lastName}
-                                            </Typography>
-                                        </React.Fragment>
-                                    }
-                                    // secondary={
-                                    //     <React.Fragment>
-                                    //         <Typography
-                                    //             sx={{ display: 'inline', marginLeft: '80px' }}
-                                    //             component="span"
-                                    //             variant="body2"
-                                    //             color="text.primary"
-                                    //         >
-                                    //             Professional Link - {userInfo.userprofile.gitLink}
-                                    //         </Typography>
-
-                                    //         <br />
-
-                                    //         <Typography
-                                    //             sx={{ display: 'inline', marginLeft: '80px' }}
-                                    //             component="span"
-                                    //             variant="body2"
-                                    //             color="text.primary"
-                                    //         >
-                                    //             Address- {userInfo[0].location}
-                                    //         </Typography>
-
-                                    //         <br />
-
-                                    //     </React.Fragment>
-                                    // }
-                                />
-                            </ListItem>
-
-                            {/* ... (rest of the JSX code) */}
-                        </CardContent>
-                    </Card>
-                )}
-                        <br />
-
-                        <Card style={{ width: '80%' }}>
-                            <CardContent>
-                                <Typography variant="h5" component="div" color="rgb(22 102 197)">
-                                    About Me
-                                </Typography>
-
-                                {/* {about && <About/>} */}
-                                {
-                                    userInfo.userprofile?.map((user)=> (
-                                        <Box display="flex" flexDirection="column" alignItems="left">
-                                        <Typography variant="body1" sx={{ mb: 2 }}>
-                                            {user.aboutMe}
+                                <br />
+                                <Card style={{ width: '80%' }}>
+                                    <CardContent>
+                                        <Typography variant="h5" component="div" color="rgb(22 102 197)">
+                                            About Me
                                         </Typography>
-                                        {/* Add other content for the "About Me" section */}
-                                    </Box>
-                                    ))
-                                }
 
-                              
-                            </CardContent>
-                        </Card>
+                                        {
+                                            userInfo.userprofile?.map((user) => (
+                                                <Box display="flex" flexDirection="column" alignItems="left">
+                                                    <Typography variant="h5" sx={{ mb: 2 }}>
+                                                        {user.aboutMe}
+                                                    </Typography>
+                                                </Box>
+                                            ))
+                                        }
 
 
-                        <br />
+                                    </CardContent>
+                                </Card>
 
-                   {/* Experience card starts here */}
-                   <br />
-                        <Card style={{ width: '80%' }}>
-                            <CardContent>
-                                <Typography variant="h5" component="div" color="rgb(22 102 197)"> Experience </Typography>
-                                <button onClick={() => setExperience(true)} style={{ float: 'right', border: 'none', background: 'transparent', marginTop: '-26px', cursor: 'pointer' }}>
-                                    <GrAdd style={{ fontSize: '20px' }} />
-                                </button>
-                                {userInfo.experienceData?.map((experience, i) => (
-                                    <List>
-                                        <ListItem alignItems="flex-start">
-                                            <ListItemAvatar>
-                                                <Avatar><WorkIcon /></Avatar>
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary={
-                                                    <React.Fragment>
-                                                        <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{experience.companyName}</Typography>
-                                                        <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{experience.jobStatus}</Typography>
-                                                    </React.Fragment>
-                                                }
-                                                secondary={
-                                                    <React.Fragment>
-                                                        <Typography sx={{ display: 'inline' }} style={{ fontFamily: "'Montserrat', sans-serif" }} component="span" variant="body2" color="text.primary" >{experience.jobRole}</Typography>
-                                                        <Typography variant="subtitle1" gutterBottom>{"Skills Practiced: "}{experience.skills}{", "}</Typography>
 
-                                                        <Typography variant="subtitle1" gutterBottom>{experience.experienceType}</Typography>
-                                                        <Typography variant="subtitle1" gutterBottom>{experience.companyType}</Typography>
-                                                        <Typography variant="subtitle1" gutterBottom>{"From: "}{experience.startDate} {" — "} {experience.endDate}</Typography>
-                                                        <Typography variant="subtitle1" gutterBottom>{experience.location}</Typography>
-                                                        {/*<Typography variant="subtitle1" gutterBottom>{experience.responsivePoC.name}</Typography>
+                                <br />
+
+                                {/* Experience card starts here */}
+                                <br />
+                                <Card style={{ width: '80%' }}>
+                                    <CardContent>
+                                        <Typography variant="h5" component="div" color="rgb(22 102 197)"> Experience </Typography>
+                                        <button onClick={() => setExperience(true)} style={{ float: 'right', border: 'none', background: 'transparent', marginTop: '-26px', cursor: 'pointer' }}>
+                                            <GrAdd style={{ fontSize: '20px' }} />
+                                        </button>
+                                        {userInfo.experienceData?.map((experience, i) => (
+                                            <List>
+                                                <ListItem alignItems="flex-start">
+                                                    <ListItemAvatar>
+                                                        <Avatar><WorkIcon /></Avatar>
+                                                    </ListItemAvatar>
+                                                    <ListItemText
+                                                        primary={
+                                                            <React.Fragment>
+                                                                <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{experience.companyName}</Typography>
+                                                                <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{experience.jobStatus}</Typography>
+                                                            </React.Fragment>
+                                                        }
+                                                        secondary={
+                                                            <React.Fragment>
+                                                                <Typography sx={{ display: 'inline' }} style={{ fontFamily: "'Montserrat', sans-serif" }} component="span" variant="body2" color="text.primary" >{experience.jobRole}</Typography>
+                                                                <Typography variant="subtitle1" gutterBottom>{"Skills Practiced: "}{experience.skills}{", "}</Typography>
+
+                                                                <Typography variant="subtitle1" gutterBottom>{experience.experienceType}</Typography>
+                                                                <Typography variant="subtitle1" gutterBottom>{experience.companyType}</Typography>
+                                                                <Typography variant="subtitle1" gutterBottom>{"From: "}{experience.startDate} {" — "} {experience.endDate}</Typography>
+                                                                <Typography variant="subtitle1" gutterBottom>{experience.location}</Typography>
+                                                                {/*<Typography variant="subtitle1" gutterBottom>{experience.responsivePoC.name}</Typography>
                                                         <Typography variant="subtitle1" gutterBottom>{experience.responsivePoC.email}</Typography>
                                                         <Typography variant="subtitle1" gutterBottom>{experience.responsivePoC.contactPhone}</Typography>
                                                         <Typography variant="subtitle1" gutterBottom>{experience.responsivePoC.link}</Typography>
                                                         <Typography variant="subtitle1" gutterBottom>{experience.responsivePoC.position}</Typography>
                                                         <Typography variant="subtitle1" gutterBottom>{experience.responsivePoC.startDate}</Typography>
                                                 <Typography variant="subtitle1" gutterBottom>{experience.responsivePoC.endDate}</Typography>*/}
-                                                    </React.Fragment>
-                                                }
-                                            />
-                                            <button onClick={() => { setEditExperience(true); fetchExperienceDetails(userInfo.experienceData[i]._id) }} style={{ float: 'right', border: 'none', background: 'transparent', cursor: 'pointer' }}>
-                                                <FiEdit2 style={{ float: 'right', fontSize: '20px' }} />
-                                            </button>
-                                            {/*<button style={{ float: 'right', border: 'none', background: 'transparent', cursor: 'pointer', marginLeft: '30px' }}>
+                                                            </React.Fragment>
+                                                        }
+                                                    />
+                                                    <button onClick={() => { setEditExperience(true); fetchExperienceDetails(userInfo.experienceData[i]._id) }} style={{ float: 'right', border: 'none', background: 'transparent', cursor: 'pointer' }}>
+                                                        <FiEdit2 style={{ float: 'right', fontSize: '20px' }} />
+                                                    </button>
+                                                    {/*<button style={{ float: 'right', border: 'none', background: 'transparent', cursor: 'pointer', marginLeft: '30px' }}>
                                                 <MdDelete style={{ float: 'right', fontSize: '20px' }} />
                                             </button>*/}
-                                            {editExperience && (<EditExperiences experienceId={experienceId} experienceData={experienceData} setExperienceData={setExperienceData} experienceInfoEdit={(status) => setEditExperience(status)} />)}
-                                        </ListItem>
-                                        <Divider variant="inset" component="li" />
-                                    </List>
-                                ))}
-                                {experience && <ExperiencePortfolio experienceInfo={() => setExperience(false)} />}
-                            </CardContent>
-                        </Card>
-                        <br />
+                                                    {editExperience && (<EditExperiences experienceId={experienceId} experienceData={experienceData} setExperienceData={setExperienceData} experienceInfoEdit={(status) => setEditExperience(status)} />)}
+                                                </ListItem>
+                                                <Divider variant="inset" component="li" />
+                                            </List>
+                                        ))}
+                                        {experience && <ExperiencePortfolio experienceInfo={() => setExperience(false)} />}
+                                    </CardContent>
+                                </Card>
+                                <br />
 
-              {/* Projects card content starts here */}
-                        
-              <Card style={{ width: '80%' }}>
-                            <CardContent>
-                                <Typography variant="h5" component="div" color="rgb(22 102 197)"> Project </Typography>
-                                <button onClick={() => setProject(true)} style={{ float: 'right', border: 'none', background: 'transparent', marginTop: '-26px', cursor: 'pointer' }}>
-                                    <GrAdd style={{ fontSize: '20px' }} />
-                                </button>
-                                {userInfo.projects?.map((project, i) => (
-                                    <List>
-                                        <ListItem alignItems="flex-start">
-                                            <ListItemAvatar>
-                                                <Avatar><WbIncandescentSharpIcon /></Avatar>
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary={
-                                                    <React.Fragment>
-                                                        <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{project.projectTitle}</Typography>
-                                                    </React.Fragment>
-                                                }
-                                                secondary={
-                                                    <React.Fragment>
-                                                        <Typography sx={{ display: 'inline' }} style={{ fontFamily: "'Montserrat', sans-serif" }} component="span" variant="body2" color="text.primary" >{project.projectType}</Typography>
-                                                        {" — "}{project.projectDescription}
-                                                        <Typography variant="subtitle1" gutterBottom>{project.organizationName}</Typography>
-                                                        <Typography variant="subtitle1" gutterBottom>{project.Url}</Typography>
-                                                        <Typography variant="subtitle1" gutterBottom>{"From: "}{project.startDate} {" — "} {project.endDate}</Typography>
-                                                    </React.Fragment>
-                                                }
-                                            />
-                                            <button onClick={() => { setEditProject(true); fetchProjectDetails(userInfo.projects[i]._id) }} style={{ float: 'right', border: 'none', background: 'transparent', cursor: 'pointer' }}>
-                                                <FiEdit2 style={{ float: 'right', fontSize: '20px' }} /></button>
-                                            {/*<button style={{ float: 'right', border: 'none', background: 'transparent', cursor: 'pointer', marginLeft: '30px' }}>
+                                {/* Projects card content starts here */}
+
+                                <Card style={{ width: '80%' }}>
+                                    <CardContent>
+                                        <Typography variant="h5" component="div" color="rgb(22 102 197)"> Project </Typography>
+                                        <button onClick={() => setProject(true)} style={{ float: 'right', border: 'none', background: 'transparent', marginTop: '-26px', cursor: 'pointer' }}>
+                                            <GrAdd style={{ fontSize: '20px' }} />
+                                        </button>
+                                        {userInfo.projects?.map((project, i) => (
+                                            <List>
+                                                <ListItem alignItems="flex-start">
+                                                    <ListItemAvatar>
+                                                        <Avatar><WbIncandescentSharpIcon /></Avatar>
+                                                    </ListItemAvatar>
+                                                    <ListItemText
+                                                        primary={
+                                                            <React.Fragment>
+                                                                <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{project.projectTitle}</Typography>
+                                                            </React.Fragment>
+                                                        }
+                                                        secondary={
+                                                            <React.Fragment>
+                                                                <Typography sx={{ display: 'inline' }} style={{ fontFamily: "'Montserrat', sans-serif" }} component="span" variant="body2" color="text.primary" >{project.projectType}</Typography>
+                                                                {" — "}{project.projectDescription}
+                                                                <Typography variant="subtitle1" gutterBottom>{project.organizationName}</Typography>
+                                                                <Typography variant="subtitle1" gutterBottom>{project.Url}</Typography>
+                                                                <Typography variant="subtitle1" gutterBottom>{"From: "}{project.startDate} {" — "} {project.endDate}</Typography>
+                                                            </React.Fragment>
+                                                        }
+                                                    />
+                                                    <button onClick={() => { setEditProject(true); fetchProjectDetails(userInfo.projects[i]._id) }} style={{ float: 'right', border: 'none', background: 'transparent', cursor: 'pointer' }}>
+                                                        <FiEdit2 style={{ float: 'right', fontSize: '20px' }} /></button>
+                                                    {/*<button style={{ float: 'right', border: 'none', background: 'transparent', cursor: 'pointer', marginLeft: '30px' }}>
                                                 <MdDelete style={{ float: 'right', fontSize: '20px' }} />
                                             </button>*/}
-                                            
-                                            {editProject && (<EditProjects projectId={projectId} projectData={projectData} setProjectData={setProjectData}
-                                            projectInfoEdit={(status) => setEditProject(status)} />)}
 
-                                        </ListItem>
-                                        <Divider variant="inset" component="li" />
-                                    </List>
-                                ))}
-                                {project && <ProjectPortfolio projectInfo={() => setProject(false)} />}
-                            </CardContent>
-                        </Card>
-                        <br />
+                                                    {editProject && (<EditProjects projectId={projectId} projectData={projectData} setProjectData={setProjectData}
+                                                        projectInfoEdit={(status) => setEditProject(status)} />)}
 
-                        <Card style={{ width: '80%' }}>
-                            <CardContent>
-
-                                <Typography variant="h5" component="div" color="rgb(22 102 197)">
-                                    Education
-                                </Typography>
-
-
-                                <button
-                                    onClick={() => setEducation(true)}
-                                    style={{
-                                        float: 'right',
-                                        border: 'none',
-                                        background: 'transparent',
-                                        marginTop: '-26px',
-                                        cursor: 'pointer'
-                                    }}>
-                                    <GrAdd style={{ fontSize: '20px' }} />
-                                </button>
+                                                </ListItem>
+                                                <Divider variant="inset" component="li" />
+                                            </List>
+                                        ))}
+                                        {project && <ProjectPortfolio projectInfo={() => setProject(false)} />}
+                                    </CardContent>
+                                </Card>
+                                <br />
 
 
 
-                                {userInfo.educationData?.map((education) => (
-
-                                    <List>
+                                {/* education card content starts here */}
 
 
-                                        <ListItem alignItems="flex-start">
+                                <Card style={{ width: '80%' }}>
+                                    <CardContent>
+                                        <Typography variant="h5" component="div" color="rgb(22 102 197)"> Education </Typography>
+                                        <button onClick={() => setEducation(true)} style={{ float: 'right', border: 'none', background: 'transparent', marginTop: '-26px', cursor: 'pointer' }}>
+                                            <GrAdd style={{ fontSize: '20px' }} />
+                                        </button>
+                                        {userInfo.educationData?.map((education, i) => (
+                                            <List>
+                                                <ListItem alignItems="flex-start">
+                                                    <ListItemAvatar>
+                                                        <Avatar><SchoolSharpIcon /></Avatar>
+                                                    </ListItemAvatar>
+                                                    <ListItemText
+                                                        primary={
+                                                            <React.Fragment>
+                                                                <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{education.collegeName}</Typography>
+                                                            </React.Fragment>
+                                                        }
+                                                        secondary={
+                                                            <React.Fragment>
+                                                                <Typography sx={{ display: 'inline' }} style={{ fontFamily: "'Montserrat', sans-serif" }} component="span" variant="body2" color="text.primary" >{education.educationLevel}</Typography>
+                                                                {" — "}{education.degreeName}, {education.discipline}
+                                                                <Typography variant="subtitle1" gutterBottom>{"From: "}{education.startYear} {" — "} {education.endYear}</Typography>
+                                                            </React.Fragment>
+                                                        }
+                                                    />
+                                                    <button onClick={() => { setEditEducation(true); fetchEducationDetails(userInfo.educationData[i]._id) }} style={{ float: 'right', border: 'none', background: 'transparent', cursor: 'pointer' }}>
+                                                        <FiEdit2 style={{ float: 'right', fontSize: '20px' }} />
+                                                    </button>
+                                                    {/*<button style={{ float: 'right', border: 'none', background: 'transparent', cursor: 'pointer', marginLeft: '30px' }}>
+                                                <MdDelete style={{ float: 'right', fontSize: '20px' }} />
+                                            </button>*/}
+                                                    {/*editEducation && (<EditEducation educationId={educationId} educationData={educationData} setEducationData={setEducationData} id={userInfo.education[i]._id} educationInfoEdit={(status) => setEditEducation(status)} />)*/}
+                                                    {editEducation && (<EditEducations educationId={educationId} educationData={educationData} setEducationData={setEducationData}
+                                                        educationInfoEdit={(status) => setEditEducation(status)} />)}
+                                                </ListItem>
+                                                <Divider variant="inset" component="li" />
+                                            </List>
+                                        ))}
+                                        {education && <EducationPortfolio educationInfo={() => setEducation(false)} />}
+                                    </CardContent>
+                                </Card>
+                                <br />
+                            </Grid>
+                            {/* Badge */}
+                            <Grid item xs={12} md={2}>
+                                <BadgeContainer>
+                                    <Circle>{hirank}</Circle>
+                                    <Rectangle>Advance</Rectangle>
+                                    {/* <HiVerified>HiVerified</HiVerified> */}
+                                </BadgeContainer>
+                            </Grid>
+                        </Grid>
 
-
-
-                                            <ListItemAvatar>
-                                                <Avatar><SchoolSharpIcon /></Avatar>
-                                            </ListItemAvatar>
-
-
-
-                                            <ListItemText
-
-                                                primary={
-                                                    <React.Fragment>
-                                                        <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{education.collegeName}</Typography>
-                                                    </React.Fragment>
-                                                }
-
-                                                secondary={
-                                                    <React.Fragment>
-                                                        <Typography
-                                                            sx={{ display: 'inline' }}
-                                                            style={{ fontFamily: "'Montserrat', sans-serif" }}
-                                                            component="span"
-                                                            variant="body2"
-                                                            color="text.primary"
-                                                        >
-                                                            {education.educationLevel}
-                                                        </Typography>
-                                                        {" — "} {education.degreeName}, {education.discipline}
-
-                                                        <Typography variant="subtitle1" gutterBottom>
-                                                            {"From: "}{education.startYear} {" — "} {education.endYear}
-                                                        </Typography>
-                                                    </React.Fragment>
-                                                }
-
-
-                                            />
-
-                                            <button style={{
-                                                float: 'right',
-                                                border: 'none',
-                                                background: 'transparent',
-                                                cursor: 'pointer',
-
-                                            }}><FiEdit2 style={{ float: 'right', fontSize: '20px' }} onClick={() => setEditEducation(true)} /></button>
-
-
-                                            <button style={{
-                                                float: 'right',
-                                                border: 'none',
-                                                background: 'transparent',
-                                                cursor: 'pointer',
-                                                marginLeft: '30px'
-                                            }}><MdDelete style={{ float: 'right', fontSize: '20px' }} /></button>
-
-
-                                        </ListItem>
-
-
-                                        <Divider variant="inset" component="li" />
-                                    </List>
-                                ))}
-
-                                {education && <EducationPortfolio educationInfo={() => setEducation(false)} />}
-                                {editEducation && <EditEducation EditEducationInfo={() => setEditEducation(false)} />}
-
-                            </CardContent>
-
-                        </Card>
-                        <br />
-
-
-         
-
-                        {/* <Card style={{ width: '80%' }}>
-                            <CardContent>
-
-                                <Typography variant="h5" component="div" color="rgb(22 102 197)">
-                                    Experience
-                                </Typography>
-
-                                <button
-                                    onClick={() => setExperience(true)}
-                                    style={{
-                                        float: 'right',
-                                        border: 'none',
-                                        background: 'transparent',
-                                        marginTop: '-26px',
-                                        cursor: 'pointer'
-                                    }}>
-                                    <GrAdd style={{ fontSize: '20px' }} />
-                                </button>
-
-
-
-                                {userInfo.experienceData?.map((experience, i) => (
-                                    <List>
-
-                                        <ListItem alignItems="flex-start">
-
-                                            <ListItemAvatar>
-                                                <Avatar><WorkIcon /></Avatar>
-                                            </ListItemAvatar>
-
-
-
-                                            <ListItemText
-
-                                                primary={
-                                                    <React.Fragment>
-                                                        <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{experience.companyName}</Typography>
-                                                    </React.Fragment>
-                                                }
-
-                                                secondary={
-                                                    <React.Fragment>
-                                                        <Typography
-                                                            sx={{ display: 'inline' }}
-                                                            style={{ fontFamily: "'Montserrat', sans-serif" }}
-                                                            component="span"
-                                                            variant="body2"
-                                                            color="text.primary"
-                                                        >
-                                                            {experience.jobRole}
-                                                        </Typography>
-
-                                                        <Typography variant="subtitle1" gutterBottom>
-                                                            {"Skills Practiced: "}{experience.skills} {", "}
-                                                        </Typography>
-
-                                                        <Typography variant="subtitle1" gutterBottom>
-                                                            {experience.experienceType}
-                                                        </Typography>
-
-                                                        <Typography variant="subtitle1" gutterBottom>
-                                                            {experience.companyType}
-                                                        </Typography>
-
-
-
-                                                        <Typography variant="subtitle1" gutterBottom>
-                                                            {"From: "} {experience.startDate}  {" — "}  {experience.endDate}
-                                                        </Typography>
-
-                                                        <Typography variant="subtitle1" gutterBottom>
-                                                            {experience.location}
-                                                        </Typography>
-                                                    </React.Fragment>
-                                                }
-                                            />
-                                            <button
-                                                onClick={() => setEditExperience(true)}
-                                                style={{
-                                                    float: 'right',
-                                                    border: 'none',
-                                                    background: 'transparent',
-                                                    cursor: 'pointer'
-                                                }}><FiEdit2 style={{ float: 'right', fontSize: '20px' }} /></button>
-
-                                            {editExperience && <EditExperience expid={userInfo.projects[i]._id} experienceInfoEdit={() => setEditExperience(false)} />}
-
-                                        </ListItem>
-                                        <Divider variant="inset" component="li" />
-                                    </List>
-                                ))}
-                                {experience && <ExperiencePortfolio experienceInfo={() => setExperience(false)} />}
-                            </CardContent>
-
-                        </Card> */}
-
-       
-
-                        <br />
                     </Container>
                 </Box>
             </Box>

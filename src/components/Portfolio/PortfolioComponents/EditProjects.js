@@ -3,12 +3,12 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { RiCloseCircleFill } from 'react-icons/ri';
-import { primarySkills, projectTypes } from '../../../constraints/arrays';
+import { primarySkills, projectsType } from '../../../constraints/arrays';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import baseurl  from "../../../baseURL/config"
+import baseurl from  "../../../baseURL/config" ;
 
 
 const modalWrapper = {
@@ -20,7 +20,8 @@ const modalWrapper = {
   backgroundColor: 'rgba(189 , 189 , 189 , 0.9)',
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center', // Added to vertically center the modal
+  alignItems: 'center',
+  zIndex: '999',  // Added to vertically center the modal
 }
 const modalContainer = {
   position: 'fixed',
@@ -31,8 +32,9 @@ const modalContainer = {
   backgroundColor: '#fff',
   AlignItems: 'center',
   borderRadius: '0.5rem',
-  zIndex: '9999', // Adjusted zIndex to make sure the container appears above the drop-down
+  // Adjusted zIndex to make sure the container appears above the drop-down
   boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.2)',
+
 }
 const feild = {
   width: '40rem',
@@ -50,9 +52,11 @@ const dele = {
 }
 const EditProjects = (props) => {
   const { projectId, projectData, setProjectData } = props
+
   // State to hold the selected skills
   const [selectedSkills, setSelectedSkills] = useState(projectData.skills || projectData.skills);
   const [selectedProjectType, setSelectedProjectType] = useState(projectData.projectType || projectData.projectType);
+
   const handleProjectChange = (event) => {
     const { name, value } = event.target;
     setProjectData((prevData) => ({
@@ -78,7 +82,7 @@ const EditProjects = (props) => {
       skills: value // Update skills directly in projectData
     }));
   };
-  
+
   const handleSubmit = async () => {
     try {
       const response = await fetch(`${baseurl}/pprojects/${projectId}`, {
@@ -149,8 +153,10 @@ const EditProjects = (props) => {
               <InputLabel>Project Type</InputLabel>
               <Select
                 label="Project Type"
+                name="projectType"
                 value={selectedProjectType}
                 onChange={handleProjectTypeSelect}
+
                 anchorOrigin={{
                   vertical: 'bottom',
                   horizontal: 'right',
@@ -167,11 +173,11 @@ const EditProjects = (props) => {
                   },
                 }}
               >
-              {projectTypes.map((projectType, index) => (
-                <MenuItem key={`projectType-${index}`} value={projectType}>
-                  {projectType}
-                </MenuItem>
-              ))}
+                {projectsType.map((projectType, index) => (
+                  <MenuItem key={`projectType-${index}`} value={projectType}>
+                    {projectType}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>
@@ -212,11 +218,11 @@ const EditProjects = (props) => {
                   },
                 }}
               >
-              {primarySkills.map((skill, index) => (
-                <MenuItem key={`skill-${index}`} value={skill}>
-                  {skill}
-                </MenuItem>
-              ))}
+                {primarySkills.map((skill, index) => (
+                  <MenuItem key={`skill-${index}`} value={skill}>
+                    {skill}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>
@@ -270,5 +276,4 @@ const EditProjects = (props) => {
     </div>
   );
 };
-
-export default EditProjects; 
+export default EditProjects;    

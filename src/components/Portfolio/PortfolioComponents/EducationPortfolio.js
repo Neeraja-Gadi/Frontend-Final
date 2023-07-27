@@ -9,7 +9,9 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { educationLevels, authorities, discipline, yearofPassouts } from '../../../constraints/arrays'
+import { educationLevels, authorities, disciplines, yearofPassouts } from '../../../constraints/arrays'
+import baseurl from  "../../../baseURL/config" ;
+
 
 const modalWrapper = {
 
@@ -18,7 +20,8 @@ const modalWrapper = {
     right: '0',
     bottom: '0',
     top: '0',
-    backgroundColor: 'rgba(189 , 189 , 189 , 0.9)'
+    backgroundColor: 'rgba(189 , 189 , 189 , 0.9)',
+    zIndex: "999"
 }
 
 const modalContainer = {
@@ -83,7 +86,7 @@ const EducationPortfolio = (props) => {
     const SaveEducation = () => {
         educationList.forEach((e) => {
             e.userDetailsID = userId; // Set the userDetailsID to the userId value
-            fetch(`http://localhost:8000/education`, {
+            fetch(`${baseurl}/education`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -116,7 +119,7 @@ const EducationPortfolio = (props) => {
         });
     };
 
-    const handleChange = (event, index) => {
+    const handleEducationChange = (event, index) => {
         const { name, value } = event.target;
         const newEducation = [...educationList];
         newEducation[index] = {
@@ -139,32 +142,34 @@ const EducationPortfolio = (props) => {
                         <FormControl sx={{ m: 3, width: 600 }}>
                             <InputLabel>Education Level</InputLabel>
                             <Select
+                                fullWidth
                                 value={education.educationLevel}
                                 name="educationLevel"
-                                onChange={(e) => handleChange(e, i)}
+                                onChange={(e) => handleEducationChange(e, i)}
                                 label="Education Level"
                                 required
                                 input={<OutlinedInput label="Education Level" />}
-                                >
-                                {educationLevels.map((educationLevel) => (
-                                    <MenuItem key={educationLevel} value={educationLevel}>
+                            >
+                                {educationLevels.map((educationLevel, i) => (
+                                    <MenuItem key={i} value={educationLevel}>
                                         {educationLevel}
                                     </MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
-                        
+
                         <Box
-                            mb={1}
+
                             sx={{ m: 3, width: 600 }}
                         >
-                            <TextField 
-                                fullWidth 
+                            <TextField
+                                fullWidth
                                 label="Degree Name"
                                 name="degreeName"
                                 value={education.degreeName}
-                                onChange={(e) => handleChange(e, i)}
+                                onChange={(e) => handleEducationChange(e, i)}
                                 id="fullWidth"
+                                required
                             />
                         </Box>
 
@@ -172,11 +177,14 @@ const EducationPortfolio = (props) => {
                             mb={1}
                             sx={{ m: 3, width: 600 }}
                         >
-                            <TextField fullWidth label="College Name" id="fullWidth"
-
+                            <TextField
+                                required
+                                label="College Name"
+                                fullWidth
+                                id="fullWidth"
                                 name="collegeName"
                                 value={education.collegeName}
-                                onChange={(e) => handleChange(e, i)}
+                                onChange={(e) => handleEducationChange(e, i)}
                             />
                         </Box>
 
@@ -185,18 +193,18 @@ const EducationPortfolio = (props) => {
                         <FormControl sx={{ m: 3, width: 600 }}>
                             <InputLabel>Authority</InputLabel>
                             <Select
-
                                 name="authority"
+                                fullWidth
                                 label="Authority"
                                 value={education.authority}
-                                onChange={(e) => handleChange(e, i)}
+                                onChange={(e) => handleEducationChange(e, i)}
                                 input={<OutlinedInput label="Authority" />}
                                 required
                                 inputProps={{ 'aria-label': 'Without label' }}
                             >
-                                {authorities.map((authority) => (
+                                {authorities.map((authority, i) => (
                                     <MenuItem
-                                        key={authority}
+                                        key={i}
                                         value={authority}
                                     >
                                         {authority}
@@ -212,43 +220,43 @@ const EducationPortfolio = (props) => {
                                 label="Discipline"
                                 name="discipline"
                                 value={education.discipline}
-                                onChange={(e) => handleChange(e, i)}
+                                onChange={(e) => handleEducationChange(e, i)}
 
                                 input={<OutlinedInput label="Discipline" />}
                                 required
                                 inputProps={{ 'aria-label': 'Without label' }}
                             >
-                                {discipline.map((disciplines, i) => (
+                                {disciplines.map((discipline, i) => (
                                     <MenuItem
                                         key={i}
-                                        value={disciplines}
+                                        value={discipline}
                                     >
-                                        {disciplines}
+                                        {discipline}
                                     </MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
 
                         <FormControl sx={{ m: 3, width: 600 }}>
-                        <InputLabel id="demo-multiple-name-label">Year of Passout</InputLabel>
-                        <Select
-                          name="yearOfpassout"
-                          value={education.yearOfpassout}
-                          onChange={(e) => handleChange(e, i)}
-                          labelId="demo-multiple-name-label"
-                          id="demo-multiple-name"        
-                          input={<OutlinedInput label="Year of Passout" />}        
-                        >
-                          {yearofPassouts.map((yearofPassout) => (
-                            <MenuItem
-                              key={yearofPassout}
-                              value={yearofPassout}
+                            <InputLabel id="demo-multiple-name-label">Year of Passout</InputLabel>
+                            <Select
+                                name="yearOfpassout"
+                                value={education.yearOfpassout}
+                                onChange={(e) => handleEducationChange(e, i)}
+                                labelId="demo-multiple-name-label"
+                                id="demo-multiple-name"
+                                input={<OutlinedInput label="Year of Passout" />}
                             >
-                              {yearofPassout}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
+                                {yearofPassouts.map((yearofPassout) => (
+                                    <MenuItem
+                                        key={yearofPassout}
+                                        value={yearofPassout}
+                                    >
+                                        {yearofPassout}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
 
                         <Box
                             mb={1}
@@ -258,7 +266,7 @@ const EducationPortfolio = (props) => {
                                 label="Start Year"
                                 name="startYear"
                                 value={education.startYear}
-                                onChange={(e) => handleChange(e, i)}
+                                onChange={(e) => handleEducationChange(e, i)}
                                 type="Date"
                                 fullWidth
                                 required
@@ -276,7 +284,7 @@ const EducationPortfolio = (props) => {
                                 label="End Year"
                                 name="endYear"
                                 value={education.endYear}
-                                onChange={(e) => handleChange(e, i)}
+                                onChange={(e) => handleEducationChange(e, i)}
                                 type="Date"
                                 fullWidth
                                 required

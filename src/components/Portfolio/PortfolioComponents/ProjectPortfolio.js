@@ -8,7 +8,9 @@ import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import InputLabel from '@mui/material/InputLabel'
-import { primarySkills, projectTypes } from '../../../constraints/arrays';
+import { primarySkills, projectsType } from '../../../constraints/arrays';
+import baseurl from  "../../../baseURL/config" ;
+
 
 const modalWrapper = {
 
@@ -17,7 +19,8 @@ const modalWrapper = {
     right: '0',
     bottom: '0',
     top: '0',
-    backgroundColor: 'rgba(189 , 189 , 189 , 0.9)'
+    backgroundColor: 'rgba(189 , 189 , 189 , 0.9)',
+    zIndex: "999"
 }
 
 const modalContainer = {
@@ -80,10 +83,11 @@ const ProjectPortfolio = (props) => {
     ]);
 
 
+
     const SaveProject = () => {
         projectList.forEach((e) => {
             e.userDetailsID = userId; // Set the userDetailsID to the userId value
-            fetch(`http://localhost:8000/project`, {
+            fetch(`${baseurl}/project`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -182,7 +186,7 @@ const ProjectPortfolio = (props) => {
                                 label="Project Type"
                                 input={<OutlinedInput label="Project Type" />}
                             >
-                                {projectTypes.map((projectType, i) =>
+                                {projectsType.map((projectType, i) =>
                                 (
                                     <MenuItem
                                         key={i}
@@ -196,6 +200,7 @@ const ProjectPortfolio = (props) => {
                         <Box mb={1}
                             sx={{ m: 3, width: 600 }}>
                             <TextField
+                                fullWidth
                                 name="description"
                                 value={project.description}
                                 id="outlined-multiline-static"
@@ -242,11 +247,12 @@ const ProjectPortfolio = (props) => {
                             sx={{ m: 3, width: 600 }}
                         >
                             <TextField fullWidth label="Project Link"
+
                                 name="url"
                                 value={project.url}
                                 onChange={(e) => handleProjectChange(e, i)}
                                 id="fullWidth"
-                                
+
                             />
                         </Box>
                         <Box
@@ -271,4 +277,5 @@ const ProjectPortfolio = (props) => {
         </div>
     )
 }
+
 export default ProjectPortfolio
