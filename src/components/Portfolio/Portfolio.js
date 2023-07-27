@@ -421,7 +421,7 @@ export default function DashboardPortfolio() {
 
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={2}>
-                            {/* Card 1 */}
+                           
                             <Grid item xs={12} md={10}>
                                 <Card style={{ width: '80%' }}>
                                     <CardContent>
@@ -510,7 +510,7 @@ export default function DashboardPortfolio() {
                                             <GrAdd style={{ fontSize: '20px' }} />
                                         </button>
                                         {userInfo.experienceData?.map((experience, i) => (
-                                            <List>
+                                            <List key={i}>
                                                 <ListItem alignItems="flex-start">
                                                     <ListItemAvatar>
                                                         <Avatar><WorkIcon /></Avatar>
@@ -518,15 +518,14 @@ export default function DashboardPortfolio() {
                                                     <ListItemText
                                                         primary={
                                                             <React.Fragment>
+                                                                <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{experience.jobRole}</Typography>
                                                                 <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{experience.companyName}</Typography>
-                                                                <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{experience.jobStatus}</Typography>
                                                             </React.Fragment>
                                                         }
                                                         secondary={
                                                             <React.Fragment>
-                                                                <Typography sx={{ display: 'inline' }} style={{ fontFamily: "'Montserrat', sans-serif" }} component="span" variant="body2" color="text.primary" >{experience.jobRole}</Typography>
-                                                                <Typography variant="subtitle1" gutterBottom>{"Skills Practiced: "}{experience.skills}{", "}</Typography>
-
+                                                                <Typography sx={{ display: 'inline' }} style={{ fontFamily: "'Montserrat', sans-serif" }} component="span" variant="body2" color="text.primary" >{experience.jobStatus}</Typography>
+                                                                <Typography variant="subtitle1" gutterBottom> {"Skills Practiced: "}{experience.skills.join(", ")}</Typography>
                                                                 <Typography variant="subtitle1" gutterBottom>{experience.experienceType}</Typography>
                                                                 <Typography variant="subtitle1" gutterBottom>{experience.companyType}</Typography>
                                                                 <Typography variant="subtitle1" gutterBottom>{"From: "}{experience.startDate} {" — "} {experience.endDate}</Typography>
@@ -579,10 +578,13 @@ export default function DashboardPortfolio() {
                                                         }
                                                         secondary={
                                                             <React.Fragment>
+                                                                <Typography variant="subtitle1" gutterBottom>
+                                                                    {"Skills: "}{project.skills.join(", ")}
+                                                                </Typography>
                                                                 <Typography sx={{ display: 'inline' }} style={{ fontFamily: "'Montserrat', sans-serif" }} component="span" variant="body2" color="text.primary" >{project.projectType}</Typography>
                                                                 {" — "}{project.projectDescription}
                                                                 <Typography variant="subtitle1" gutterBottom>{project.organizationName}</Typography>
-                                                                <Typography variant="subtitle1" gutterBottom>{project.Url}</Typography>
+                                                                <Typography variant="subtitle1" gutterBottom>{project.url}</Typography>
                                                                 <Typography variant="subtitle1" gutterBottom>{"From: "}{project.startDate} {" — "} {project.endDate}</Typography>
                                                             </React.Fragment>
                                                         }
