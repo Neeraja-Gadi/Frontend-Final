@@ -102,14 +102,14 @@ const TalentPreferenceForm = () => {
 
         <Box>
           <FormControl sx={{ m: 3, width: 600 }}>
-            <InputLabel id="jobRole-label">Choose maximum three Job Roles Preference </InputLabel>
+            <InputLabel id="jobRole-label"> Job Role</InputLabel>
             <Select
               id="jobRole"
               name="jobRole"
               multiple
               value={formValues.jobRole}
               onChange={handleChange}
-              label="Job Role"
+              placeholder=" Choose maximum three Job Roles Preference"
               required
               input={<OutlinedInput label="Job Role" />}
             >

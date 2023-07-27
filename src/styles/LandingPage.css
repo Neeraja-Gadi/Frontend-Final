@@ -37,16 +37,13 @@ body {
 .navbar-item-container {
   display: flex;
   align-items: center;
-}
-.navbar-item-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
+  justify-items: auto;
+  
 }
 .navbar-item {
   align-items: center;
   padding: 14px 16px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   color: #e8cd55;
   background-color: transparent;
@@ -90,7 +87,7 @@ body {
 .login-signup-button {
   padding: 14px 16px;
   color: #000000;
-  background-color: #e8cd55;
+  background-color: #b7ff00;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -99,7 +96,7 @@ body {
 .login-signup-button:hover {
   background-color:  #00ffae;
 }
-/* Section V*/ 
+/* Section*/ 
 .section {
   padding: 0;
   display: flex;
@@ -113,23 +110,24 @@ body {
   background-color: #000000;
   color: hsl(0, 0%, 100%);
   font-family: bold;
-  font-size: 17px;
+  font-size: 28px;
   box-shadow: 7px 8px 6px rgba(234, 196, 6, 0.843);
   height: 56px;
   max-height: 100px;
 }
-/* Grid Container sectionV*/
+/* Grid Container section*/
 .sectionV {
   padding: 0 0 0 0;
   display: flex;
   display: block;
+  width: auto ;
   height: auto;
-  width: 100%;
 }
 .V {
-  width: 100% ;
-  height: auto;
+  height: 100%;
+  width: 100%;
   color: #000000;
+  display: block;
 }
 .grid-container {
   background-color: #000000;

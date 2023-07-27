@@ -9,7 +9,7 @@ import baseurl from '../../baseURL/config';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { projectTypes ,primarySkills } from '../../constraints/arrays'; // Add the relevant array for projectTypes
+import { projectsType ,primarySkills } from '../../constraints/arrays'; // Add the relevant array for projectsType
 import MenuItem from '@mui/material/MenuItem';
 import { Button, Box, Container, Paper } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
@@ -136,7 +136,7 @@ export default function ProjectForm() {
                   label="Project Type"
                   
                 >
-                  {projectTypes.map((projectType) => (
+                  {projectsType.map((projectType) => (
                     <MenuItem key={projectType} value={projectType}>
                       {projectType}
                     </MenuItem>
