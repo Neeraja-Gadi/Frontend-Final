@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import baseurl  from "../../../baseURL/config"
+import baseurl from  "../../../baseURL/config" ;
 
 
 const modalWrapper = {
@@ -20,7 +20,8 @@ const modalWrapper = {
   backgroundColor: 'rgba(189 , 189 , 189 , 0.9)',
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center', // Added to vertically center the modal
+  alignItems: 'center', 
+  zIndex: '999'
 }
 const modalContainer = {
   position: 'fixed',
@@ -35,7 +36,6 @@ const modalContainer = {
   boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.2)',
 
 }
-
 const feild = {
   width: '40rem',
   AlignItems: 'center',
@@ -53,11 +53,18 @@ const dele = {
 
 const EditExperiences = (props) => {
   const { experienceId, experienceData, setExperienceData } = props
+
   const [selectedSkills, setSelectedSkills] = useState(experienceData.skills || experienceData.skills);
+
   const [selectedLocation, setSelectedLocation] = useState(experienceData.location || experienceData.location);
+
   const [selectedJobRole, setSelectedJobRole] = useState(experienceData.jobRole || experienceData.jobRole);
+
   const [selectedExperienceType, setSelectedExperienceType] = useState(experienceData.experienceType || experienceData.experienceType);
+
   const [selectedCompanyType, setSelectedCompanyType] = useState(experienceData.companyType || experienceData.companyType);
+
+
   const handleSkillSelect = (event) => {
     const { value } = event.target;
     setSelectedSkills(value);
@@ -151,6 +158,7 @@ const EditExperiences = (props) => {
           >
             <RiCloseCircleFill style={{ fontSize: '23px', color: 'rgb(22 102 197)' }} />
           </button>
+
           <Box mb={1} sx={{ m: 3, width: 600 }}>
             <FormControl fullWidth variant="outlined">
               <InputLabel>Experience Type</InputLabel>
@@ -159,6 +167,7 @@ const EditExperiences = (props) => {
                 name="experienceType"
                 value={selectedExperienceType}
                 onChange={handleExperienceType}
+
                 anchorOrigin={{
                   vertical: 'bottom',
                   horizontal: 'right',
@@ -226,6 +235,7 @@ const EditExperiences = (props) => {
               </Select>
             </FormControl>
           </Box>
+
           <Box mb={1} sx={{ m: 3, width: 600 }}>
             <FormControl fullWidth variant="outlined">
               <InputLabel>Company Type</InputLabel>
@@ -234,6 +244,7 @@ const EditExperiences = (props) => {
                 name="companyType"
                 value={selectedCompanyType}
                 onChange={handleCompanyType}
+
                 anchorOrigin={{
                   vertical: 'bottom',
                   horizontal: 'right',
@@ -258,6 +269,7 @@ const EditExperiences = (props) => {
               </Select>
             </FormControl>
           </Box>
+
           <Box mb={1} sx={{ m: 3, width: 600 }}>
             <FormControl fullWidth variant="outlined">
               <InputLabel>Location</InputLabel>
@@ -289,6 +301,7 @@ const EditExperiences = (props) => {
               </Select>
             </FormControl>
           </Box>
+
           <Box mb={1} sx={{ m: 3, width: 600 }}>
             <FormControl fullWidth variant="outlined">
               <InputLabel>Skills</InputLabel>

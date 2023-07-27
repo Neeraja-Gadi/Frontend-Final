@@ -7,14 +7,12 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { primarySkills, experienceTypes, companyTypes, location } from '../../../constraints/arrays';
+import { diffjobRole, primarySkills, experienceTypes, companyTypes, location } from '../../../constraints/arrays';
 import OutlinedInput from '@mui/material/OutlinedInput'
-
+import baseurl from  "../../../baseURL/config" ;
 
 const userId = JSON.parse(localStorage.getItem('userDetails'));
-
 const ExperiencePortfolio = (props) => {
-
     const modalWrapper = {
 
         position: 'fixed',
@@ -22,7 +20,8 @@ const ExperiencePortfolio = (props) => {
         right: '0',
         bottom: '0',
         top: '0',
-        backgroundColor: 'rgba(189 , 189 , 189 , 0.9)'
+        backgroundColor: 'rgba(189 , 189 , 189 , 0.9)',
+        zIndex: "999"
     }
 
     const modalContainer = {
@@ -42,7 +41,8 @@ const ExperiencePortfolio = (props) => {
         width: '40rem',
         AlignItems: 'center',
         marginTop: '18px',
-        margin: '18px'
+        margin: '18px',
+
     }
 
     const save = {
@@ -55,9 +55,6 @@ const ExperiencePortfolio = (props) => {
         margin: '20px',
         cursor: 'pointer'
     }
-
-
-
 
     const navigate = useNavigate();
     const [experienceData, setExperienceData] = useState([
@@ -95,7 +92,7 @@ const ExperiencePortfolio = (props) => {
         console.log(experienceData)
         let experienceInfo = experienceData;
         experienceInfo?.map((e) => {
-          return  fetch(`http://localhost:8000/experience`, {
+            return fetch(`${baseurl}/experience`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -120,31 +117,26 @@ const ExperiencePortfolio = (props) => {
                         endDate: ''
                     }])
                     navigate("/Portfolio")
-
                 }
             }
             ))
         })
         return true
     }
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         SaveExperience()
-
         // alert(JSON.stringify(experienceData));
     };
 
     return (
         <div style={modalWrapper}>
             <div style={modalContainer}>
-
                 {experienceData?.map((experience, index) => (
                     <div style={feild} key={index}>
-
                         <Box
-                            mb={2}
+                            mb={1}
+                            sx={{ m: 3, width: 600 }}
                         >
                             <TextField fullWidth label="Current Status"
                                 name="jobStatus"
@@ -154,18 +146,28 @@ const ExperiencePortfolio = (props) => {
                             />
                         </Box>
 
-                        <Box
-                            mb={2}
-                        >
-                            <TextField fullWidth label="Job Role"
+                        <FormControl mb={1} sx={{ m: 3, width: 600 }}>
+                            <InputLabel>Job Role</InputLabel>
+                            <Select
                                 name="jobRole"
                                 value={experience.jobRole}
                                 onChange={(event) => handleExperienceChange(event, index)}
-                                id="fullWidth" />
-                        </Box>
-
-                        <Box
-                            mb={2}
+                                label="Job Role"
+                                required
+                                input={<OutlinedInput label="jobRole" />}
+                            >
+                                {diffjobRole.map((jobRole, i) => (
+                                    <MenuItem
+                                        key={i}
+                                        value={jobRole}
+                                    >
+                                        {jobRole}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <Box mb={1}
+                            sx={{ m: 3, width: 600 }}
                         >
                             <TextField fullWidth label="Company Name"
                                 name="companyName"
@@ -173,8 +175,7 @@ const ExperiencePortfolio = (props) => {
                                 onChange={(event) => handleExperienceChange(event, index)}
                                 id="fullWidth" />
                         </Box>
-
-                        <FormControl sx={{ m: 3, width: 600 }}>
+                        <FormControl mb={1} sx={{ m: 3, width: 600 }}>
                             <InputLabel>Experience Type</InputLabel>
                             <Select
                                 name="experienceType"
@@ -192,12 +193,9 @@ const ExperiencePortfolio = (props) => {
                                         {experienceType}
                                     </MenuItem>
                                 ))}
-
                             </Select>
                         </FormControl>
-
-
-                        <FormControl sx={{ m: 3, width: 600 }}>
+                        <FormControl mb={1} sx={{ m: 3, width: 600 }}>
                             <InputLabel>Company Type</InputLabel>
                             <Select
                                 name="companyType"
@@ -215,11 +213,9 @@ const ExperiencePortfolio = (props) => {
                                         {companyType}
                                     </MenuItem>
                                 ))}
-
                             </Select>
                         </FormControl>
-
-                        <FormControl sx={{ m: 3, width: 600 }}>
+                        <FormControl mb={1} sx={{ m: 3, width: 600 }}>
                             <InputLabel id="demo-multiple-name-label">Skills Practiced</InputLabel>
                             <Select
                                 labelId="demo-multiple-name-label"
@@ -229,7 +225,6 @@ const ExperiencePortfolio = (props) => {
                                 onChange={(event) => handleExperienceChange(event, index)}
                                 multiple
                                 input={<OutlinedInput label="Skills Practiced" />}
-
                             >
                                 {primarySkills.map((primarySkill, i) => (
                                     <MenuItem
@@ -241,8 +236,7 @@ const ExperiencePortfolio = (props) => {
                                 ))}
                             </Select>
                         </FormControl>
-
-                        <FormControl sx={{ m: 3, width: 600 }}>
+                        <FormControl mb={1} sx={{ m: 3, width: 600 }}>
                             <InputLabel>Company Location</InputLabel>
                             <Select
                                 name="location"
@@ -263,8 +257,6 @@ const ExperiencePortfolio = (props) => {
 
                             </Select>
                         </FormControl>
-
-
                         <Box
                             mb={1}
                             sx={{ m: 3, width: 600 }}>
@@ -280,11 +272,8 @@ const ExperiencePortfolio = (props) => {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
-
                             />
                         </Box>
-
-
                         <Box mb={1}
                             sx={{ m: 3, width: 600 }}><TextField
                                 variant="outlined"
@@ -300,13 +289,10 @@ const ExperiencePortfolio = (props) => {
                                 }}
                             />
                         </Box>
-
                         <Button variant="contained" style={save} onClick={handleSubmit}>save</Button>
-                        <Button variant="contained" style={cancel} onCLick={() => props.experienceInfo(false)} >cancel</Button>
-
+                        <Button variant="contained" style={cancel} onClick={() => props.experienceInfo(false)} >Cancel</Button>
                     </div>
                 ))}
-
                 <br />
 
             </div>
