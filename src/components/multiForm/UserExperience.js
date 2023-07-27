@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -9,7 +8,7 @@ import baseurl from '../../baseURL/config';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {diffjobRole, primarySkills, experienceTypes, companyTypes, location  } from '../../constraints/arrays';
+import { diffjobRole, primarySkills, experienceTypes, companyTypes, location } from '../../constraints/arrays';
 import MenuItem from '@mui/material/MenuItem';
 import { Button, Box, Container, Paper } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
@@ -33,7 +32,7 @@ export default function ExperienceForm() {
     jobRole: '',
     companyType: '',
     companyName: '',
-    skills: [], 
+    skills: [],
     location: '',
     startDate: '',
     endDate: '',
@@ -62,7 +61,7 @@ export default function ExperienceForm() {
   };
 
   function SaveExperience() {
-    experienceList.map((experience) => {
+    const saveRequests = experienceList.map((experience) => {
       return fetch(`${baseurl}/experience`, {
         method: 'POST',
         headers: {
@@ -70,23 +69,34 @@ export default function ExperienceForm() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(experience),
-      }).then((response) =>
-        response.json().then((data) => {
-          console.log(data);
-          if (data.status === false) return false;
-          else {
-            setExperienceList([initialExperience]);
-            navigate("/UserProjects") 
-          }
-        })
-      );
+      }).then((response) => response.json());
     });
-    return true;
+
+    return Promise.all(saveRequests);
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    SaveExperience();
+
+    try {
+      const saveResults = await SaveExperience();
+
+      // Check if all experience entries were successfully saved
+      const allSavedSuccessfully = saveResults.every((result) => result.status !== false);
+
+      if (allSavedSuccessfully) {
+        // Clear the experienceList and navigate to the next page (UserProjects)
+        setExperienceList([initialExperience]);
+        navigate('/UserProjects');
+      } else {
+        // Handle the case where some experience entries failed to save
+        alert('Some experience entries failed to save. Please try again.');
+      }
+    } catch (error) {
+      // Handle any errors that occur during saving
+      console.error('Error while saving experience entries:', error);
+      alert('An error occurred while saving experience entries. Please try again later.');
+    }
   };
 
   const handleCancel = () => {
@@ -108,9 +118,9 @@ export default function ExperienceForm() {
           key={i}
           style={{
             border: '1px solid',
-            marginTop: '40px',
+            marginTop: '60px',
             borderRadius: '0.5rem',
-            padding: '1rem',
+            padding: '4rem',
           }}
         >
           <Typography variant="h6" gutterBottom>
@@ -125,7 +135,6 @@ export default function ExperienceForm() {
                   name="experienceType"
                   onChange={(e) => handleChange(e, i)}
                   label="Experience Type"
-                  
                 >
                   {experienceTypes.map((experienceType) => (
                     <MenuItem key={experienceType} value={experienceType}>
@@ -142,17 +151,16 @@ export default function ExperienceForm() {
                   value={experience.jobRole}
                   onChange={(e) => handleChange(e, i)}
                   fullWidth
-                  
                 >
-                  {diffjobRole.map((jobrole  , i) => (
+                  {diffjobRole.map((jobrole, i) => (
                     <MenuItem key={i} value={jobrole}>
                       {jobrole}
                     </MenuItem>
                   ))}
                 </Select>
               </FormControl>
-              
-               <FormControl fullWidth variant="outlined" margin="dense" required>
+
+              <FormControl fullWidth variant="outlined" margin="dense" required>
                 <InputLabel>Primary Skills</InputLabel>
                 <Select
                   multiple
@@ -170,7 +178,7 @@ export default function ExperienceForm() {
                 </Select>
               </FormControl>
 
-              <FormControl fullWidth variant="outlined" margin="dense" >
+              <FormControl fullWidth variant="outlined" margin="dense" required>
                 <InputLabel>Company Type</InputLabel>
                 <Select
                   value={experience.companyType}
@@ -196,11 +204,9 @@ export default function ExperienceForm() {
                 required
                 margin="dense"
               />
-             
             </Grid>
             <Grid item xs={12} sm={6}>
-
-            <FormControl fullWidth variant="outlined" margin="dense" required>
+              <FormControl fullWidth variant="outlined" margin="dense" required>
                 <InputLabel>Job Status</InputLabel>
                 <Select
                   name="jobStatus"
@@ -263,27 +269,30 @@ export default function ExperienceForm() {
             </Grid>
           </Grid>
 
-          <Box mt={2} display="flex" justifyContent="space-between">
-            {experienceList.length !== 1 && (
+          {experienceList.length !== 1 && (
+            <Box mt={2} display="flex" justifyContent="space-between">
               <Button variant="contained" color="error" onClick={() => handleRemoveExperience(i)}>
                 Remove
               </Button>
-            )}
-            <Button variant="contained" color="primary" onClick={handleAddExperience}>
-              Add Experience
-            </Button>
-          </Box>
-
-          <Box mt={2} display="flex" justifyContent="flex-end">
-            <Button variant="outlined" color="error" onClick={handleCancel} style={{ marginRight: '16px' }}>
-              Cancel
-            </Button>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              Submit
-            </Button>
-          </Box>
+            </Box>
+          )}
         </Paper>
       ))}
+
+      <Box mt={2} display="flex" justifyContent="flex-end">
+        <Button variant="outlined" color="error" onClick={handleCancel} style={{ marginRight: '16px' }}>
+          Cancel
+        </Button>
+        <Button variant="contained" color="primary" onClick={handleAddExperience}>
+          Add Experience
+        </Button>
+      </Box>
+
+      <Box mt={2} display="flex" justifyContent="flex-end">
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
+          Submit
+        </Button>
+      </Box>
     </Container>
   );
 }

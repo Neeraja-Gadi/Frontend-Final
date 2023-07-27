@@ -12,7 +12,7 @@ import I from '../../img/3.PNG';
 import J from '../../img/4.PNG';
 import K from '../../img/5.PNG';
 import L from '../../img/6.PNG';
-import M from '../../img/II.PNG';
+import M from '../../img/II.png';
 import IM from '../../img/Neeraja.png';
 import '../../styles/LandingPage.css';
 import logo from '../../img/Vishal.png';
