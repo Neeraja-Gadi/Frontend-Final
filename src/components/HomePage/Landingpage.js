@@ -11,15 +11,14 @@ import H from '../../img/2.PNG';
 import I from '../../img/3.PNG';
 import J from '../../img/4.PNG';
 import K from '../../img/5.PNG';
-import L from '../../img/6.png';
-import M from '../../img/II.png';
+import L from '../../img/6.PNG';
+import M from '../../img/II.PNG';
 import IM from '../../img/Neeraja.png';
 import '../../styles/LandingPage.css';
 import logo from '../../img/Vishal.png';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import baseurl from "../../baseURL/config" ;
-
 
 let userid = JSON.parse(localStorage.getItem('userDetails'));
 
@@ -33,7 +32,6 @@ const LandingPage = () => {
     setUser(JSON.parse(localStorage.getItem("userDetails")))
   }, [])
 
-  
   function logOut() {
     localStorage.removeItem('userDetails');
     localStorage.removeItem('token');
