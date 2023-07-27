@@ -15,9 +15,7 @@ const defaultTheme = createTheme();
 export default function TalentPoolNew() {
     const { jid } = useParams()
   const [getTalentinfo, setGetTalentinfo] = useState([]);
-  // const [users, setUsers] = useState([]);
   const [selectedRow, setSelectedRow] = useState([]);
-
 
   useEffect(() => {
     const fetchData = () => {
@@ -50,8 +48,9 @@ export default function TalentPoolNew() {
         return ele
       })
     }
-    
   }
+
+
   const handleSendMail = async () => {
     try {
       
@@ -88,6 +87,7 @@ export default function TalentPoolNew() {
   };
 
   const columns = [
+
     // {
     //   field: 'avatar',
     //   headerName: '',
@@ -101,6 +101,7 @@ export default function TalentPoolNew() {
     //     />
     //   ),
     // },
+
     { field: 'fullName', headerName: 'Full Name', width: 200 },
     { field: 'highestEducation', headerName: 'Highest Education', width: 200 },
     { field: 'experienceOverall', headerName: 'Experience', width: 150 },
@@ -160,7 +161,7 @@ export default function TalentPoolNew() {
               </div>
             </Grid>
             <Button variant="outlined" color="primary"  onClick={handleSendMail}>
-        Send Mail to Selected Users
+        Send Mail 
       </Button>
           </Grid>
        

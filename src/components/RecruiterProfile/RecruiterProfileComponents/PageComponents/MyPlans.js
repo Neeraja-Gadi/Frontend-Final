@@ -10,21 +10,77 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import { useNavigate } from 'react-router-dom';
 import CardHeader from '@mui/material/CardHeader';
 import Navbar from "./Navbar"
-import baseurl from "../../../../baseURL/config" ;
+import List from '@mui/material/List';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import HomeIcon from '@mui/icons-material/Home';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import ListItemButton from '@mui/material/ListItemButton';
+import baseurl from "../../../../baseURL/config"
 
-const user = JSON.parse(localStorage.getItem('userDetails'));
+let user = JSON.parse(localStorage.getItem('userDetails'));
 
 const profile = {
     marginTop: '130px',
     borderRadius: '0.8rem',
     boxShadow: '2px 2px 4px 2px rgba(0, 0, 0, 0.2)',
 };
+
+function Sidebar() {
+    const navigate = useNavigate();
+ 
+    const [recdata, setRecdata] = useState([])
+    useEffect(() => {
+        user = JSON.parse(localStorage.getItem('userDetails'));
+        fetch(`${baseurl}/recruiter/${user._id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setRecdata(data.data);
+                console.log(data.data);
+
+            })
+            .catch((err) => console.log(err));
+    }, []);
+    console.log(recdata);
+
+    function profileRediret() {
+        if (recdata.length === 0) {
+            navigate('/ProfileForm')
+        }
+        else { navigate('/MyPlans') }
+    }
+    return (
+
+        <div style={{ backgroundColor: '#f0f0f0', padding: '16px', height: '100%', borderRadius: '0.5rem' }}>
+            <List>
+                <ListItemButton href='/'>
+                    <ListItemIcon>
+                        <HomeIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Home" />
+                </ListItemButton>
+                <ListItemButton onClick={profileRediret}>
+                    <ListItemIcon>
+                        <AccountCircleIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Profile" />
+                </ListItemButton>
+                <ListItemButton href="/SubscriptionModal">
+                    <ListItemIcon>
+                        <AttachMoneyIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Plans" />
+                </ListItemButton>
+            </List>
+        </div>
+    );
+}
 
 const defaultTheme = createTheme();
 
@@ -39,7 +95,7 @@ export default function MyPlans() {
             .then((data) => {
                 setPlanData(data.data);
                 console.log(data.data);
-               
+
             })
             .catch((err) => console.log(err));
     }, []);
@@ -63,96 +119,102 @@ export default function MyPlans() {
                 </Toolbar>
             </AppBar> */}
 
-              <Navbar activePage={activePage} color={{MyPlans:'black',Employer:'white',TalentPoolNew:'white'}} />
-            
-            <main>
-                <Container sx={{ py: 8 }} maxWidth="md" style={profile}>
-                    <ListItem alignItems="flex-start" marginLeft="10px">
-                        <ListItemAvatar marginTop="-7px">
-                            <Avatar
-                                alt="Remy Sharp"
-                                src="/static/images/avatar/1.jpg"
-                                sx={{ width: 130, height: 130 }}
-                            />
-                        </ListItemAvatar>
-                        <ListItemText
-                            sx={{ marginTop: '25px', marginLeft: '22px', flexGrow: 1 }}
-                            primary={
-                                <Typography variant="h4" fontFamily="Roboto, sans-serif">
-                                    {recruiterInfo.fullName}
-                                </Typography>
-                            }
-                            secondary={
-                                <React.Fragment>
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="body2"
-                                        color="text.primary"
-                                    >
-                                        Email: {recruiterInfo.email}
-                                    </Typography>
-
-                                    <Typography variant="body1" color="text.secondary">
-                                        Phone: {recruiterInfo.phoneNumber}
-                                    </Typography>
-
-                                    {recruiterInfo.socialMediaLinks && (
-                                        <>
-                                            <Typography variant="body1" color="text.secondary">
-                                                LinkedIn: <a href={recruiterInfo.socialMediaLinks.linkedin} target="_blank" rel="noopener noreferrer">
-                                                    {recruiterInfo.socialMediaLinks.linkedin}
-                                                </a>
-                                            </Typography>
-
-                                            <Typography variant="body1" color="text.secondary">
-                                                Twitter: <a href={recruiterInfo.socialMediaLinks.twitter} target="_blank" rel="noopener noreferrer">
-                                                    {recruiterInfo.socialMediaLinks.twitter}
-                                                </a>
-                                            </Typography>
-                                        </>
-                                    )}
-
-                                    {recruiterInfo.workExperience && recruiterInfo.workExperience.length > 0 && (
-                                        <>
-                                            <Typography variant="body1" color="text.secondary">
-                                                Company: {recruiterInfo.workExperience[0].company}
-                                            </Typography>
-                                        </>
-                                    )}
-
-                                </React.Fragment>
-                            }
-                        />
-                    </ListItem>
-                </Container>
-                <br />
-                <br />
-                <br />
-                <Container maxWidth="md">
-                    <Grid container spacing={5} alignItems="flex-end">
-                        {renderedPlans.map((plan, index) => (
-                            <Grid
-                                item
-                                key={index}
-                                xs={12}
-                                sm={plan.recruiterPlan === 'Enterprise' ? 12 : 6}
-                                md={4}
-                            >
-                                <Card>
-                                    <CardHeader
-                                        title={plan.recruiterPlan}
-                                        subheader={plan.subheader}
-                                        titleTypographyProps={{ align: 'center' }}
-                                        subheaderTypographyProps={{ align: 'center' }}
-                                        sx={{
-                                            backgroundColor: (theme) =>
-                                                theme.palette.mode === 'light'
-                                                    ? theme.palette.grey[200]
-                                                    : theme.palette.grey[700],
-                                        }}
+            <Navbar activePage={activePage} color={{ MyPlans: 'black', Employer: 'white', TalentPoolNew: 'white' }} />
+            <Grid container>
+                {/* Sidebar */}
+                <Grid item xs={12} sm={4} md={3}>
+                    <Sidebar />
+                </Grid>
+                {/* Main content */}
+                <Grid item xs={12} sm={8} md={9}>
+                    <main>
+                        <Container sx={{ py: 8 }} maxWidth="md" style={profile}>
+                            <ListItem alignItems="flex-start" marginLeft="10px">
+                                <ListItemAvatar marginTop="-7px">
+                                    <Avatar
+                                        alt="Remy Sharp"
+                                        src="/static/images/avatar/1.jpg"
+                                        sx={{ width: 130, height: 130 }}
                                     />
-                                    {/* <CardContent
+                                </ListItemAvatar>
+                                <ListItemText
+                                    sx={{ marginTop: '25px', marginLeft: '22px', flexGrow: 1 }}
+                                    primary={
+                                        <Typography variant="h4" fontFamily="Roboto, sans-serif">
+                                            {recruiterInfo.fullName}
+                                        </Typography>
+                                    }
+                                    secondary={
+                                        <React.Fragment>
+                                            <Typography
+                                                sx={{ display: 'inline' }}
+                                                component="span"
+                                                variant="body2"
+                                                color="text.primary"
+                                            >
+                                                Email: {recruiterInfo.email}
+                                            </Typography>
+
+                                            <Typography variant="body1" color="text.secondary">
+                                                Phone: {recruiterInfo.phoneNumber}
+                                            </Typography>
+
+                                            {recruiterInfo.socialMediaLinks && (
+                                                <>
+                                                    <Typography variant="body1" color="text.secondary">
+                                                        LinkedIn: <a href={recruiterInfo.socialMediaLinks.linkedin} target="_blank" rel="noopener noreferrer">
+                                                            {recruiterInfo.socialMediaLinks.linkedin}
+                                                        </a>
+                                                    </Typography>
+
+                                                    <Typography variant="body1" color="text.secondary">
+                                                        Twitter: <a href={recruiterInfo.socialMediaLinks.twitter} target="_blank" rel="noopener noreferrer">
+                                                            {recruiterInfo.socialMediaLinks.twitter}
+                                                        </a>
+                                                    </Typography>
+                                                </>
+                                            )}
+
+                                            {recruiterInfo.workExperience && recruiterInfo.workExperience.length > 0 && (
+                                                <>
+                                                    <Typography variant="body1" color="text.secondary">
+                                                        Company: {recruiterInfo.workExperience[0].company}
+                                                    </Typography>
+                                                </>
+                                            )}
+
+                                        </React.Fragment>
+                                    }
+                                />
+                            </ListItem>
+                        </Container>
+                        <br />
+                        <br />
+                        <br />
+                        <Container maxWidth="md">
+                            <Grid container spacing={5} alignItems="flex-end">
+                                {renderedPlans.map((plan, index) => (
+                                    <Grid
+                                        item
+                                        key={index}
+                                        xs={12}
+                                        sm={plan.recruiterPlan === 'Enterprise' ? 12 : 6}
+                                        md={4}
+                                    >
+                                        <Card>
+                                            <CardHeader
+                                                title={plan.recruiterPlan}
+                                                subheader={plan.subheader}
+                                                titleTypographyProps={{ align: 'center' }}
+                                                subheaderTypographyProps={{ align: 'center' }}
+                                                sx={{
+                                                    backgroundColor: (theme) =>
+                                                        theme.palette.mode === 'light'
+                                                            ? theme.palette.grey[200]
+                                                            : theme.palette.grey[700],
+                                                }}
+                                            />
+                                            {/* <CardContent
                                         sx={{
                                             height: '15rem',
                                             alignItems: 'center',
@@ -197,106 +259,108 @@ export default function MyPlans() {
                                         </Box>
                                     </CardContent> */}
 
-                                    <CardContent
-                                        sx={{
-                                            height: '15rem',
-                                            alignItems: 'center',
-                                            backgroundColor: (theme) =>
-                                                theme.palette.mode === 'light'
-                                                    ? plan.recruiterPlan === 'Gold'
-                                                        ? 'goldenrod'
-                                                        : plan.recruiterPlan === 'Silver'
-                                                            ? '#c0c0c0'
-                                                            : plan.recruiterPlan === 'Platinum'
-                                                                ? '#e5e4e2'
-                                                                : theme.palette.grey[200]
-                                                    : plan.recruiterPlan === 'Gold'
-                                                        ? 'goldenrod'
-                                                        : plan.recruiterPlan === 'Silver'
-                                                            ? '#c0c0c0'
-                                                            : plan.recruiterPlan === 'Platinum'
-                                                                ? '#e5e4e2'
-                                                                : theme.palette.grey[700],
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            justifyContent: 'center',
-                                            textAlign: 'center',
-                                            padding: '2rem',
-                                        }}
-                                    >
-                                        <Typography variant="h5" color="text.primary">
-                                            Duration: {plan.duration} Days
-                                        </Typography>
-
-                                        <Typography variant="h5" color="text.primary" sx={{ marginTop: '1rem' }}>
-                                            Remaining Days: {plan.remainingDays}
-                                        </Typography>
-                                        <Typography variant="h6" color="text.secondary" sx={{ marginTop: '1rem' }}>
-                                            {plan.jobPostno} Job Post
-                                        </Typography>
-                                    </CardContent>
-
-                                    <CardActions
-                                        sx={{
-                                            backgroundColor: (theme) =>
-                                                theme.palette.mode === 'light'
-                                                    ? plan.recruiterPlan === 'Gold'
-                                                        ? 'goldenrod'
-                                                        : plan.recruiterPlan === 'Silver'
-                                                            ? '#c0c0c0'
-                                                            : plan.recruiterPlan === 'Platinum'
-                                                                ? '#e5e4e2'
-                                                                : theme.palette.grey[200]
-                                                    : plan.recruiterPlan === 'Gold'
-                                                        ? 'goldenrod'
-                                                        : plan.recruiterPlan === 'Silver'
-                                                            ? '#c0c0c0'
-                                                            : plan.recruiterPlan === 'Platinum'
-                                                                ? '#e5e4e2'
-                                                                : theme.palette.grey[700],
-                                        }}
-                                    >
-                                        {plan.status ? (
-                                            <Button
-                                                fullWidth
-                                                variant="contained"
-                                                color="success"
-                                                onClick={() => navigate('/job-posting')}
+                                            <CardContent
+                                                sx={{
+                                                    height: '15rem',
+                                                    alignItems: 'center',
+                                                    backgroundColor: (theme) =>
+                                                        theme.palette.mode === 'light'
+                                                            ? plan.recruiterPlan === 'Gold'
+                                                                ? 'goldenrod'
+                                                                : plan.recruiterPlan === 'Silver'
+                                                                    ? '#c0c0c0'
+                                                                    : plan.recruiterPlan === 'Platinum'
+                                                                        ? '#e5e4e2'
+                                                                        : theme.palette.grey[200]
+                                                            : plan.recruiterPlan === 'Gold'
+                                                                ? 'goldenrod'
+                                                                : plan.recruiterPlan === 'Silver'
+                                                                    ? '#c0c0c0'
+                                                                    : plan.recruiterPlan === 'Platinum'
+                                                                        ? '#e5e4e2'
+                                                                        : theme.palette.grey[700],
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    justifyContent: 'center',
+                                                    textAlign: 'center',
+                                                    padding: '2rem',
+                                                }}
                                             >
-                                                Active
-                                            </Button>
-                                        ) : (
-                                            <Button
-                                                fullWidth
-                                                variant="contained"
-                                                color="error"
-                                                onClick={() => navigate('/job-posting')}
-                                            >
-                                                Inactive
-                                            </Button>
-                                        )}
+                                                <Typography variant="h5" color="text.primary">
+                                                    Duration: {plan.duration} Days
+                                                </Typography>
 
-                                        <Button
-                                            fullWidth
-                                            variant="contained"
-                                            onClick={() => { navigate(`/Employer/${user._id}/${plan.id}`) }}
-                                        >
-                                            Select
-                                        </Button>
-                                    </CardActions>
-                                </Card>
+                                                <Typography variant="h5" color="text.primary" sx={{ marginTop: '1rem' }}>
+                                                    Remaining Days: {plan.remainingDays}
+                                                </Typography>
+                                                <Typography variant="h6" color="text.secondary" sx={{ marginTop: '1rem' }}>
+                                                    {plan.jobPostno} Job Post
+                                                </Typography>
+                                            </CardContent>
+
+                                            <CardActions
+                                                sx={{
+                                                    backgroundColor: (theme) =>
+                                                        theme.palette.mode === 'light'
+                                                            ? plan.recruiterPlan === 'Gold'
+                                                                ? 'goldenrod'
+                                                                : plan.recruiterPlan === 'Silver'
+                                                                    ? '#c0c0c0'
+                                                                    : plan.recruiterPlan === 'Platinum'
+                                                                        ? '#e5e4e2'
+                                                                        : theme.palette.grey[200]
+                                                            : plan.recruiterPlan === 'Gold'
+                                                                ? 'goldenrod'
+                                                                : plan.recruiterPlan === 'Silver'
+                                                                    ? '#c0c0c0'
+                                                                    : plan.recruiterPlan === 'Platinum'
+                                                                        ? '#e5e4e2'
+                                                                        : theme.palette.grey[700],
+                                                }}
+                                            >
+                                                {plan.status ? (
+                                                    <Button
+                                                        fullWidth
+                                                        variant="contained"
+                                                        color="success"
+                                                        onClick={() => navigate('/job-posting')}
+                                                    >
+                                                        Active
+                                                    </Button>
+                                                ) : (
+                                                    <Button
+                                                        fullWidth
+                                                        variant="contained"
+                                                        color="error"
+                                                        onClick={() => navigate('/job-posting')}
+                                                    >
+                                                        Inactive
+                                                    </Button>
+                                                )}
+
+                                                <Button
+                                                    fullWidth
+                                                    variant="contained"
+                                                    onClick={() => { navigate(`/Employer/${user._id}/${plan.id}`) }}
+                                                >
+                                                    Select
+                                                </Button>
+                                            </CardActions>
+                                        </Card>
+                                    </Grid>
+                                ))}
                             </Grid>
-                        ))}
-                    </Grid>
-                    {!showAll && (
-                        <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
-                            <Button variant="contained" onClick={() => setShowAll(true)}>
-                                Show More
-                            </Button>
-                        </Box>
-                    )}
-                </Container>
-            </main>
+                            {!showAll && (
+                                <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
+                                    <Button variant="contained" onClick={() => setShowAll(true)}>
+                                        Show More
+                                    </Button>
+                                </Box>
+                            )}
+                        </Container>
+                    </main>
+                </Grid>
+            </Grid>
         </ThemeProvider>
     );
 }

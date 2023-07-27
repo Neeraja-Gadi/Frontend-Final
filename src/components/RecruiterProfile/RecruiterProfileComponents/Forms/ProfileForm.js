@@ -6,10 +6,10 @@ import { Delete as DeleteIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import baseurl from "../../../../baseURL/config"
 
-const user = JSON.parse(localStorage.getItem('userDetails'));
-
+let user = JSON.parse(localStorage.getItem('userDetails'));
 
 const ProfileForm = () => {
+  user = JSON.parse(localStorage.getItem('userDetails'));
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     userDetailsID: user._id,
@@ -58,7 +58,6 @@ const ProfileForm = () => {
   };
 
   const handleSave = () => {
-    // Assuming the API endpoint is correct and formData is formatted correctly
     fetch(`${baseurl}/recruiter`, {
       method: 'POST',
       headers: {

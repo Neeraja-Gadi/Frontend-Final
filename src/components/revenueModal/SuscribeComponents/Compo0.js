@@ -10,6 +10,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import GlobalStyles from '@mui/material/GlobalStyles';
+import baseurl from "../../../baseURL/config"
+
 const tiers = [
   {
     title: 'Silver',
@@ -62,15 +64,16 @@ const tiers = [
   },
 ];
 const defaultTheme = createTheme();
-const user = JSON.parse(localStorage.getItem('userDetails'));
+let user = JSON.parse(localStorage.getItem('userDetails'));
 export default function PricingZero() {
+  user = JSON.parse(localStorage.getItem('userDetails'));
   const handleBuy = async (plan) => {
     const info = {
       userDetailsID: user._id,
       recruiterPlan: plan.title,
       jobPostno: 1,
     }
-    fetch("http://localhost:8000/revenueR", {
+    fetch(`${baseurl}/revenueR"`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -79,6 +82,7 @@ export default function PricingZero() {
       body: JSON.stringify(info)
     }).then(response => response.json().then(data => {
       console.log(data)
+      
     }))
   };
   return (
