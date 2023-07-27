@@ -1,17 +1,14 @@
-
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
+import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import baseurl from '../../baseURL/config';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { projectsType ,primarySkills } from '../../constraints/arrays'; // Add the relevant array for projectsType
+import { projectsType, primarySkills } from '../../constraints/arrays';
 import MenuItem from '@mui/material/MenuItem';
-import { Button, Box, Container, Paper } from '@mui/material';
+import { Button, Box, Container, Paper,Grid } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
 
@@ -19,69 +16,89 @@ const userId = JSON.parse(localStorage.getItem('userDetails'));
 
 export default function ProjectForm() {
   const navigate = useNavigate();
-  useEffect(() => {
-    if (userId == null) {
-      navigate('/login');
-      alert('Please login first');
-    }
-  }, [navigate]);
-
-  const initialProject = {
-    userDetailsID: userId._id,
-    projectTitle: '',
-    projectType: '',
-    description: '',
-    skills: [], 
-    startDate: '',
-    endDate: '',
-    url: '',
-    organizationName: '',
-  };
-
-  const [projectList, setProjectList] = useState([initialProject]);
+  const [projectList, setProjectList] = useState([
+    {
+      userDetailsID: userId._id,
+      projectTitle: '',
+      projectType: '',
+      description: '',
+      skills: [],
+      startDate: '',
+      endDate: '',
+      url: '',
+      organizationName: '',
+    },
+  ]);
 
   const handleAddProject = () => {
-    setProjectList([...projectList, { ...initialProject }]);
+    setProjectList([
+      ...projectList,
+      {
+        userDetailsID: userId._id,
+        projectTitle: '',
+        projectType: '',
+        description: '',
+        skills: [],
+        startDate: '',
+        endDate: '',
+        url: '',
+        organizationName: '',
+      },
+    ]);
   };
 
   const handleRemoveProject = (index) => {
-    const newProject = [...projectList];
-    newProject.splice(index, 1);
-    setProjectList(newProject);
+    const newProjectList = [...projectList];
+    newProjectList.splice(index, 1);
+    setProjectList(newProjectList);
   };
 
   const handleChange = (event, index) => {
     const { name, value } = event.target;
-    const newProject = [...projectList];
-    newProject[index] = {
-      ...newProject[index],
+    const newProjectList = [...projectList];
+    newProjectList[index] = {
+      ...newProjectList[index],
       [name]: value,
     };
-    setProjectList(newProject);
+    setProjectList(newProjectList);
   };
 
-  function saveProject() {
-    projectList.map((project) => {
-      return fetch(`${baseurl}/project`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+  const saveProject = async () => {
+    try {
+      for (const project of projectList) {
+        const response = await fetch(`${baseurl}/project`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(project),
+        });
+        const data = await response.json();
+        console.log(data);
+        if (data.status === false) return false;
+      }
+      setProjectList([
+        {
+          userDetailsID: userId._id,
+          projectTitle: '',
+          projectType: '',
+          description: '',
+          skills: [],
+          startDate: '',
+          endDate: '',
+          url: '',
+          organizationName: '',
         },
-        body: JSON.stringify(project),
-      }).then((response) =>
-        response.json().then((data) => {
-          console.log(data);
-          if (data.status === false) return false;
-          else {
-            setProjectList([initialProject]);
-            navigate('/UserProfileForm'); 
-          }
-        })
-      );
-    });
-    return true;
-  }
+      ]);
+      navigate('/UserProfileForm');
+      return true;
+    } catch (error) {
+      console.error('Error while saving project information:', error);
+      alert('An error occurred while saving project information. Please try again later.');
+      return false;
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -89,7 +106,19 @@ export default function ProjectForm() {
   };
 
   const handleCancel = () => {
-    setProjectList([initialProject]);
+    setProjectList([
+      {
+        userDetailsID: userId._id,
+        projectTitle: '',
+        projectType: '',
+        description: '',
+        skills: [],
+        startDate: '',
+        endDate: '',
+        url: '',
+        organizationName: '',
+      },
+    ]);
   };
 
   return (
@@ -102,9 +131,9 @@ export default function ProjectForm() {
         </Toolbar>
       </AppBar>
 
-      {projectList.map((project, i) => (
+      {projectList.map((project, index) => (
         <Paper
-          key={i}
+          key={index}
           style={{
             border: '1px solid',
             marginTop: '40px',
@@ -113,7 +142,7 @@ export default function ProjectForm() {
           }}
         >
           <Typography variant="h6" gutterBottom>
-            Project
+            Project {index + 1}
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
@@ -122,19 +151,18 @@ export default function ProjectForm() {
                 label="Project Title"
                 name="projectTitle"
                 value={project.projectTitle}
-                onChange={(e) => handleChange(e, i)}
+                onChange={(e) => handleChange(e, index)}
                 fullWidth
                 required
                 margin="dense"
               />
-              <FormControl fullWidth variant="outlined" margin="dense"required>
+              <FormControl fullWidth variant="outlined" margin="dense" required>
                 <InputLabel>Project Type</InputLabel>
                 <Select
                   value={project.projectType}
                   name="projectType"
-                  onChange={(e) => handleChange(e, i)}
+                  onChange={(e) => handleChange(e, index)}
                   label="Project Type"
-                  
                 >
                   {projectsType.map((projectType) => (
                     <MenuItem key={projectType} value={projectType}>
@@ -148,7 +176,7 @@ export default function ProjectForm() {
                 label="Description"
                 name="description"
                 value={project.description}
-                onChange={(e) => handleChange(e, i)}
+                onChange={(e) => handleChange(e, index)}
                 fullWidth
                 required
                 margin="dense"
@@ -159,9 +187,8 @@ export default function ProjectForm() {
                   multiple
                   value={project.skills}
                   name="skills"
-                  onChange={(e) => handleChange(e, i)}
+                  onChange={(e) => handleChange(e, index)}
                   label="Skills"
-                  
                   renderValue={(selected) => selected.join(', ')}
                 >
                   {primarySkills.map((skill) => (
@@ -178,7 +205,7 @@ export default function ProjectForm() {
                 label="Start Date"
                 name="startDate"
                 value={project.startDate}
-                onChange={(e) => handleChange(e, i)}
+                onChange={(e) => handleChange(e, index)}
                 type="date"
                 fullWidth
                 required
@@ -192,7 +219,7 @@ export default function ProjectForm() {
                 label="End Date"
                 name="endDate"
                 value={project.endDate}
-                onChange={(e) => handleChange(e, i)}
+                onChange={(e) => handleChange(e, index)}
                 type="date"
                 fullWidth
                 required
@@ -203,10 +230,10 @@ export default function ProjectForm() {
               />
               <TextField
                 variant="outlined"
-                label="url like gitlink, google drive "
+                label="URL like gitlink, google drive"
                 name="url"
                 value={project.url}
-                onChange={(e) => handleChange(e, i)}
+                onChange={(e) => handleChange(e, index)}
                 fullWidth
                 required
                 margin="dense"
@@ -216,7 +243,7 @@ export default function ProjectForm() {
                 label="Organization Name"
                 name="organizationName"
                 value={project.organizationName}
-                onChange={(e) => handleChange(e, i)}
+                onChange={(e) => handleChange(e, index)}
                 fullWidth
                 required
                 margin="dense"
@@ -224,27 +251,30 @@ export default function ProjectForm() {
             </Grid>
           </Grid>
 
-          <Box mt={2} display="flex" justifyContent="space-between">
-            {projectList.length !== 1 && (
-              <Button variant="contained" color="error" onClick={() => handleRemoveProject(i)}>
-                Remove
+          {projectList.length !== 1 && (
+            <Box mt={2} display="flex" justifyContent="space-between">
+              <Button variant="contained" color="error" onClick={() => handleRemoveProject(index)}>
+                Remove Project
               </Button>
-            )}
-            <Button variant="contained" color="primary" onClick={handleAddProject}>
-              Add Project
-            </Button>
-          </Box>
-
-          <Box mt={2} display="flex" justifyContent="flex-end">
-            <Button variant="outlined" color="error" onClick={handleCancel} style={{ marginRight: '16px' }}>
-              Cancel
-            </Button>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              Submit
-            </Button>
-          </Box>
+            </Box>
+          )}
         </Paper>
       ))}
+
+      <Box mt={2} display="flex" justifyContent="flex-end">
+        <Button variant="contained" color="primary" onClick={handleAddProject}>
+          Add Project
+        </Button>
+      </Box>
+
+      <Box mt={2} display="flex" justifyContent="flex-end">
+        <Button variant="outlined" color="error" onClick={handleCancel} style={{ marginRight: '16px' }}>
+          Cancel
+        </Button>
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
+          Submit
+        </Button>
+      </Box>
     </Container>
   );
 }

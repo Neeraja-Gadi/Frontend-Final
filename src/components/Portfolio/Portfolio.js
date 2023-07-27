@@ -42,7 +42,6 @@ import EditEducations from './PortfolioComponents/EditEducation'
 import EditExperiences from './PortfolioComponents/EditExperience'
 import EditProjects from './PortfolioComponents/EditProjects';
 import baseurl from "../../baseURL/config"
-let hirank = 1500;
 
 const BadgeContainer = styled('div')({
     position: 'relative',
@@ -172,6 +171,23 @@ export default function DashboardPortfolio() {
         console.log(userInfo)
         // eslint-disable-next-line
     }, [])
+
+
+    const[hirank,setHirank] = useState({})
+    useEffect(() => {
+
+        fetch(`${baseurl}/hirankandpool/${user._id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => { console.log(data); setHirank(data.data) })
+            .catch(err => console.log(err))
+        console.log(hirank)
+        // eslint-disable-next-line
+    }, [])
+    
 
     function handlecreateProfile() {
         if (userInfo.educationData.length === 0) {
@@ -659,8 +675,8 @@ export default function DashboardPortfolio() {
                             {/* Badge */}
                             <Grid item xs={12} md={2}>
                                 <BadgeContainer>
-                                    <Circle>{hirank}</Circle>
-                                    <Rectangle>Advance</Rectangle>
+                                    <Circle>{hirank.HiRank}</Circle>
+                                    <Rectangle>{hirank.Talent_Pool}</Rectangle>
                                     {/* <HiVerified>HiVerified</HiVerified> */}
                                 </BadgeContainer>
                             </Grid>
