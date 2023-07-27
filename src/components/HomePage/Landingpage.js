@@ -1,4 +1,3 @@
-import { FaUser } from 'react-icons/fa'; 
 import React, { useEffect, useState } from 'react';
 import A from '../../img/V.png';
 import B from '../../img/I.png';
@@ -12,11 +11,11 @@ import H from '../../img/2.PNG';
 import I from '../../img/3.PNG';
 import J from '../../img/4.PNG';
 import K from '../../img/5.PNG';
-import L from '../../img/6.PNG';
+import L from '../../img/6.png';
 import M from '../../img/II.png';
 import IM from '../../img/Neeraja.png';
-import   '../../styles/LandingPage.css';
-import logo from '../../img/logo.png';
+import '../../styles/LandingPage.css';
+import logo from '../../img/Vishal.png';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import baseurl from "../../baseURL/config" ;
@@ -56,7 +55,7 @@ const LandingPage = () => {
             isTyping = true;
             currentCharIndex = 0;
             setTypedText('');
-          }, 1786); // Wait for 2 seconds before starting the next loop
+          }, 1786); 
         }
       }
     }, typingSpeed);
@@ -78,6 +77,7 @@ const LandingPage = () => {
   }, []);
 
   function profileRediret(){
+    console.log(recdata.status)
     if (!recdata.status) {
       navigate('/ProfileForm');
     } else {
@@ -85,6 +85,27 @@ const LandingPage = () => {
     }
   }
 
+
+  // const [preference , setPreference] = useState([]);
+  // useEffect(() => {
+  //   userid = JSON.parse(localStorage.getItem('userDetails'))
+  //   if (userid && userid._id && userid._recruiter ===false) {
+  //     fetch(`${baseurl}/userProfile/${userid._id}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setPreference(data);
+  //         console.log(data.data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // }, []);
+
+// function talentpreferencedirect(){
+// console.log(preference.status)
+// if(!preference.status){
+//   navigate('/JobSearch')
+// }
+// }
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   
@@ -115,7 +136,7 @@ const LandingPage = () => {
               Log Out
             </a>
           ) : (
-            <a className="navbar-item" href="/login" > <FaUser className="icon" /></a>
+            <a className="navbar-item" href="/login" > Login</a>
           )}
           <div className="hamburger-menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <FaTimes /> : <FaBars />}
