@@ -19,15 +19,23 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ListItemButton from '@mui/material/ListItemButton'
 import { useNavigate } from 'react-router-dom';
+import baseurl from "../../baseURL/config"
 
-const user = JSON.parse(localStorage.getItem('userDetails'));
+
+let user = JSON.parse(localStorage.getItem('userDetails'));
 
 function Sidebar() {
   const navigate = useNavigate();
+  // const [user ,setUser] = ('')
+  // useEffect(() => {
+  //   setUser(JSON.parse(localStorage.getItem("userDetails")))
+  // }, [])
+
 
   const [recdata , setRecdata] = useState([])
     useEffect(() => {
-      fetch(`http://localhost:8000/recruiter/${user._id}`)
+      user = JSON.parse(localStorage.getItem('userDetails'));
+      fetch(`${baseurl}/recruiter/${user._id}`)
           .then((response) => response.json())
           .then((data) => {
              setRecdata(data.data);

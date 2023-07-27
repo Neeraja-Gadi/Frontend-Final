@@ -73,6 +73,7 @@ const defaultTheme = createTheme();
 
 export default function Album() {
   const navigate = useNavigate();
+
   const { id } = useParams();
   const [getJobDetails, setGetJobDetails] = useState([]);
   const [getPlanDetails, setGetPlanDetails] = useState([]);

@@ -10,6 +10,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import GlobalStyles from '@mui/material/GlobalStyles';
+import baseurl from "../../../baseURL/config"
+
 const tiers = [
   {
     title: 'Silver',
@@ -56,15 +58,16 @@ const tiers = [
 ];
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
-const user = JSON.parse(localStorage.getItem('userDetails'));
+let  user = JSON.parse(localStorage.getItem('userDetails'));
 export default function PricingTwo() {
+  user = JSON.parse(localStorage.getItem('userDetails'));
   const handleBuy = async (plan) => {
     const info = {
       userDetailsID: user._id,
       recruiterPlan: plan.title,
       jobPostno: 10,
     }
-    fetch("http://localhost:8000/revenueR", {
+    fetch(`${baseurl}/revenueR`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
