@@ -183,6 +183,7 @@ const TalentPreferenceForm = () => {
             </Select>
           </FormControl>
         </Box>
+        
         <Box>
           <FormControl sx={{ m: 3, width: 600 }}>
             <InputLabel id="jobNature-label">Job Nature</InputLabel>

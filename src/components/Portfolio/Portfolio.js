@@ -701,7 +701,8 @@ export default function DashboardPortfolio() {
 
                             </Grid>
                             {/* Badge */}
-                            {userInfo?
+                            {userInfo ?
+                            // .educationData   &&  userInfo.experienceData && userInfo.projects ? 
                             <Grid item xs={12} md={2}>
                                 <BadgeContainer>
                                     <Circle>{hirank.HiRank}</Circle>
