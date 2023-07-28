@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import AppBar from '@mui/material/AppBar';
 import {useParams} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import baseurl from "../../baseURL/config"
 
+const defaultTheme = createTheme();
+
 const ResetPassword = () => {
+
+  const navigate = useNavigate();
   const [password, setPassword] = useState('');
 
   // eslint-disable-next-line no-unused-vars
@@ -44,7 +53,7 @@ const ResetPassword = () => {
           // Password updated successfully
           alert('Password updated successfully');
           console.log('Password updated successfully')
-          // Redirect to login page or perform any necessary actions
+          navigate("/Login")
         } else {
           // Handle error response from the backend
           alert(data.Error);
@@ -56,6 +65,15 @@ const ResetPassword = () => {
       });
   };
   return (
+    <ThemeProvider theme={defaultTheme}>
+    <AppBar position="relative">
+        <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap>
+            Hiclousia
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
     <Box sx={{ display: 'flex', flexDirection: 'column', maxWidth: 400, margin: '0 auto' }}>
       <form onSubmit={handleSavePassword}>
         <TextField
@@ -85,6 +103,8 @@ const ResetPassword = () => {
         </Button>
       </form>
     </Box>
+    </ThemeProvider>
+
   );
 };
 export default ResetPassword; 

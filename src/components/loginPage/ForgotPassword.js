@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import AppBar from '@mui/material/AppBar';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import baseurl from "../../baseURL/config"
-// import Toolbar from '@mui/material/Toolbar';
-// import Typography from '@mui/material/Typography';
-// import AppBar from '@mui/material/AppBar';
 
+const defaultTheme = createTheme();
 
 // eslint-disable-next-line no-unused-vars
 const user = JSON.parse(localStorage.getItem("userDetails"))
@@ -41,13 +43,14 @@ const ForgotPassword = () => {
     // Display a success message or handle any errors that occur
   };
   return (
-    // <AppBar position="relative">
-    //     <Toolbar>
-    //       <Typography variant="h6" color="inherit" noWrap>
-    //         Hiclousia
-    //       </Typography>
-    //     </Toolbar>
-    //   </AppBar>
+    <ThemeProvider theme={defaultTheme}>
+    <AppBar position="relative">
+        <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap>
+            Hiclousia
+          </Typography>
+        </Toolbar>
+      </AppBar>
 
     <Box sx={{ display: 'flex', flexDirection: 'column', maxWidth: 400, margin: '0 auto' }}>
       <form onSubmit={handleSendLink}>
@@ -66,6 +69,7 @@ const ForgotPassword = () => {
         </Button>
       </form>
     </Box>
+    </ThemeProvider>
   );
 };
 export default ForgotPassword; 
