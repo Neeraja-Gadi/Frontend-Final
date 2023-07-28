@@ -80,11 +80,8 @@ const TalentPreferenceForm = () => {
         </Typography>
 
         <Box>
-        <FormControl sx={{ m: 3, width: 600 }}  required>
-            <InputLabel id="highestEducation-label">
-            Highest Education
-              {/* Fill Your Highest Education Qualification */}
-              </InputLabel>
+        <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel id="highestEducation-label">Fill Your Highest Education Qualification</InputLabel>
   <Select
     id="highestEducation"
     name="highestEducation"
@@ -101,13 +98,10 @@ const TalentPreferenceForm = () => {
     ))}
   </Select>
 </FormControl>
-
-
-
         </Box>
 
         <Box>
-          <FormControl sx={{ m: 3, width: 600 }}  required>
+          <FormControl sx={{ m: 3, width: 600 }}>
             <InputLabel id="jobRole-label"> Job Role</InputLabel>
             <Select
               id="jobRole"
@@ -128,11 +122,8 @@ const TalentPreferenceForm = () => {
           </FormControl>
         </Box>
         <Box>
-          <FormControl sx={{ m: 3, width: 600 }} required>
-            <InputLabel id="skills-label">
-              {/* Choose maximum three skills  */}
-              Skiils
-              </InputLabel>
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel id="skills-label">Choose maximum three skills </InputLabel>
             <Select
               id="skills"
               name="skills"
@@ -152,12 +143,8 @@ const TalentPreferenceForm = () => {
         </Box>
 
         <Box>
-          <FormControl sx={{ m: 3, width: 600 }}  required>
-            <InputLabel id="Experience-label">
-              {/* Tell us Your Overall Years of Experience */}
-              Total Experience
-
-              </InputLabel>
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel id="Experience-label">Tell us Your Overall Years of Experience</InputLabel>
             <Select
               id="Experience"
               label="Overall Experience"
@@ -177,11 +164,8 @@ const TalentPreferenceForm = () => {
           </FormControl>
         </Box>
         <Box>
-          <FormControl sx={{ m: 3, width: 600 }} required>
-            <InputLabel id="setor-label">
-              {/* Choose sector */}
-              sector
-               </InputLabel>
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel id="setor-label">Choose sector </InputLabel>
             <Select
               id="setor"
               label="Sector"
@@ -224,11 +208,8 @@ const TalentPreferenceForm = () => {
 
 
         <Box>
-          <FormControl sx={{ m: 3, width: 600 }} required>
-            <InputLabel id="city-label">
-              {/* Choose maximum three cities Preference */}
-              cities Preference
-              </InputLabel>
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel id="city-label">Choose maximum three cities Preference</InputLabel>
             <Select
               id="city"
               name="city"
@@ -248,7 +229,7 @@ const TalentPreferenceForm = () => {
         </Box>
 
         <Box>
-          <FormControl sx={{ m: 3, width: 600 }}  required>
+          <FormControl sx={{ m: 3, width: 600 }}>
             <InputLabel id="salary-label">Salary Expected</InputLabel>
             <Select
               id="salary"
