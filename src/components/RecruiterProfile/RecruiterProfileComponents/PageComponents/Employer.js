@@ -82,7 +82,7 @@ export default function Album() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        user = JSON.parse(localStorage.getItem('userDetails'));
+        user =await JSON.parse(localStorage.getItem('userDetails'));
         const response = await fetch(`${baseurl}/PlanWithDetails/${user._id}/${id}`);
         const data = await response.json();
         setGetJobDetails(data.data[0].jobPosts);
