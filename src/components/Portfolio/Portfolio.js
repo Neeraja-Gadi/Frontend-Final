@@ -217,7 +217,7 @@ export default function DashboardPortfolio() {
     
 
     function handlecreateProfile() {
-        if (userInfo.educationData.length === 0 && userInfo.userprofile.length  ===0)  {
+        if (userInfo.userprofile.length  ===0)  {
             Navigate('/EducationForm')
         } else {
             alert("You Already have a Profile")
