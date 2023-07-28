@@ -84,13 +84,14 @@ const ProfileForm = () => {
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)', 
         border: `1px solid #e0e0e0`, 
         backgroundColor: 'white', 
+       
       }}
     >
       <Typography variant="h4" gutterBottom>
         Recruiter Form
       </Typography>
 
-      <Box>
+      <Box sx={{ marginBottom: 2 }}>
         <TextField
           label="Full Name"
           name="fullName"
@@ -102,7 +103,7 @@ const ProfileForm = () => {
         />
       </Box>
 
-      <Box>
+      <Box  sx={{ marginBottom: 2 }}>
         <TextField
           label="Email"
           name="email"
@@ -114,7 +115,7 @@ const ProfileForm = () => {
         />
       </Box>
 
-      <Box>
+      <Box   sx={{ marginBottom: 2 }}>
         <TextField
           label="Phone Number"
           name="phoneNumber"
@@ -126,7 +127,7 @@ const ProfileForm = () => {
         />
       </Box>
 
-      <Box>
+      <Box sx={{ marginBottom: 2 }}>
         <TextField
           label="Professional Summary"
           name="professionalSummary"
@@ -136,6 +137,7 @@ const ProfileForm = () => {
           fullWidth
           multiline
           rows={4}
+          required
         />
       </Box>
 
@@ -151,6 +153,7 @@ const ProfileForm = () => {
             onChange={(e) => handleInputChange2(e, index)}
             variant="outlined"
             fullWidth
+            required
           />
           <TextField
             label="Job Title"
@@ -159,6 +162,7 @@ const ProfileForm = () => {
             onChange={(e) => handleInputChange2(e, index)}
             variant="outlined"
             fullWidth
+            required
           />
           <IconButton
             aria-label="Remove"
@@ -172,6 +176,7 @@ const ProfileForm = () => {
       <Button
         variant="outlined"
         fullWidth
+        
         onClick={() =>
           setFormData({
             ...formData,
@@ -193,6 +198,7 @@ const ProfileForm = () => {
           onChange={handleSocialMedia}
           variant="outlined"
           fullWidth
+          required
         />
       </Box>
       <Box sx={{ marginBottom: 2 }}>
@@ -203,6 +209,7 @@ const ProfileForm = () => {
           onChange={handleSocialMedia}
           variant="outlined"
           fullWidth
+          required
         />
       </Box>
 
