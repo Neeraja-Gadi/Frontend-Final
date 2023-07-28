@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
 import {useParams} from 'react-router-dom'
-
+import baseurl from "../../baseURL/config"
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -30,7 +30,7 @@ const ResetPassword = () => {
       return;
     }
     // Send API request to update password
-    fetch(`http://localhost:8000/resetPassword/${id}/${token}`, {
+    fetch(`${baseurl}/resetPassword/${id}/${token}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
+import baseurl from "../../baseURL/config"
 // import Toolbar from '@mui/material/Toolbar';
 // import Typography from '@mui/material/Typography';
 // import AppBar from '@mui/material/AppBar';
@@ -16,7 +17,7 @@ const ForgotPassword = () => {
   const handleSendLink = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/resendtoken', {
+      const response = await fetch(`${baseurl}/resendtoken`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
