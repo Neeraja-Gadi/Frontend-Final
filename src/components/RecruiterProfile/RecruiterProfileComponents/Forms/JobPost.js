@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from "react-router-dom"
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -25,13 +24,7 @@ const defaultTheme = createTheme();
 
 export default function JobPost({ id, close }) {
 
-  const navigation = useNavigate();
-  useEffect(() => {
-    if (user == null) {
-      navigation("/login")
-      alert("Please login first")
-    }
-  },)
+
   // const classes = useStyles();
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState([]);
@@ -39,7 +32,7 @@ export default function JobPost({ id, close }) {
   const [selectedJobCategory, setSelectedJobCategory] = useState('');
   const [jobData, setJobData] = useState([
     {
-      userDetailsID: user._id,
+      userDetailsID: (JSON.parse(localStorage.getItem("userDetails")))._id,
       recruiterPlan: id,
       jobCategory: "",
       jobRole: [],
