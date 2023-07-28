@@ -701,14 +701,14 @@ export default function DashboardPortfolio() {
 
                             </Grid>
                             {/* Badge */}
-                            {userInfo.length?
+                            {userInfo?
                             <Grid item xs={12} md={2}>
                                 <BadgeContainer>
                                     <Circle>{hirank.HiRank}</Circle>
                                     <Rectangle>{hirank.Talent_Pool}</Rectangle>
                                     {/* <HiVerified>HiVerified</HiVerified> */}
                                 </BadgeContainer>
-                            </Grid>:""
+                            </Grid>:null
                             }
                         </Grid>
                             

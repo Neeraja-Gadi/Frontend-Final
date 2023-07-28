@@ -15,7 +15,7 @@ import Select from '@mui/material/Select';
 import { jobRoles, jobCategory, educationLevels, experiences, primarySkills, secondarySkills, sectors, location, salary } from '../../../../constraints/arrays';
 import baseurl from "../../../../baseURL/config"
 
-const user = JSON.parse(localStorage.getItem("userDetails"))
+let user = JSON.parse(localStorage.getItem("userDetails"))
 
 // const jobProfiles = Object.keys(jobRoles)
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -84,7 +84,8 @@ export default function JobPost({ id, close }) {
   }
 
 
-  function SaveJob() {
+  async function SaveJob() {
+    user =await JSON.parse(localStorage.getItem("userDetails"))
     let info = jobData
     info?.map((e) => {
       return (

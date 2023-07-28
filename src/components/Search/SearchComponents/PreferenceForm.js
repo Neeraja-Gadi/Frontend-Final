@@ -80,24 +80,24 @@ const TalentPreferenceForm = () => {
         </Typography>
 
         <Box>
-          <FormControl sx={{ m: 3, width: 600 }}>
+        <FormControl sx={{ m: 3, width: 600 }}>
             <InputLabel id="highestEducation-label">Fill Your Highest Education Qualification</InputLabel>
-            <Select
-              id="highestEducation"
-              name="highestEducation"
-              value={formValues.highestEducation}
-              onChange={handleChange}
-              label="Highest Education"
-              required
-              input={<OutlinedInput label="Highest Education"/>}
-            >
-              {educationLevels.map((edulevel) => (
-                <MenuItem key={edulevel} value={edulevel}>
-                  {edulevel}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+  <Select
+    id="highestEducation"
+    name="highestEducation"
+    value={formValues.highestEducation}
+    onChange={handleChange}
+    label="Highest Education"
+    required
+    input={<OutlinedInput label="Highest Education"/>}
+  >
+    {educationLevels.map((edulevel) => (
+      <MenuItem key={edulevel} value={edulevel}>
+        {edulevel}
+      </MenuItem>
+    ))}
+  </Select>
+</FormControl>
         </Box>
 
         <Box>
