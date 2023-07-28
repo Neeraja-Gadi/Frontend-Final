@@ -1924,7 +1924,6 @@ let jobRoles = {
 "Product Safety Manager",
 "Industrial Safety Engineer",
 
-
 ] ,
 'Project Engineering' : [
   "Project Engineer",
