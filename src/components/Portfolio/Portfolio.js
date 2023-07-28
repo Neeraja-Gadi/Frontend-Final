@@ -148,6 +148,9 @@ const defaultTheme = createTheme();
 
 export default function DashboardPortfolio() {
 
+    // const [selectedImage, setSelectedImage] = useState(null);
+
+
     const Navigate = useNavigate();
 
     let user = JSON.parse(localStorage.getItem("userDetails"))
@@ -176,12 +179,10 @@ export default function DashboardPortfolio() {
     alert('Please Fill your Preferencs first')
     Navigate('/JobSearch')
   
- 
   }
 
     const [userInfo, setUserInfo] = useState([])
-    // const [selectedImage, setSelectedImage] = useState(null);
-
+    const [userInfostatus ,setUserInfostatus]  =  useState(false)
 
     useEffect(() => {
 
@@ -191,16 +192,16 @@ export default function DashboardPortfolio() {
             }
         })
             .then(response => response.json())
-            .then(data => { console.log(data); setUserInfo(data.data) })
+            .then(data => { console.log(data); setUserInfo(data.data) ; setUserInfostatus(data.status) })
             .catch(err => console.log(err))
-        console.log(userInfo)
+        console.log(userInfo  ,  userInfostatus)
         // eslint-disable-next-line
     }, [])
 
 
     const[hirank,setHirank] = useState({})
     useEffect(() => {
-        if(userInfo.length){
+        if(userInfostatus){
         fetch(`${baseurl}/hirankandpool/${user._id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -374,14 +375,12 @@ export default function DashboardPortfolio() {
         setOpen(!open);
     };
 
-
     // eslint-disable-next-line no-unused-vars
     const [personal, setPersonal] = useState(false)
     const [education, setEducation] = useState(false)
     const [project, setProject] = useState(false)
     const [experience, setExperience] = useState(false)
     // const [about, setAbout] = useState(false)
-
 
     return (
         <ThemeProvider theme={defaultTheme}>
