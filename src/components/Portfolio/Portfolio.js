@@ -150,9 +150,34 @@ export default function DashboardPortfolio() {
 
     const Navigate = useNavigate();
 
-    const user = JSON.parse(localStorage.getItem("userDetails"))
+    let user = JSON.parse(localStorage.getItem("userDetails"))
 
     if (!user) Navigate("/login")
+    // eslint-disable-next-line no-unused-vars
+    const [preference , setPreference] = useState([]);
+    useEffect(() => {
+     let  userid = JSON.parse(localStorage.getItem('userDetails'))
+      if (userid && userid._id ) {
+        fetch(`${baseurl}/fetchPreference/${userid._id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setPreference(data);
+            if(!data.status)talentpreferencedirect()
+            console.log(data.data);
+
+          })
+          .catch((err) => console.log(err));
+      }
+       // eslint-disable-next-line
+    }, []);
+  
+  function talentpreferencedirect(){
+
+    alert('Please Fill your Preferencs first')
+    Navigate('/JobSearch')
+  
+ 
+  }
 
     const [userInfo, setUserInfo] = useState([])
     // const [selectedImage, setSelectedImage] = useState(null);
@@ -175,7 +200,7 @@ export default function DashboardPortfolio() {
 
     const[hirank,setHirank] = useState({})
     useEffect(() => {
-
+        if(userInfo.length){
         fetch(`${baseurl}/hirankandpool/${user._id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -185,8 +210,10 @@ export default function DashboardPortfolio() {
             .then(data => { console.log(data); setHirank(data.data) })
             .catch(err => console.log(err))
         console.log(hirank)
-        // eslint-disable-next-line
-    }, [])
+      
+    }
+     // eslint-disable-next-line
+    }, [userInfo])
     
 
     function handlecreateProfile() {
@@ -671,16 +698,20 @@ export default function DashboardPortfolio() {
                                     </CardContent>
                                 </Card>
                                 <br />
+
                             </Grid>
                             {/* Badge */}
+                            {userInfo.length?
                             <Grid item xs={12} md={2}>
                                 <BadgeContainer>
                                     <Circle>{hirank.HiRank}</Circle>
                                     <Rectangle>{hirank.Talent_Pool}</Rectangle>
                                     {/* <HiVerified>HiVerified</HiVerified> */}
                                 </BadgeContainer>
-                            </Grid>
+                            </Grid>:""
+                            }
                         </Grid>
+                            
 
                     </Container>
                 </Box>

@@ -17,7 +17,7 @@ import JobPost  from "../Forms/JobPost" ;
 import NavBar from "./Navbar" ;
 import baseurl from "../../../../baseURL/config";
 
-const user = JSON.parse(localStorage.getItem('userDetails'));
+let user = JSON.parse(localStorage.getItem('userDetails'));
 
 function JobDescription({ description, onClose }) {
   return (
@@ -82,6 +82,7 @@ export default function Album() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        user = JSON.parse(localStorage.getItem('userDetails'));
         const response = await fetch(`${baseurl}/PlanWithDetails/${user._id}/${id}`);
         const data = await response.json();
         setGetJobDetails(data.data[0].jobPosts);

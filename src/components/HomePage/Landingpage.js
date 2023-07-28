@@ -85,26 +85,7 @@ const LandingPage = () => {
   }
 
 
-  // const [preference , setPreference] = useState([]);
-  // useEffect(() => {
-  //   userid = JSON.parse(localStorage.getItem('userDetails'))
-  //   if (userid && userid._id && userid._recruiter ===false) {
-  //     fetch(`${baseurl}/userProfile/${userid._id}`)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         setPreference(data);
-  //         console.log(data.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, []);
 
-// function talentpreferencedirect(){
-// console.log(preference.status)
-// if(!preference.status){
-//   navigate('/JobSearch')
-// }
-// }
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   
