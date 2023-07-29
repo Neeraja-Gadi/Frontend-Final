@@ -84,6 +84,8 @@ const ProfileForm = () => {
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)', 
         border: `1px solid #e0e0e0`, 
         backgroundColor: 'white', 
+        marginLeft: "500px",
+         
        
       }}
     >

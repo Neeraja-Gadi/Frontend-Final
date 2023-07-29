@@ -180,6 +180,7 @@ export default function DashboardPortfolio() {
   }
 
     const [userInfo, setUserInfo] = useState([])
+    
     // const [selectedImage, setSelectedImage] = useState(null);
 
 
@@ -200,7 +201,8 @@ export default function DashboardPortfolio() {
 
     const[hirank,setHirank] = useState({})
     useEffect(() => {
-        if(userInfo.length){
+
+        // if(userInfo.length  >0){
         fetch(`${baseurl}/hirankandpool/${user._id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -211,11 +213,10 @@ export default function DashboardPortfolio() {
             .catch(err => console.log(err))
         console.log(hirank)
       
-    }
+    // }
      // eslint-disable-next-line
     }, [userInfo])
     
-
     function handlecreateProfile() {
         if (userInfo.userprofile.length  ===0)  {
             Navigate('/EducationForm')
@@ -521,6 +522,7 @@ export default function DashboardPortfolio() {
                                 </Card>
 
                                 <br />
+
                                 <Card style={{ width: '80%' }}>
                                     <CardContent>
                                         <Typography variant="h5" component="div" color="rgb(22 102 197)">
@@ -541,11 +543,10 @@ export default function DashboardPortfolio() {
                                     </CardContent>
                                 </Card>
 
-
                                 <br />
 
                                 {/* Experience card starts here */}
-                                <br />
+
                                 <Card style={{ width: '80%' }}>
                                     <CardContent>
                                         <Typography variant="h5" component="div" color="rgb(22 102 197)"> Experience </Typography>
@@ -597,6 +598,7 @@ export default function DashboardPortfolio() {
                                         {experience && <ExperiencePortfolio experienceInfo={() => setExperience(false)} />}
                                     </CardContent>
                                 </Card>
+
                                 <br />
 
                                 {/* Projects card content starts here */}
@@ -648,12 +650,10 @@ export default function DashboardPortfolio() {
                                         {project && <ProjectPortfolio projectInfo={() => setProject(false)} />}
                                     </CardContent>
                                 </Card>
+
                                 <br />
 
-
-
                                 {/* education card content starts here */}
-
 
                                 <Card style={{ width: '80%' }}>
                                     <CardContent>
@@ -700,20 +700,21 @@ export default function DashboardPortfolio() {
                                 <br />
 
                             </Grid>
+
                             {/* Badge */}
-                            {userInfo ?
-                            // .educationData   &&  userInfo.experienceData && userInfo.projects ? 
+
+                            {hirank?.Talent_Pool  ?
                             <Grid item xs={12} md={2}>
                                 <BadgeContainer>
                                     <Circle>{hirank.HiRank}</Circle>
                                     <Rectangle>{hirank.Talent_Pool}</Rectangle>
                                     {/* <HiVerified>HiVerified</HiVerified> */}
                                 </BadgeContainer>
-                            </Grid>:null
+                            </Grid>
+                           :  null 
                             }
                         </Grid>
                             
-
                     </Container>
                 </Box>
             </Box>
