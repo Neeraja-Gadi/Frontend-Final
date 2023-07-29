@@ -173,8 +173,11 @@ const ExperiencePortfolio = (props) => {
                                 name="companyName"
                                 value={experience.jcompanyName}
                                 onChange={(event) => handleExperienceChange(event, index)}
-                                id="fullWidth" />
+                                id="fullWidth" 
                                 required
+                                />
+
+                                
                         </Box>
                         <FormControl mb={1} sx={{ m: 3, width: 600 }} required>
                             <InputLabel>Experience Type</InputLabel>
@@ -196,7 +199,7 @@ const ExperiencePortfolio = (props) => {
                                 ))}
                             </Select>
                         </FormControl>
-                        <FormControl mb={1} sx={{ m: 3, width: 600 }} >
+                        <FormControl mb={1} sx={{ m: 3, width: 600 }} required >
                             <InputLabel>Company Type</InputLabel>
                             <Select
                                 name="companyType"
