@@ -139,7 +139,7 @@ const EducationPortfolio = (props) => {
             {educationList.map((education, i) => (
                 <div style={modalContainer} key={i}>
                     <div style={feild}>
-                        <FormControl sx={{ m: 3, width: 600 }}>
+                        <FormControl sx={{ m: 3, width: 600 }} required>
                             <InputLabel>Education Level</InputLabel>
                             <Select
                                 fullWidth
@@ -147,7 +147,7 @@ const EducationPortfolio = (props) => {
                                 name="educationLevel"
                                 onChange={(e) => handleEducationChange(e, i)}
                                 label="Education Level"
-                                required
+                                
                                 input={<OutlinedInput label="Education Level" />}
                             >
                                 {educationLevels.map((educationLevel, i) => (
@@ -190,7 +190,7 @@ const EducationPortfolio = (props) => {
 
 
 
-                        <FormControl sx={{ m: 3, width: 600 }}>
+                        <FormControl sx={{ m: 3, width: 600 }} required>
                             <InputLabel>Authority</InputLabel>
                             <Select
                                 name="authority"
@@ -213,7 +213,7 @@ const EducationPortfolio = (props) => {
                             </Select>
                         </FormControl>
 
-                        <FormControl sx={{ m: 3, width: 600 }}>
+                        <FormControl sx={{ m: 3, width: 600 }} required>
                             <InputLabel>Discipline</InputLabel>
                             <Select
                                 variant="outlined"
@@ -237,7 +237,7 @@ const EducationPortfolio = (props) => {
                             </Select>
                         </FormControl>
 
-                        <FormControl sx={{ m: 3, width: 600 }}>
+                        <FormControl sx={{ m: 3, width: 600 }} required>
                             <InputLabel id="demo-multiple-name-label">Year of Passout</InputLabel>
                             <Select
                                 name="yearOfpassout"

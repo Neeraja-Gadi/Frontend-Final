@@ -152,7 +152,7 @@ const ProjectPortfolio = (props) => {
                                 id="fullWidth"
                             />
                         </Box>
-                        <FormControl sx={{ m: 3, width: 600 }}>
+                        <FormControl sx={{ m: 3, width: 600 }} required>
                             <InputLabel>Skills Used</InputLabel>
                             <Select
                                 fullWidth
@@ -160,7 +160,7 @@ const ProjectPortfolio = (props) => {
                                 value={project.skills}
                                 onChange={(e) => handleProjectChange(e, i)}
                                 label="Skills Used"
-                                required
+                                
                                 multiple
                                 input={<OutlinedInput label="Skills Used" />}
                             >
@@ -175,7 +175,7 @@ const ProjectPortfolio = (props) => {
                                 ))}
                             </Select>
                         </FormControl>
-                        <FormControl sx={{ m: 3, width: 600 }}>
+                        <FormControl sx={{ m: 3, width: 600 }} required>
                             <InputLabel>Project Type</InputLabel>
                             <Select
                                 fullWidth
@@ -207,6 +207,7 @@ const ProjectPortfolio = (props) => {
                                 label="Project Description"
                                 onChange={(e) => handleProjectChange(e, i)}
                                 multiline
+                                required
                                 rows={4}
                             />
                         </Box>
@@ -252,6 +253,7 @@ const ProjectPortfolio = (props) => {
                                 value={project.url}
                                 onChange={(e) => handleProjectChange(e, i)}
                                 id="fullWidth"
+                                required
 
                             />
                         </Box>
@@ -266,6 +268,7 @@ const ProjectPortfolio = (props) => {
                                 value={project.organizationName}
                                 onChange={(e) => handleProjectChange(e, i)}
                                 id="fullWidth"
+                                required
                             />
                         </Box>
                         <Button variant="contained" onClick={handleSubmit} style={save}>save</Button>

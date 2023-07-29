@@ -146,7 +146,7 @@ const ExperiencePortfolio = (props) => {
                             />
                         </Box>
 
-                        <FormControl mb={1} sx={{ m: 3, width: 600 }}>
+                        <FormControl mb={1} sx={{ m: 3, width: 600 }} required>
                             <InputLabel>Job Role</InputLabel>
                             <Select
                                 name="jobRole"
@@ -174,8 +174,9 @@ const ExperiencePortfolio = (props) => {
                                 value={experience.jcompanyName}
                                 onChange={(event) => handleExperienceChange(event, index)}
                                 id="fullWidth" />
+                                required
                         </Box>
-                        <FormControl mb={1} sx={{ m: 3, width: 600 }}>
+                        <FormControl mb={1} sx={{ m: 3, width: 600 }} required>
                             <InputLabel>Experience Type</InputLabel>
                             <Select
                                 name="experienceType"
@@ -195,14 +196,14 @@ const ExperiencePortfolio = (props) => {
                                 ))}
                             </Select>
                         </FormControl>
-                        <FormControl mb={1} sx={{ m: 3, width: 600 }}>
+                        <FormControl mb={1} sx={{ m: 3, width: 600 }} >
                             <InputLabel>Company Type</InputLabel>
                             <Select
                                 name="companyType"
                                 value={experience.companyType}
                                 onChange={(event) => handleExperienceChange(event, index)}
                                 label="Company Type"
-                                required
+                                
                                 input={<OutlinedInput label="Company Type" />}
                             >
                                 {companyTypes.map((companyType, i) => (
@@ -215,7 +216,7 @@ const ExperiencePortfolio = (props) => {
                                 ))}
                             </Select>
                         </FormControl>
-                        <FormControl mb={1} sx={{ m: 3, width: 600 }}>
+                        <FormControl mb={1} sx={{ m: 3, width: 600 }} required>
                             <InputLabel id="demo-multiple-name-label">Skills Practiced</InputLabel>
                             <Select
                                 labelId="demo-multiple-name-label"
@@ -236,14 +237,14 @@ const ExperiencePortfolio = (props) => {
                                 ))}
                             </Select>
                         </FormControl>
-                        <FormControl mb={1} sx={{ m: 3, width: 600 }}>
+                        <FormControl mb={1} sx={{ m: 3, width: 600 }} required>
                             <InputLabel>Company Location</InputLabel>
                             <Select
                                 name="location"
                                 value={experience.location}
                                 onChange={(event) => handleExperienceChange(event, index)}
                                 label="Company Location"
-                                required
+                                
                                 input={<OutlinedInput label="Company Location" />}
                             >
                                 {location.map((locations, i) => (
