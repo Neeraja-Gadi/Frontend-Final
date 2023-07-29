@@ -154,33 +154,33 @@ export default function DashboardPortfolio() {
 
     if (!user) Navigate("/login")
     // eslint-disable-next-line no-unused-vars
-    const [preference , setPreference] = useState([]);
+    const [preference, setPreference] = useState([]);
     useEffect(() => {
-     let  userid = JSON.parse(localStorage.getItem('userDetails'))
-      if (userid && userid._id ) {
-        fetch(`${baseurl}/fetchPreference/${userid._id}`)
-          .then((response) => response.json())
-          .then((data) => {
-            setPreference(data);
-            if(!data.status)talentpreferencedirect()
-            console.log(data.data);
+        let userid = JSON.parse(localStorage.getItem('userDetails'))
+        if (userid && userid._id) {
+            fetch(`${baseurl}/fetchPreference/${userid._id}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    setPreference(data);
+                    if (!data.status) talentpreferencedirect()
+                    console.log(data.data);
 
-          })
-          .catch((err) => console.log(err));
-      }
-       // eslint-disable-next-line
+                })
+                .catch((err) => console.log(err));
+        }
+        // eslint-disable-next-line
     }, []);
-  
-  function talentpreferencedirect(){
 
-    alert('Please Fill your Preferencs first')
-    Navigate('/JobSearch')
-  
- 
-  }
+    function talentpreferencedirect() {
+
+        alert('Please Fill your Preferencs first')
+        Navigate('/JobSearch')
+
+
+    }
 
     const [userInfo, setUserInfo] = useState([])
-    
+
     // const [selectedImage, setSelectedImage] = useState(null);
 
 
@@ -199,7 +199,7 @@ export default function DashboardPortfolio() {
     }, [])
 
 
-    const[hirank,setHirank] = useState({})
+    const [hirank, setHirank] = useState({})
     useEffect(() => {
 
         // if(userInfo.length  >0){
@@ -212,13 +212,13 @@ export default function DashboardPortfolio() {
             .then(data => { console.log(data); setHirank(data.data) })
             .catch(err => console.log(err))
         console.log(hirank)
-      
-    // }
-     // eslint-disable-next-line
+
+        // }
+        // eslint-disable-next-line
     }, [userInfo])
-    
+
     function handlecreateProfile() {
-        if (userInfo.userprofile.length  ===0)  {
+        if (userInfo.userprofile.length === 0) {
             Navigate('/EducationForm')
         } else {
             alert("You Already have a Profile")
@@ -465,9 +465,9 @@ export default function DashboardPortfolio() {
 
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={2}>
-                           
+
                             <Grid item xs={12} md={10}>
-                                <Card style={{ width: '80%' }}>
+                                {/* <Card style={{ width: '80%' }}>
                                     <CardContent>
                                         {userInfo.userprofile?.map((userprof, i) => (
                                             <ListItem alignItems="center" key={i}>
@@ -517,7 +517,64 @@ export default function DashboardPortfolio() {
                                                     }
                                                 />
                                             </ListItem>
-                                        ))}
+                                        )
+                                        )}
+                                    </CardContent>
+                                </Card> */}
+
+                                <Card style={{ width: '80%' }}>
+                                    <CardContent>
+                                        <ListItem alignItems="center">
+                                            <ListItemAvatar sx={{ marginTop: '-9px' }}>
+                                                <Avatar>
+                                                    {user.firstName[0].toUpperCase()}
+                                                </Avatar>
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                primary={
+                                                    <React.Fragment>
+                                                        <Typography variant='h4' style={{ fontFamily: "'Lora', sans-serif", marginLeft: '80px' }}>
+                                                            {user.firstName} {user.lastName}
+                                                        </Typography>
+                                                        <Typography
+                                                            sx={{ display: 'inline', marginLeft: '80px' }}
+                                                            component="span"
+                                                            variant='h6'
+                                                            color="text.primary"
+                                                        >
+                                                            Email - {user.email}
+                                                        </Typography>
+                                                    </React.Fragment>
+                                                }
+                                                secondary={
+                                                    <React.Fragment>
+                                                        {userInfo.userprofile?.map((userprof) => (
+                                                            <>
+                                                                <Typography
+                                                                    sx={{ display: 'inline', marginLeft: '80px' }}
+                                                                    component="span"
+                                                                    variant='h6'
+                                                                    color="text.primary"
+                                                                >
+                                                                    Professional Link - {userprof.gitLink}
+                                                                </Typography>
+                                                                <br />
+                                                                <Typography
+                                                                    sx={{ display: 'inline', marginLeft: '80px' }}
+                                                                    component="span"
+                                                                    variant='h6'
+                                                                    color="text.primary"
+                                                                >
+                                                                    Address - {userprof.location}
+                                                                </Typography>
+                                                                <br />
+                                                            </>
+                                                        ))}
+
+                                                    </React.Fragment>
+                                                }
+                                            />
+                                        </ListItem>
                                     </CardContent>
                                 </Card>
 
@@ -703,18 +760,18 @@ export default function DashboardPortfolio() {
 
                             {/* Badge */}
 
-                            {hirank?.Talent_Pool  ?
-                            <Grid item xs={12} md={2}>
-                                <BadgeContainer>
-                                    <Circle>{hirank.HiRank}</Circle>
-                                    <Rectangle>{hirank.Talent_Pool}</Rectangle>
-                                    {/* <HiVerified>HiVerified</HiVerified> */}
-                                </BadgeContainer>
-                            </Grid>
-                           :  null 
+                            {hirank?.Talent_Pool ?
+                                <Grid item xs={12} md={2}>
+                                    <BadgeContainer>
+                                        <Circle>{hirank.HiRank}</Circle>
+                                        <Rectangle>{hirank.Talent_Pool}</Rectangle>
+                                        {/* <HiVerified>HiVerified</HiVerified> */}
+                                    </BadgeContainer>
+                                </Grid>
+                                : null
                             }
                         </Grid>
-                            
+
                     </Container>
                 </Box>
             </Box>
