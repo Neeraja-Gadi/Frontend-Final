@@ -84,7 +84,7 @@ export default function PricingZero() {
     }).then(response => response.json().then(data => {
       console.log(data)
       if (data.status === true) {
-        alert("Created Plan Sucessfully")
+        alert("Created Plan  Sucessfully")
       }
     }))
   };

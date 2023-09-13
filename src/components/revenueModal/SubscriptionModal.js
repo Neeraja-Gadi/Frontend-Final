@@ -54,7 +54,7 @@ function Sidebar() {
   }
   return (
     
-    <div style={{ backgroundColor: '#f0f0f0', padding: '16px',height: '100%', borderRadius: '0.5rem' }}>
+    <div style={{ backgroundColor: '#f0f0f0', padding: '16px', height: '100%', borderRadius: '0.5rem' ,marginTop: "0.5rem"  }}>
       <List>
         <ListItemButton href='/'>
           <ListItemIcon>
@@ -105,7 +105,7 @@ export default function Pricing() {
         elevation={0}
         sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
       >
-        <Toolbar sx={{ flexWrap: 'wrap', backgroundColor: '#0070B3' }}>
+        <Toolbar sx={{ flexWrap: 'wrap', backgroundColor: '#0070B3',borderRadius: "20px", marginTop:"10px" ,  }}>
           <Typography variant="h4" color="#FFF" noWrap sx={{ flexGrow: 1 }}>
             Hiclousia
           </Typography>
@@ -117,7 +117,7 @@ export default function Pricing() {
           <Sidebar />
         </aside>
         {/* Main content */}
-        <Container maxWidth="md" style={{ border: '1px solid lightgrey', borderRadius: '0.5rem' }}>
+        <Container maxWidth="md" style={{ border: '1px solid lightgrey', borderRadius: '0.5rem', marginTop:"0.5rem" }}>
           <br></br>
           <PricingZero />
           <br></br>
