@@ -26,6 +26,7 @@ const TalentPreferenceForm = () => {
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
+    
     userDetailsID: user._id,
     highestEducation: '',
     jobRole: [],

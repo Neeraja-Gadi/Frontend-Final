@@ -157,27 +157,12 @@ export default function Dashboard() {
                     <Toolbar />
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
-                            {/* Chart */}
-
-
 
                             {prefForm && <PreferenceForm nameForm={prefForm => setPrefForm(false)} />}
 
                             {searchItem && <SearchedItems nameSearchItem={ setSearchItem(true)} />} 
 
-                            {/* <Grid item xs={12} md={4} lg={3}>
-                                <Paper
-                                    sx={{
-                                        p: 2,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        height: 240,
-                                    }}
-                                >
-                                    {/* <Deposits /> */}
-                                {/* </Paper>
-                            </Grid> */} 
-                            {/* Recent Orders */}
+                        
                             
                         </Grid>
                        
