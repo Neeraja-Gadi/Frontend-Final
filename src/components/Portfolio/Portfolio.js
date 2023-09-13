@@ -37,11 +37,12 @@ import SchoolSharpIcon from '@mui/icons-material/SchoolSharp';
 import WbIncandescentSharpIcon from '@mui/icons-material/WbIncandescentSharp';
 import WorkIcon from '@mui/icons-material/Work';
 import EditEducations from './PortfolioComponents/EditEducation'
-// import PersonIcon from '@mui/icons-material/Person';
+import PersonIcon from '@mui/icons-material/Person';
 // import About from './PortfolioComponents/AboutMe'
 import EditExperiences from './PortfolioComponents/EditExperience'
 import EditProjects from './PortfolioComponents/EditProjects';
 import baseurl from "../../baseURL/config"
+
 
 const BadgeContainer = styled('div')({
     position: 'relative',
@@ -194,7 +195,7 @@ export default function DashboardPortfolio() {
             .then(response => response.json())
             .then(data => { console.log(data); setUserInfo(data.data) })
             .catch(err => console.log(err))
-        console.log(userInfo)
+        console.log("userInfo-" ,userInfo )
         // eslint-disable-next-line
     }, [])
 
@@ -221,9 +222,31 @@ export default function DashboardPortfolio() {
         if (userInfo.userprofile.length === 0) {
             Navigate('/EducationForm')
         } else {
-            alert("You Already have a Profile")
+            alert("You Already have a Profile. Please Update Here")
         }
     }
+
+
+    // const [selectedImage, setSelectedImage] = useState(null);
+
+    //      const handleImageUpload = async (event) => {
+    //          const file = event.target.files[0];
+    //          const formData = new FormData();
+    //          formData.append('profileLink', file);
+    //          formData.append('userDetailsId', user._id);
+
+
+    //            await fetch(`http://localhost:8000/SingleImageUpdate/${user._id}`, {
+    //              method: 'PUT',
+    //              body: formData,
+    //            }) .then(response => response.json())
+    //            .then(data => { 
+    //                setSelectedImage(data.data.profileLink.url)
+    //            })
+    //            .catch(err => console.log(err));
+    //      }
+
+
 
     //   PROJECT STARTS HERE
     const [editProject, setEditProject] = useState(false)
@@ -381,7 +404,9 @@ export default function DashboardPortfolio() {
     const [education, setEducation] = useState(false)
     const [project, setProject] = useState(false)
     const [experience, setExperience] = useState(false)
-    // const [about, setAbout] = useState(false)
+     const [about, setAbout] = useState(false)
+     const [editabout, setEditabout] = useState(false)
+
 
 
     return (
@@ -525,11 +550,13 @@ export default function DashboardPortfolio() {
                                 <Card style={{ width: '80%' }}>
                                     <CardContent>
                                         <ListItem alignItems="center">
+                                            
                                             <ListItemAvatar sx={{ marginTop: '-9px' }}>
                                                 <Avatar>
                                                     {user.firstName[0].toUpperCase()}
                                                 </Avatar>
                                             </ListItemAvatar>
+                             
                                             <ListItemText
                                                 primary={
                                                     <React.Fragment>
@@ -568,6 +595,24 @@ export default function DashboardPortfolio() {
                                                                     Address - {userprof.location}
                                                                 </Typography>
                                                                 <br />
+                                                                <br />
+                                                                <Typography
+                                                                    sx={{ display: 'inline', marginLeft: '80px' }}
+                                                                    component="span"
+                                                                    variant='h6'
+                                                                    color="text.primary"
+                                                                >
+                                                                    Phone - {userprof.phone}
+                                                                </Typography>
+                                                                <br></br>
+                                                                <Typography
+                                                                    sx={{ display: 'inline', marginLeft: '80px' }}
+                                                                    component="span"
+                                                                    variant='h6'
+                                                                    color="text.primary"
+                                                                >
+                                                                   Gender- {userprof.gender}
+                                                                </Typography>
                                                             </>
                                                         ))}
 
@@ -585,11 +630,17 @@ export default function DashboardPortfolio() {
                                         <Typography variant="h5" component="div" color="rgb(22 102 197)">
                                             About Me
                                         </Typography>
+                                        <button onClick={() => { setEditabout(true);}} style={{ float: 'right', border: 'none', background: 'transparent', cursor: 'pointer' }}>
+                                                        <FiEdit2 style={{ float: 'right', fontSize: '20px' }} />
+                                                    </button>
 
                                         {
                                             userInfo.userprofile?.map((user) => (
                                                 <Box display="flex" flexDirection="column" alignItems="left">
-                                                    <Typography variant="h5" sx={{ mb: 2 }}>
+                                                    {/* <ListItemAvatar>
+                                                        <Avatar><PersonIcon /></Avatar>
+                                                    </ListItemAvatar> */}
+                                                    <Typography variant="h6" sx={{ mb: 2 }}>
                                                         {user.aboutMe}
                                                     </Typography>
                                                 </Box>
