@@ -86,6 +86,7 @@ export default function TalentPoolNew() {
     }
   };
 
+
   const columns = [
 
     // {
@@ -130,7 +131,6 @@ export default function TalentPoolNew() {
 
   }));
 
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -141,8 +141,9 @@ export default function TalentPoolNew() {
           </Typography>
         </Toolbar>
       </AppBar> */}
+
       <main>
-        <NavBar  color={{MyPlans:'white',Employer:'white',TalentPoolNew:'black'}}/>
+        <NavBar   page='TalentPoolNew' color={{MyPlans:'white',Employer:'white',TalentPoolNew:'black'}}/>
         <Container sx={{ py: 8 }} maxWidth="ls">
           <Grid container spacing={4}>
             <Grid item xs={12}>
@@ -171,5 +172,6 @@ export default function TalentPoolNew() {
     </ThemeProvider>
   );
 }
+
 
 

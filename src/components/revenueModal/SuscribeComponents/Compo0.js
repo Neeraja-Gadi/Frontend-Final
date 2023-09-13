@@ -73,6 +73,7 @@ export default function PricingZero() {
       recruiterPlan: plan.title,
       jobPostno: 1,
     }
+    
     fetch(`${baseurl}/revenueR`, {
       method: 'POST',
       headers: {
@@ -82,9 +83,12 @@ export default function PricingZero() {
       body: JSON.stringify(info)
     }).then(response => response.json().then(data => {
       console.log(data)
-
+      if (data.status === true) {
+        alert("Created Plan Sucessfully")
+      }
     }))
   };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />

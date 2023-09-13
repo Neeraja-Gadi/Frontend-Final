@@ -200,7 +200,7 @@ const ProfileForm = () => {
           onChange={handleSocialMedia}
           variant="outlined"
           fullWidth
-          required
+          
         />
       </Box>
       <Box sx={{ marginBottom: 2 }}>
@@ -211,7 +211,7 @@ const ProfileForm = () => {
           onChange={handleSocialMedia}
           variant="outlined"
           fullWidth
-          required
+          
         />
       </Box>
 

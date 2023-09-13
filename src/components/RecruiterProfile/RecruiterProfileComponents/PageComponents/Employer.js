@@ -125,7 +125,7 @@ export default function Album() {
         </Toolbar>
       </AppBar> */}
       <main>
-        <NavBar color={{MyPlans:'white',Employer:'black',TalentPoolNew:'white'}}/>
+        <NavBar page ="Employer"color={{MyPlans:'white',Employer:'black',TalentPoolNew:'white'}}/>
 
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
@@ -133,7 +133,7 @@ export default function Album() {
               {getPlanDetails && (
                 <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <CardContent>
-                    <Typography variant="h6" align="center">{getPlanDetails.subscription}</Typography>
+                    <Typography variant="h6" align="center">{`${getPlanDetails.subscription} Talent Pool`}</Typography>
                     <Typography variant="subtitle1" align="center">Job Posts: {getPlanDetails.jobPostno}</Typography>
                     <Typography variant="subtitle1" align="center">Duration: {getPlanDetails.duration}</Typography>
                     <Typography variant="subtitle1" align="center">JobCount: {getPlanDetails.jobCount}</Typography>

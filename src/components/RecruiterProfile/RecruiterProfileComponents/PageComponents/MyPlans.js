@@ -34,7 +34,7 @@ const profile = {
 
 function Sidebar() {
     const navigate = useNavigate();
- 
+
     const [recdata, setRecdata] = useState([])
     useEffect(() => {
         user = JSON.parse(localStorage.getItem('userDetails'));
@@ -57,7 +57,7 @@ function Sidebar() {
     }
     return (
 
-        <div style={{ backgroundColor: '#f0f0f0', padding: '16px', height: '100%', borderRadius: '0.5rem' }}>
+        <div style={{ backgroundColor: '#f0f0f0', padding: '16px', height: '100%', borderRadius: '0.5rem' ,marginTop: "0.5rem" }}>
             <List>
                 <ListItemButton href='/'>
                     <ListItemIcon>
@@ -119,7 +119,7 @@ export default function MyPlans() {
                 </Toolbar>
             </AppBar> */}
 
-            <Navbar activePage={activePage} color={{ MyPlans: 'black', Employer: 'white', TalentPoolNew: 'white' }} />
+            <Navbar activePage={activePage}   page='MyPlans' color={{ MyPlans: 'black', Employer: 'white', TalentPoolNew: 'white' }} />
             <Grid container>
                 {/* Sidebar */}
                 <Grid item xs={12} sm={4} md={3}>
@@ -192,6 +192,10 @@ export default function MyPlans() {
                         <br />
                         <br />
                         <Container maxWidth="md">
+                        <br />
+                        <Typography variant="h4" mb="20px" color="text.secondary" component="div">
+           
+        </Typography>
                             <Grid container spacing={5} alignItems="flex-end">
                                 {renderedPlans.map((plan, index) => (
                                     <Grid
@@ -203,7 +207,7 @@ export default function MyPlans() {
                                     >
                                         <Card>
                                             <CardHeader
-                                                title={plan.recruiterPlan}
+                                                title={`${plan.recruiterPlan} Talent Pool `}
                                                 subheader={plan.subheader}
                                                 titleTypographyProps={{ align: 'center' }}
                                                 subheaderTypographyProps={{ align: 'center' }}
@@ -214,50 +218,6 @@ export default function MyPlans() {
                                                             : theme.palette.grey[700],
                                                 }}
                                             />
-                                            {/* <CardContent
-                                        sx={{
-                                            height: '15rem',
-                                            alignItems: 'center',
-                                            backgroundColor: (theme) =>
-                                                theme.palette.mode === 'light'
-                                                    ? plan.recruiterPlan === 'Gold'
-                                                        ? 'goldenrod'
-                                                        : plan.recruiterPlan === 'Silver'
-                                                            ? '#c0c0c0'
-                                                            : plan.recruiterPlan === 'Platinum'
-                                                                ? '#e5e4e2'
-                                                                : theme.palette.grey[200]
-                                                    : plan.recruiterPlan === 'Gold'
-                                                        ? 'goldenrod'
-                                                        : plan.recruiterPlan === 'Silver'
-                                                            ? '#c0c0c0'
-                                                            : plan.recruiterPlan === 'Platinum'
-                                                                ? '#e5e4e2'
-                                                                : theme.palette.grey[700],
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                                textAlign: 'center',
-                                            }}
-                                        >
-                                            <Typography variant="h5" color="text.primary" sx={{ marginTop: '57px' }}>
-                                                Duration :{plan.duration}  Days
-                                            </Typography>
-                                            <br />
-                                            <Typography variant="h5" color="text.primary" sx={{ marginTop: '57px' }}>
-                                                RemainingDays: {plan.remainingDays} Days
-                                            </Typography>
-                                            <br />
-                                            <Typography variant="h6" color="text.secondary">
-                                                {plan.jobPostno} Post
-                                            </Typography>
-                                        </Box>
-                                    </CardContent> */}
 
                                             <CardContent
                                                 sx={{
@@ -318,12 +278,12 @@ export default function MyPlans() {
                                                                         : theme.palette.grey[700],
                                                 }}
                                             >
-                                                {plan.status ? (
+                                                {/* {plan.status ? (
                                                     <Button
                                                         fullWidth
                                                         variant="contained"
                                                         color="success"
-                                                        onClick={() => navigate('/job-posting')}
+                                                        // onClick={() => navigate('/job-posting')}
                                                     >
                                                         Active
                                                     </Button>
@@ -332,11 +292,18 @@ export default function MyPlans() {
                                                         fullWidth
                                                         variant="contained"
                                                         color="error"
-                                                        onClick={() => navigate('/job-posting')}
+                                                        // onClick={() => navigate('/job-posting')}
                                                     >
                                                         Inactive
                                                     </Button>
-                                                )}
+                                                )} */}
+
+                                                <Button
+                                                    fullWidth
+                                                    variant="contained"
+                                                >
+                                                    STATUS
+                                                </Button>
 
                                                 <Button
                                                     fullWidth
