@@ -22,3 +22,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+
+NOTE: Master Branch is in CI-CD  Pipelines of deployment.
+
+IMP: Working branch is the brach where POST ON AIR changes are carried On or ongoing
